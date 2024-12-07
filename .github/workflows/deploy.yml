@@ -55,6 +55,7 @@ jobs:
           ssh $USER@$HOST << EOF
             cd $APP_DIR
             # Example for a Node.js app:
+            git checkout dev/env
             npm install
             pm2 start server.js
             pm2 restart all
