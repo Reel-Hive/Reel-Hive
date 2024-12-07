@@ -61,10 +61,10 @@ jobs:
             DATABASE_PASSWORD=${DATABASE_PASSWORD}
             PORT=${PORT}
 
-            echo $DATABASE_URI >> .env
-            echo $DATABASE_NAME >> .env
-            echo $DATABASE_PASSWORD >> .env
-            echo $PORT >> .env
+            echo "DATABASE_URI=$DATABASE_URI" >> .env
+            echo "DATABASE_NAME=$DATABASE_NAME" >> .env
+            echo "DATABASE_PASSWORD=$DATABASE_PASSWORD" >> .env
+            echo "PORT=$PORT" >> .env
 
             # Install dependencies (example for Node.js)
             echo "Installing dependencies..."
