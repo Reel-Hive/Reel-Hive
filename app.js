@@ -1,9 +1,13 @@
 import express from 'express';
+import morgan from 'morgan';
 
 const app = express();
 
 // MIDDLEWARE FOR PARSE JSON
 app.use(express.json());
+
+// FOR LOGGING ROUTES
+app.use(morgan('dev'));
 
 app.use('/health', (req, res) => {
   return res.json({
