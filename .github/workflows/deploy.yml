@@ -34,7 +34,7 @@ jobs:
           # Define variables
           HOST=${{ secrets.EC2_HOST }}
           USER=${{ secrets.EC2_USER }}
-          APP_DIR=/home/${USER}/my-app  # Change this to your app directory
+          APP_DIR=/home/${USER}/dev_workspace  # Change this to your app directory
           REPO_URL=https://github.com/Reel-Hive/Reel-Hive.git  # Replace with your repo URL
 
           # Execute all commands within a single SSH session
@@ -69,7 +69,6 @@ jobs:
             # Install dependencies (example for Node.js)
             echo "Installing dependencies..."
             npm install
-
 
             # Start the application (example using PM2)
             pm2 start server.js
