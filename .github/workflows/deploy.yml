@@ -1,0 +1,62 @@
+name: Deploy to EC2
+
+# Trigger the workflow on push to the dev/env branch
+on:
+  push:
+    branches:
+      - dev/env
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up SSH
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
+
+      # Step 3: Deploy to EC2
+      - name: Deploy to EC2
+        env:
+          # Pass all environment variables to the run step
+          DATABASE_URI: ${{ secrets.DATABASE_URI }}
+          DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          PORT: ${{ secrets.PORT }}
+          # Add more variables as needed
+        run: |
+          # Define variables
+          HOST=${{ secrets.EC2_HOST }}
+          USER=${{ secrets.EC2_USER }}
+          APP_DIR=/home/${USER}/dev_workspace  # Change this to your app directory
+          REPO_URL=https://github.com/Reel-Hive/Reel-Hive.git  # Replace with your repo URL
+
+          # Check if the app directory exists
+          ssh -o StrictHostKeyChecking=no $USER@$HOST "if [ ! -d '$APP_DIR/.git' ]; then git clone $REPO_URL $APP_DIR; else cd $APP_DIR && git pull origin dev/env; fi"
+
+          # Create or update the .env file with environment variables
+          ssh $USER@$HOST << EOF
+            cat > $APP_DIR/.env << EOL
+            DATABASE_URI=${DATABASE_URI}
+            DATABASE_NAME=${DATABASE_NAME}
+            DATABASE_PASSWORD=${DATABASE_PASSWORD}
+            PORT=${PORT}
+            # Add more environment variables as needed
+            EOL
+          EOF
+
+          # Optionally, run deployment scripts on EC2
+          ssh $USER@$HOST << EOF
+            cd $APP_DIR
+            # Example for a Node.js app:
+            npm install
+            pm2 start server.js
+            pm2 restart all
+            # Add your deployment commands here
+          EOF
