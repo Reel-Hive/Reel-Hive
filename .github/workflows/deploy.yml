@@ -68,6 +68,10 @@ jobs:
 
             # Install dependencies (example for Node.js)
             echo "Installing dependencies..."
+            npm -v
+
+            pm2 -v
+
             npm install
 
             # Start the application (example using PM2)
