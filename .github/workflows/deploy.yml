@@ -55,13 +55,16 @@ jobs:
             rm .env
             # Update or create the .env file with environment variables
             echo "Updating environment variables..."
-            cat > .env <<- EOL
-DATABASE_URI=${DATABASE_URI}
-DATABASE_NAME=${DATABASE_NAME}
-DATABASE_PASSWORD=${DATABASE_PASSWORD}
-PORT=${PORT}
-# Add more environment variables as needed
-EOL
+
+            DATABASE_URI=${DATABASE_URI}
+            DATABASE_NAME=${DATABASE_NAME}
+            DATABASE_PASSWORD=${DATABASE_PASSWORD}
+            PORT=${PORT}
+
+            echo $DATABASE_URI >> .env
+            echo $DATABASE_NAME >> .env
+            echo $DATABASE_PASSWORD >> .env
+            echo $PORT >> .env
 
             # Install dependencies (example for Node.js)
             echo "Installing dependencies..."
