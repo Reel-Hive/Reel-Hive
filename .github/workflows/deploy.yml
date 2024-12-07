@@ -34,30 +34,46 @@ jobs:
           # Define variables
           HOST=${{ secrets.EC2_HOST }}
           USER=${{ secrets.EC2_USER }}
-          APP_DIR=/home/${USER}/dev_workspace  # Change this to your app directory
+          APP_DIR=/home/${USER}/my-app  # Change this to your app directory
           REPO_URL=https://github.com/Reel-Hive/Reel-Hive.git  # Replace with your repo URL
 
-          # Check if the app directory exists
-          ssh -o StrictHostKeyChecking=no $USER@$HOST "if [ ! -d '$APP_DIR/.git' ]; then git clone $REPO_URL $APP_DIR; else cd $APP_DIR && git pull origin dev/env; fi"
+          # Execute all commands within a single SSH session
+          ssh -o StrictHostKeyChecking=no $USER@$HOST << 'EOF'
+            # Navigate to the application directory
+            if [ ! -d "$APP_DIR/.git" ]; then
+              echo "Cloning repository..."
+              git clone $REPO_URL $APP_DIR
+            else
+              echo "Repository exists. Pulling latest changes..."
+              cd $APP_DIR
+              git checkout dev/env
+              git pull origin dev/env
+            fi
 
-          # Create or update the .env file with environment variables
-          ssh $USER@$HOST << EOF
-            cat > $APP_DIR/.env << EOL
-            DATABASE_URI=${DATABASE_URI}
-            DATABASE_NAME=${DATABASE_NAME}
-            DATABASE_PASSWORD=${DATABASE_PASSWORD}
-            PORT=${PORT}
+            # Navigate to the application directory
+            cd $APP_DIR
+            rm .env
+            # Update or create the .env file with environment variables
+            echo "Updating environment variables..."
+            cat > .env << EOL
+            DB_HOST=${DB_HOST}
+            DB_USER=${DB_USER}
+            DB_PASSWORD=${DB_PASSWORD}
+            API_KEY=${API_KEY}
             # Add more environment variables as needed
             EOL
-          EOF
 
-          # Optionally, run deployment scripts on EC2
-          ssh $USER@$HOST << EOF
-            cd $APP_DIR
-            # Example for a Node.js app:
-            git checkout dev/env
+            # Install dependencies (example for Node.js)
+            echo "Installing dependencies..."
             npm install
+
+
+            # Start the application (example using PM2)
             pm2 start server.js
+
+            # Restart the application (example using PM2)
+            echo "Restarting application..."
             pm2 restart all
-            # Add your deployment commands here
+            
+            echo "Deployment completed successfully."
           EOF
