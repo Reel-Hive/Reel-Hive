@@ -55,13 +55,13 @@ jobs:
             rm .env
             # Update or create the .env file with environment variables
             echo "Updating environment variables..."
-            cat > .env << EOL
-            DB_HOST=${DB_HOST}
-            DB_USER=${DB_USER}
-            DB_PASSWORD=${DB_PASSWORD}
-            API_KEY=${API_KEY}
-            # Add more environment variables as needed
-            EOL
+            cat > .env <<- EOL
+DATABASE_URI=${DATABASE_URI}
+DATABASE_NAME=${DATABASE_NAME}
+DATABASE_PASSWORD=${DATABASE_PASSWORD}
+PORT=${PORT}
+# Add more environment variables as needed
+EOL
 
             # Install dependencies (example for Node.js)
             echo "Installing dependencies..."
@@ -74,6 +74,6 @@ jobs:
             # Restart the application (example using PM2)
             echo "Restarting application..."
             pm2 restart all
-            
+
             echo "Deployment completed successfully."
           EOF
