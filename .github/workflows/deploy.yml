@@ -42,6 +42,15 @@ jobs:
           # Connect to the EC2 instance and execute commands
           ssh -o StrictHostKeyChecking=no -i key.pem $USER@$HOST << EOF
             echo "Connected to EC2"
+
+            # Source the profile to ensure environment variables are loaded
+            source ~/.bashrc || true
+            source ~/.bash_profile || true
+            source /etc/profile || true
+
+            # Explicitly set PATH for Node.js, npm, and pm2
+            export PATH=\$PATH:/usr/bin:/usr/local/bin
+
             echo "OS Information:"
             cat /etc/os-release
 
