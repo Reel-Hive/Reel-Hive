@@ -35,10 +35,13 @@ jobs:
           APP_DIR=/home/${USER}/dev_workspace  # Change this to your app directory
           REPO_URL=https://github.com/Reel-Hive/Reel-Hive.git  # Replace with your repo URL
 
+          # Copy the pipeline script to the remote EC2 instance
+          scp -o StrictHostKeyChecking=no pipeline.sh $USER@$HOST:$APP_DIR/pipeline.sh
+
           ssh -o StrictHostKeyChecking=no $USER@$HOST << EOF
             echo "Navigating to application directory..."
             mkdir -p $APP_DIR
-            cd "$APP_DIR/Reel-Hive"
+            cd $APP_DIR
 
             echo "Setting execute permissions on the pipeline script..."
             chmod +x pipeline.sh
