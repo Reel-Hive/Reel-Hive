@@ -39,6 +39,6 @@ jobs:
 
           # Execute all commands within a single SSH session
           ssh -o StrictHostKeyChecking=no $USER@$HOST << EOF
-          cat /etc/os-rele
+          cat /etc/os-release
           pwd
           EOF
