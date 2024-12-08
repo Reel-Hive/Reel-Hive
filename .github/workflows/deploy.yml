@@ -23,6 +23,17 @@ jobs:
           DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
           DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
           PORT: ${{ secrets.PORT }}
+          ACCESS_GENERATE_SECRET: ${{ secrets.ACCESS_GENERATE_SECRET}}
+          ACCESS_TOKEN_EXPIRY: ${{ secrets.ACCESS_TOKEN_EXPIRY}}
+          REFRESH_GENERATE_SECRET: ${{ secrets.REFRESH_GENERATE_SECRET}}
+          REFRESH_TOKEN_EXPIRY: ${{ secrets.REFRESH_TOKEN_EXPIRY}}
+          CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME}}
+          CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY}}
+          CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET}}
+          EMAIL_HOST: ${{ secrets.EMAIL_HOST}}
+          EMAIL_PORT: ${{ secrets.EMAIL_PORT}}
+          EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME}}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD}}
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
