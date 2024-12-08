@@ -13,7 +13,7 @@ export const getMe = (req, res) => {
 };
 
 export const getAllUsers = catchAsync(async (req, res) => {
-  const users = await User.find();
+  const users = await User.find().select('-password');
 
   res.status(200).json({
     status: 'success',
@@ -25,7 +25,7 @@ export const getAllUsers = catchAsync(async (req, res) => {
 });
 
 export const getUser = catchAsync(async (req, res, next) => {
-  const user = await User.findById(req.params.id);
+  const user = await User.findById(req.params.id).select('-password');
 
   if (!user) {
     return next(new AppError('No user found with that ID', 404));
