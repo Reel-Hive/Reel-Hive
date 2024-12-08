@@ -34,6 +34,10 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
+
+            APP_DIR=/home/${USER}/dev_workspace  # Change this to your app directory
+            REPO_URL=https://github.com/Reel-Hive/Reel-Hive.git  # Replace with your repo URL
+
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
 
