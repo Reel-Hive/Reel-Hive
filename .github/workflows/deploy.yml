@@ -36,12 +36,21 @@ jobs:
           USER=${{ secrets.EC2_USER }}
           APP_DIR=/home/${USER}/dev_workspace  # Change this to your app directory
           REPO_URL=https://github.com/Reel-Hive/Reel-Hive.git  # Replace with your repo URL
-
-          # Execute all commands within a single SSH session
-          ssh -o StrictHostKeyChecking=no $USER@$HOST << EOF
+          KEY=${{ secrets.EC2_SSH_KEY }}
+          echo $KEY > key.pem
+          chmod 400 key.pem
+          ssh -o StrictHostKeyChecking=no -i key.pem $USER@$HOST
           cat /etc/os-release
           pwd
           node -v
           npm -v
           pm2 -v
-          EOF
+
+          # # Execute all commands within a single SSH session
+          # ssh -o StrictHostKeyChecking=no $USER@$HOST << EOF
+          # cat /etc/os-release
+          # pwd
+          # node -v
+          # npm -v
+          # pm2 -v
+          # EOF
