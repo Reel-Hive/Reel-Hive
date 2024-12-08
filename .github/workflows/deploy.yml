@@ -57,3 +57,60 @@ jobs:
               "${DATABASE_PASSWORD}" \
               "${PORT}"
           EOF
+
+
+      - name: Deploy to prod server
+        uses: appleboy/ssh-action@master
+        env:
+          DATABASE_URI: ${{ secrets.DATABASE_URI }}
+          DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          PORT: ${{ secrets.PORT }}
+        with:
+          host: ${{ secrets.HOST_IP }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
+
+            # Navigate to the application directory
+            if [ ! -d "$APP_DIR/.git" ]; then
+              echo "Cloning repository..."
+              git clone $REPO_URL $APP_DIR
+            else
+              echo "Repository exists. Pulling latest changes..."
+              cd $APP_DIR
+              git checkout dev/env
+              git pull origin dev/env
+            fi
+
+
+
+            # Navigate to the application directory
+            cd $APP_DIR
+            rm .env
+
+            # Update or create the .env file with environment variables
+            echo "Updating environment variables..."
+            DATABASE_URI=${DATABASE_URI}
+            DATABASE_NAME=${DATABASE_NAME}
+            DATABASE_PASSWORD=${DATABASE_PASSWORD}
+            PORT=${PORT}
+            echo "DATABASE_URI=$DATABASE_URI" >> .env
+            echo "DATABASE_NAME=$DATABASE_NAME" >> .env
+            echo "DATABASE_PASSWORD=$DATABASE_PASSWORD" >> .env
+            echo "PORT=$PORT" >> .env
+
+            # Install dependencies (example for Node.js)
+            echo "Installing dependencies..."
+            npm install
+
+            # Start the application (example using PM2)
+            pm2 start server.js
+
+            # Restart the application (example using PM2)
+            echo "Restarting application..."
+            pm2 restart all
+
+            echo "Deployment completed successfully."
