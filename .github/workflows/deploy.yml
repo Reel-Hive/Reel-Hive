@@ -38,7 +38,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no $USER@$HOST << EOF
             echo "Navigating to application directory..."
             mkdir -p $APP_DIR
-            cd $APP_DIR
+            cd "$APP_DIR/Reel-Hive"
 
             echo "Setting execute permissions on the pipeline script..."
             chmod +x pipeline.sh
