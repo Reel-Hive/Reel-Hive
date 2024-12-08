@@ -41,4 +41,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no $USER@$HOST << EOF
           cat /etc/os-release
           pwd
+          node -v
+          npm -v
+          pm2 -v
           EOF
