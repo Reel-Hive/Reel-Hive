@@ -30,28 +30,35 @@ jobs:
           DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
           PORT: ${{ secrets.PORT }}
           # Add more variables as needed
-        run: |
+          run: |
           # Define variables
           HOST=${{ secrets.EC2_HOST }}
           USER=${{ secrets.EC2_USER }}
           APP_DIR=/home/${USER}/dev_workspace  # Change this to your app directory
           REPO_URL=https://github.com/Reel-Hive/Reel-Hive.git  # Replace with your repo URL
-          KEY=${{ secrets.EC2_SSH_KEY }}
-          echo $KEY > key.pem
+
+          # Save the SSH key to a file
+          echo "${{ secrets.EC2_SSH_KEY }}" > key.pem
           chmod 400 key.pem
+
+          # Connect to the EC2 instance and execute commands
           ssh -o StrictHostKeyChecking=no -i key.pem $USER@$HOST << EOF
-          cat /etc/os-release
-          pwd
-          node -v
-          npm -v
-          pm2 -v
+            echo "Connected to EC2"
+            echo "OS Information:"
+            cat /etc/os-release
+
+            echo "Current Directory:"
+            pwd
+
+            echo "Node.js Version:"
+            node -v
+
+            echo "NPM Version:"
+            npm -v
+
+            echo "PM2 Version:"
+            pm2 -v
           EOF
 
-          # # Execute all commands within a single SSH session
-          # ssh -o StrictHostKeyChecking=no $USER@$HOST << EOF
-          # cat /etc/os-release
-          # pwd
-          # node -v
-          # npm -v
-          # pm2 -v
-          # EOF
+          # Clean up
+          rm -f key.pem
