@@ -40,23 +40,20 @@ jobs:
           chmod 400 key.pem
 
           # Connect to the EC2 instance and execute commands
-          ssh -o StrictHostKeyChecking=no -i key.pem $USER@$HOST << EOF
-            echo "Connected to EC2"
+          # SSH and execute commands in an interactive shell
+          ssh -o StrictHostKeyChecking=no -i key.pem $USER@$HOST << 'EOF'
+            # Ensure environment variables and paths are loaded
+            if [ -f ~/.bashrc ]; then
+              source ~/.bashrc
+            fi
+            if [ -f ~/.profile ]; then
+              source ~/.profile
+            fi
 
-            # Source the profile to ensure environment variables are loaded
-            source ~/.bashrc || true
-            source ~/.bash_profile || true
-            source /etc/profile || true
+            # Debug PATH
+            echo "PATH: $PATH"
 
-            # Explicitly set PATH for Node.js, npm, and pm2
-            export PATH=\$PATH:/usr/bin:/usr/local/bin
-
-            echo "OS Information:"
-            cat /etc/os-release
-
-            echo "Current Directory:"
-            pwd
-
+            # Check Node.js, npm, and pm2 versions
             echo "Node.js Version:"
             node -v
 
