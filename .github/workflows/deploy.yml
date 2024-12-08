@@ -39,7 +39,6 @@ jobs:
             if [ ! -d "$APP_DIR/.git" ]; then
               echo "Cloning repository..."
               git clone $REPO_URL $APP_DIR
-              git checkout dev/env
             else
               echo "Repository exists. Pulling latest changes..."
               cd $APP_DIR
@@ -50,6 +49,7 @@ jobs:
 
             # Navigate to the application directory
             cd $APP_DIR
+            git checkout dev/env
 
             # Remove existing .env file if it exists
             rm -f .env
