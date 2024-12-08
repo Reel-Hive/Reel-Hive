@@ -30,9 +30,9 @@ jobs:
           DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
           PORT: ${{ secrets.PORT }}
         with:
-          host: ${{ secrets.HOST_IP }}
+          host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.SSH_KEY }}
+          key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
