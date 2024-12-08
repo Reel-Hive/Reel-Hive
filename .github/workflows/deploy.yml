@@ -22,43 +22,6 @@ jobs:
           ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
 
       # Step 3: Deploy to EC2
-      - name: Deploy to EC2
-        env:
-          DATABASE_URI: ${{ secrets.DATABASE_URI }}
-          DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
-          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-          PORT: ${{ secrets.PORT }}
-        run: |
-          # Define variables
-          HOST=${{ secrets.EC2_HOST }}
-          USER=${{ secrets.EC2_USER }}
-          APP_DIR=/home/${USER}/dev_workspace  # Change this to your app directory
-          REPO_URL=https://github.com/Reel-Hive/Reel-Hive.git  # Replace with your repo URL
-
-          # Copy the pipeline script to the remote EC2 instance
-          scp -o StrictHostKeyChecking=no pipeline.sh $USER@$HOST:$APP_DIR/pipeline.sh
-
-          ssh -o StrictHostKeyChecking=no $USER@$HOST << EOF
-            echo "Navigating to application directory..."
-            mkdir -p $APP_DIR
-            cd $APP_DIR
-
-            echo "Setting execute permissions on the pipeline script..."
-            chmod +x pipeline.sh
-
-            echo "Running the pipeline script..."
-            ./pipeline.sh \
-              $HOST \
-              $USER \
-              $APP_DIR \
-              $REPO_URL \
-              "${DATABASE_URI}" \
-              "${DATABASE_NAME}" \
-              "${DATABASE_PASSWORD}" \
-              "${PORT}"
-          EOF
-
-
       - name: Deploy to prod server
         uses: appleboy/ssh-action@master
         env:
