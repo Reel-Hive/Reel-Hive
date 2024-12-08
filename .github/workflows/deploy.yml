@@ -38,7 +38,7 @@ jobs:
           REPO_URL=https://github.com/Reel-Hive/Reel-Hive.git  # Replace with your repo URL
 
           # Execute all commands within a single SSH session
-          ssh -o StrictHostKeyChecking=no $USER@$HOST
-          cat /etc/os-release
+          ssh -o StrictHostKeyChecking=no $USER@$HOST << EOF
+          cat /etc/os-rele
           pwd
-          echo "Here we are "
+          EOF
