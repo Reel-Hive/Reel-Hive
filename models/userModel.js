@@ -27,6 +27,15 @@ const userSchema = new mongoose.Schema(
       type: String, // Cloudinary URL
       required: true,
     },
+    coverImage: {
+      type: String, // Cloudinnary URL
+    },
+    watchHistory: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Video',
+      },
+    ],
     refreshToken: {
       type: String,
     },
