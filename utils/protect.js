@@ -3,7 +3,7 @@ import { catchAsync } from './catchAsync.js';
 import AppError from './appError.js';
 import { User } from '../models/userModel.js';
 
-export const signInToken = catchAsync(async (req, res, next) => {
+export const protect = catchAsync(async (req, res, next) => {
   try {
     const token =
       req.cookies?.accessToken ||
