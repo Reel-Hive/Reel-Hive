@@ -65,24 +65,12 @@ jobs:
             DATABASE_NAME=${DATABASE_NAME}
             DATABASE_PASSWORD=${DATABASE_PASSWORD}
             PORT=${PORT}
+
+            # Create a new .env file with environment variables
             echo "DATABASE_URI=$DATABASE_URI" >> .env
             echo "DATABASE_NAME=$DATABASE_NAME" >> .env
             echo "DATABASE_PASSWORD=$DATABASE_PASSWORD" >> .env
             echo "PORT=$PORT" >> .env
-
-            # Create a new .env file with environment variables
-            echo "Updating environment variables..."
-            echo "DATABASE_URI=${DATABASE_URI}" >> .env
-            echo "DATABASE_NAME=${DATABASE_NAME}" >> .env
-            echo "DATABASE_PASSWORD=${DATABASE_PASSWORD}" >> .env
-            echo "PORT=${PORT}" >> .env
-
-            # Optional: Verify that environment variables are set (For debugging purposes)
-            echo "DATABASE_URI is set to: ${DATABASE_URI}"
-            echo "DATABASE_NAME is set to: ${DATABASE_NAME}"
-            echo "DATABASE_PASSWORD is set to: ${DATABASE_PASSWORD}"
-            echo "PORT is set to: ${PORT}"
-
 
             # Install dependencies (example for Node.js)
             echo "Installing dependencies..."
