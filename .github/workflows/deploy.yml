@@ -15,12 +15,6 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      # Step 2: Set up SSH
-      - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.7.0
-        with:
-          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
-
       # Step 3: Deploy to EC2
       - name: Deploy to prod server
         uses: appleboy/ssh-action@master
@@ -45,13 +39,13 @@ jobs:
             if [ ! -d "$APP_DIR/.git" ]; then
               echo "Cloning repository..."
               git clone $REPO_URL $APP_DIR
+              git checkout dev/env
             else
               echo "Repository exists. Pulling latest changes..."
               cd $APP_DIR
               git checkout dev/env
               git pull origin dev/env
             fi
-
 
 
             # Navigate to the application directory
