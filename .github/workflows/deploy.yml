@@ -38,70 +38,7 @@ jobs:
           REPO_URL=https://github.com/Reel-Hive/Reel-Hive.git  # Replace with your repo URL
 
           # Execute all commands within a single SSH session
-          ssh -o StrictHostKeyChecking=no $USER@$HOST << EOF
-            set -e  # Exit immediately if a command exits with a non-zero status
-
-            # Source the bash profile to ensure PATH is set correctly
-            if [ -f ~/.bashrc ]; then
-              source ~/.bashrc
-            fi
-
-            # Verify if npm is installed
-            if ! command -v npm &> /dev/null; then
-              echo "npm not found. Installing Node.js and npm..."
-              curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
-              nvm install 20
-              node -v
-              npm -v
-            fi
-
-            # Verify if pm2 is installed
-            if ! command -v pm2 &> /dev/null; then
-              echo "pm2 not found. Installing pm2 globally..."
-              sudo npm install -g pm2
-            fi
-
-            # Navigate to the application directory
-            if [ ! -d "$APP_DIR/.git" ]; then
-              echo "Cloning repository..."
-              git clone $REPO_URL $APP_DIR
-            else
-              echo "Repository exists. Pulling latest changes..."
-              cd $APP_DIR
-              git checkout dev/env
-              git pull origin dev/env
-            fi
-
-            # Navigate to the application directory
-            cd $APP_DIR
-            rm .env
-            # Update or create the .env file with environment variables
-            echo "Updating environment variables..."
-
-            DATABASE_URI=${DATABASE_URI}
-            DATABASE_NAME=${DATABASE_NAME}
-            DATABASE_PASSWORD=${DATABASE_PASSWORD}
-            PORT=${PORT}
-
-            echo "DATABASE_URI=$DATABASE_URI" >> .env
-            echo "DATABASE_NAME=$DATABASE_NAME" >> .env
-            echo "DATABASE_PASSWORD=$DATABASE_PASSWORD" >> .env
-            echo "PORT=$PORT" >> .env
-
-            # Install dependencies (example for Node.js)
-            echo "Installing dependencies..."
-            npm -v
-
-            pm2 -v
-
-            npm install
-
-            # Start the application (example using PM2)
-            pm2 start server.js
-
-            # Restart the application (example using PM2)
-            echo "Restarting application..."
-            pm2 restart all
-
-            echo "Deployment completed successfully."
-          EOF
+          ssh -o StrictHostKeyChecking=no $USER@$HOST
+          cat /etc/os-release
+          pwd
+          echo "Here we are "
