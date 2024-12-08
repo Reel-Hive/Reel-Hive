@@ -24,13 +24,11 @@ jobs:
       # Step 3: Deploy to EC2
       - name: Deploy to EC2
         env:
-          # Pass all environment variables to the run step
           DATABASE_URI: ${{ secrets.DATABASE_URI }}
           DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
           DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
           PORT: ${{ secrets.PORT }}
-          # Add more variables as needed
-          run: |
+        run: |
           # Define variables
           HOST=${{ secrets.EC2_HOST }}
           USER=${{ secrets.EC2_USER }}
