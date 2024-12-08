@@ -9,6 +9,12 @@ import {
   updatePassword,
   Upload,
 } from '../controllers/authController.js';
+import {
+  deleteUser,
+  getAllUsers,
+  getMe,
+  getUser,
+} from '../controllers/userController.js';
 import { protect } from '../utils/protect.js';
 
 const router = express.Router();
@@ -33,5 +39,11 @@ router
 router
   .route('/update-coverImage')
   .patch(protect, Upload.single('coverImage'), updateCoverImage);
+
+// user Routes --> personal route
+router.route('/me').get(protect, getMe);
+router.route('/getAllUsers').get(getAllUsers);
+router.route('/:id').get(protect, getUser);
+router.route('/deleteMe').delete(protect, deleteUser);
 
 export default router;
