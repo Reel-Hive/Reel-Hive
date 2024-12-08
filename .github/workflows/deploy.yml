@@ -56,7 +56,9 @@ jobs:
 
             # Navigate to the application directory
             cd $APP_DIR
-            rm .env
+
+            # Remove existing .env file if it exists
+            rm -f .env
 
             # Update or create the .env file with environment variables
             echo "Updating environment variables..."
