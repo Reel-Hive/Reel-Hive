@@ -7,7 +7,6 @@ import {
   updateCoverImage,
   updateDetails,
   updatePassword,
-  Upload,
 } from '../controllers/authController.js';
 import {
   deleteUser,
@@ -15,7 +14,8 @@ import {
   getMe,
   getUser,
 } from '../controllers/userController.js';
-import { protect } from '../utils/protect.js';
+import { protect } from '../middlewares/protect.js';
+import { Upload } from '../middlewares/multer.js';
 
 const router = express.Router();
 

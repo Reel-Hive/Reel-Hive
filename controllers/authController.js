@@ -1,23 +1,10 @@
-import multer from 'multer';
 import { catchAsync } from '../utils/catchAsync.js';
 import AppError from '../utils/appError.js';
 import { User } from '../models/userModel.js';
 import uploadOnCloudinary from '../utils/cloudinary.js';
 import sendEmail from '../utils/email.js';
 
-// CREATE FOR IMAGE STORE
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './public');
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
-  },
-});
 
-export const Upload = multer({
-  storage,
-});
 
 // Generat access and refresh token
 const generateAccessAndRefreshToken = async (userId) => {
