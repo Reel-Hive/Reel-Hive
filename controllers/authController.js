@@ -4,8 +4,6 @@ import { User } from '../models/userModel.js';
 import uploadOnCloudinary from '../utils/cloudinary.js';
 import sendEmail from '../utils/email.js';
 
-
-
 // Generat access and refresh token
 const generateAccessAndRefreshToken = async (userId) => {
   try {
