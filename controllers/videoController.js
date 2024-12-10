@@ -88,20 +88,20 @@ export const publishVideo = catchAsync(async (req, res, next) => {
 
 export const getVideoById = catchAsync(async (req, res, next) => {
   const { videoId } = req.params;
+  const userId = req.user?._id;
 
-  if (!mongoose.isValidObjectId(videoId)) {
+  const isValidId = (id) => mongoose.isValidObjectId(id);
+  if (!isValidId(videoId)) {
     return next(new AppError('Invalid video ID', 400));
   }
-
-  if (!mongoose.isValidObjectId(req.user?._id)) {
+  if (!isValidId(userId)) {
     return next(new AppError('Invalid user ID', 400));
   }
 
+  // Fetch video details
   const video = await Video.aggregate([
     {
-      $match: {
-        _id: new mongoose.Types.ObjectId(videoId),
-      },
+      $match: { _id: new mongoose.Types.ObjectId(videoId) },
     },
     {
       $lookup: {
@@ -128,10 +128,8 @@ export const getVideoById = catchAsync(async (req, res, next) => {
           },
           {
             $addFields: {
-              subscribersCount: {
-                $size: '$subscribers',
-              },
-              isSubscribed: { $in: [req.user?._id, '$subscribers.subscriber'] },
+              subscribersCount: { $size: '$subscribers' },
+              isSubscribed: { $in: [userId, '$subscribers.subscriber'] },
             },
           },
           {
@@ -149,7 +147,7 @@ export const getVideoById = catchAsync(async (req, res, next) => {
       $addFields: {
         likesCount: { $size: '$likes' },
         owner: { $first: '$owner' },
-        isLiked: { $in: [req.user?._id, '$likes.likedBy'] },
+        isLiked: { $in: [userId, '$likes.likedBy'] },
       },
     },
     {
@@ -168,7 +166,7 @@ export const getVideoById = catchAsync(async (req, res, next) => {
     },
   ]);
 
-  if (!video || !video.length === 0) {
+  if (!video || video.length === 0) {
     return next(new AppError('Video not found', 404));
   }
 
@@ -179,24 +177,26 @@ export const getVideoById = catchAsync(async (req, res, next) => {
     return next(new AppError('Video URL not found', 500));
   }
 
-  await Video.findByIdAndUpdate(videoId, { $inc: { views: 1 } });
+  // Update view count and user watch history
+  await Promise.all([
+    Video.findByIdAndUpdate(videoId, { $inc: { views: 1 } }),
+    User.findByIdAndUpdate(userId, { $addToSet: { watchHistory: videoId } }),
+  ]);
 
-  await User.findByIdAndUpdate(req.user?._id, {
-    $addToSet: { watchHistory: videoId },
-  });
-
+  // Final try-catch for video processing and response
   try {
     const { streamUrl, localPath } = await processVideoStream(
       cloudinaryUrl,
       videoId
     );
 
-    // remove file from local
-    setTimeout(() => cleanupTemporaryFiles(localPath), 30000);
+    // Cleanup local file after processing
+    setTimeout(() => cleanupTemporaryFiles(localPath), 10000);
 
+    // Send the response
     return res.status(200).json({
       status: 'success',
-      message: 'Video detailed fetched successfully',
+      message: 'Video details fetched successfully',
       video: {
         ...videoDetails,
         streamUrl,
