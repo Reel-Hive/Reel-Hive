@@ -34,6 +34,8 @@ jobs:
           EMAIL_PORT: ${{ secrets.EMAIL_PORT}}
           EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME}}
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD}}
+          NODE_ENV: ${{ secrets.NODE_ENV }}
+          SERVER_DOMAIN: ${{ secrets.SERVER_DOMAIN }}
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
@@ -81,6 +83,8 @@ jobs:
             EMAIL_PORT=${{ secrets.EMAIL_PORT}}
             EMAIL_USERNAME=${{ secrets.EMAIL_USERNAME}}
             EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD}}
+            NODE_ENV=${{ secrets.NODE_ENV }}
+            SERVER_DOMAIN=${{ secrets.SERVER_DOMAIN }}
 
             echo "Updating environment variables..."
             DATABASE_URI=${DATABASE_URI}
@@ -104,7 +108,8 @@ jobs:
             echo "EMAIL_PORT=$EMAIL_PORT" >> .env
             echo "EMAIL_USERNAME=$EMAIL_USERNAME" >> .env
             echo "EMAIL_PASSWORD=$EMAIL_PASSWORD" >> .env
-
+            echo "NODE_ENV=$NODE_ENV" >> .env
+            echo "SERVER_DOMAIN=$SERVER_DOMAIN" >> .env
             # Install dependencies (example for Node.js)
             echo "Installing dependencies..."
             npm install
