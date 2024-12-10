@@ -3,7 +3,7 @@ import { catchAsync } from '../utils/catchAsync.js';
 import AppError from '../utils/appError.js';
 import mongoose from 'mongoose';
 
-export const getLikedVideos = catchAsync(async (req, res, next) => {
+export const getAllLikedVideos = catchAsync(async (req, res, next) => {
   const userId = req.user?._id;
 
   if (!userId) {
@@ -79,7 +79,7 @@ export const getLikedVideos = catchAsync(async (req, res, next) => {
   });
 });
 
-export const getLikedComments = catchAsync(async (req, res, next) => {
+export const getAllLikedComments = catchAsync(async (req, res, next) => {
   const userId = req.user?._id;
   if (!userId) {
     return next(new AppError('Uer not authenticated!', 401));
