@@ -1,6 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 
 // Importing routes
 import userRoute from './routes/userRoutes.js';
@@ -17,8 +18,16 @@ app.use(express.static('public'));
 // MIDDLEWARE FOR COOKIES
 app.use(cookieParser());
 
+// FOR FONRTEND ACCESS
+app.use(
+  cors({
+    origin: '*',
+    credentials: true,
+  })
+);
+
 // FOR LOGGING ROUTES
-app.use(morgan('dev'));
+app.use(morgan('common'));
 
 app.use('/api/v1/users', userRoute);
 app.use('/api/v1/videos', videoRoute);
