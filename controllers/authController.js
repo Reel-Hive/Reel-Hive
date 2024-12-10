@@ -133,7 +133,9 @@ export const login = catchAsync(async (req, res, next) => {
 
   const options = {
     httpOnly: true,
-    secure: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: 'None',
+    domain: process.env.SERVER_DOMAIN
   };
 
   return res
@@ -162,7 +164,9 @@ export const logout = catchAsync(async (req, res) => {
 
   const options = {
     httpOnly: true,
-    secure: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: 'None',
+    domain: process.env.SERVER_DOMAIN
   };
   return res
     .status(200)
