@@ -133,9 +133,9 @@ export const login = catchAsync(async (req, res, next) => {
 
   const options = {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: 'None',
-    domain: process.env.SERVER_DOMAIN
+    secure: false, // Disable secure cookie since we are not usong HTTPS
+    sameSite: 'Lax', // Allow cookie to be sent in the same origin context
+    path: "/" // Ensure cookies are accessible site-wide
   };
 
   return res
@@ -164,9 +164,9 @@ export const logout = catchAsync(async (req, res) => {
 
   const options = {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    secure: process.env.NODE_ENV === 'production',
     sameSite: 'None',
-    domain: process.env.SERVER_DOMAIN
+    domain: process.env.SERVER_DOMAIN,
   };
   return res
     .status(200)
