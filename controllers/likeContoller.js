@@ -62,6 +62,8 @@ export const getAllLikedVideos = catchAsync(async (req, res, next) => {
           isPublished: 1,
           ownerDetails: {
             name: 1,
+            username: 1,
+            avatar: 1
           },
         },
       },
@@ -129,6 +131,8 @@ export const getAllLikedComments = catchAsync(async (req, res, next) => {
           owner: 1,
           ownerDetails: {
             name: 1,
+            username: 1,
+            avatar: 1
           },
         },
       },

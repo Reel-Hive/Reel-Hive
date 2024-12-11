@@ -59,6 +59,8 @@ export const getVideoComments = catchAsync(async (req, res, next) => {
         totalLikes: 1,
         owner: {
           name: 1,
+          username: 1,
+          avatar: 1,
         },
         isLiked: 1,
       },
