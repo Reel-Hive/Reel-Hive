@@ -51,8 +51,8 @@ export const signUp = catchAsync(async (req, res, next) => {
     return next(new AppError('Avatar file is required!', 400));
   }
 
-  const avatar = await uploadOnCloudinary(avatarLocalPath);
-  const coverImage = await uploadOnCloudinary(coverImageLocalPath);
+  const avatar = await uploadOnCloudinary(avatarLocalPath.buffer);
+  const coverImage = await uploadOnCloudinary(coverImageLocalPath.buffer);
 
   if (!avatar) {
     return next(new AppError('Failed to upload avatar to Cloudinary', 500));
@@ -135,7 +135,7 @@ export const login = catchAsync(async (req, res, next) => {
     httpOnly: true,
     secure: false, // Disable secure cookie since we are not usong HTTPS
     sameSite: 'Lax', // Allow cookie to be sent in the same origin context
-    path: "/" // Ensure cookies are accessible site-wide
+    path: '/', // Ensure cookies are accessible site-wide
   };
 
   return res
@@ -164,10 +164,11 @@ export const logout = catchAsync(async (req, res) => {
 
   const options = {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'None',
-    domain: process.env.SERVER_DOMAIN,
+    secure: false, // Disable secure cookie since we are not usong HTTPS
+    sameSite: 'Lax', // Allow cookie to be sent in the same origin context
+    path: '/', // Ensure cookies are accessible site-wide
   };
+
   return res
     .status(200)
     .clearCookie('accessToken', options)
@@ -227,7 +228,7 @@ export const updateAvatar = catchAsync(async (req, res, next) => {
     return next(new AppError('avatar field required!', 400));
   }
 
-  const avatar = await uploadOnCloudinary(avatarLocalPath);
+  const avatar = await uploadOnCloudinary(avatarLocalPath.buffer);
   if (!avatar.url) {
     return next(new AppError('Error hile uploding avatar!', 400));
   }
@@ -255,7 +256,7 @@ export const updateCoverImage = catchAsync(async (req, res, next) => {
     return next(new AppError('cover Image field required!', 400));
   }
 
-  const coverImage = await uploadOnCloudinary(coverImageLocalPath);
+  const coverImage = await uploadOnCloudinary(coverImageLocalPath.buffer);
   if (!coverImage.url) {
     return next(new AppError('Error hile uploding avatar!', 400));
   }

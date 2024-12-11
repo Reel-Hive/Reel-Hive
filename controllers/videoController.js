@@ -1,10 +1,7 @@
 import { Video } from '../models/videoModel.js';
 import { User } from '../models/userModel.js';
 import { catchAsync } from '../utils/catchAsync.js';
-import {
-  processVideoStream,
-  cleanupTemporaryFiles,
-} from '../middlewares/stream.js';
+import { getStreamUrlFromCloudinary } from '../middlewares/stream.js';
 import AppError from '../utils/appError.js';
 import uploadOnCloudinary from '../utils/cloudinary.js';
 import sendEmail from '../utils/email.js';
@@ -28,8 +25,8 @@ export const publishVideo = catchAsync(async (req, res, next) => {
   }
 
   // Upload on cloudinary
-  const videoFile = await uploadOnCloudinary(videoLocalPath);
-  const thumbnail = await uploadOnCloudinary(thumbnailLocalPath);
+  const videoFile = await uploadOnCloudinary(videoLocalPath.buffer);
+  const thumbnail = await uploadOnCloudinary(thumbnailLocalPath.buffer);
 
   if (!(videoFile || !thumbnail)) {
     return next(new AppError('Failed to upload file on cloudinary!', 400));
@@ -183,17 +180,11 @@ export const getVideoById = catchAsync(async (req, res, next) => {
     User.findByIdAndUpdate(userId, { $addToSet: { watchHistory: videoId } }),
   ]);
 
-  // Final try-catch for video processing and response
+  // Fetch the streaming URL from cloudinary
   try {
-    const { streamUrl, localPath } = await processVideoStream(
-      cloudinaryUrl,
-      videoId
-    );
+    const streamUrl = getStreamUrlFromCloudinary(cloudinaryUrl);
 
-    // Cleanup local file after processing
-    setTimeout(() => cleanupTemporaryFiles(localPath), 10000);
-
-    // Send the response
+    // Send response
     return res.status(200).json({
       status: 'success',
       message: 'Video details fetched successfully',
@@ -203,6 +194,8 @@ export const getVideoById = catchAsync(async (req, res, next) => {
       },
     });
   } catch (error) {
-    return next(new AppError(error.message, 500));
+    return next(
+      new AppError('Failed to fetch stream URL from cloudinary', 500)
+    );
   }
 });

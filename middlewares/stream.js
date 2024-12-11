@@ -1,35 +1,23 @@
-import fs from 'fs';
-import { exec } from 'child_process';
-import { stderr, stdout } from 'process';
+import AppError from '../utils/appError.js';
 
-export const processVideoStream = (cloudinaryUrl, videoId) => {
-  return new Promise((resolve, reject) => {
-    const localPath = './public/videos';
-    if (!fs.existsSync(localPath)) {
-      fs.mkdirSync(localPath);
+export const getStreamUrlFromCloudinary = (cloudinaryURL) => {
+  if (!cloudinaryURL) {
+    return new AppError('Cloudinary URL is required to generate a stream', 400);
+  }
+
+  try {
+    // Cloudinary's adaptive streaming options
+    const streamUrl = cloudinaryURL.replace(
+      '/upload/',
+      '/upload/pg:0,f_auto,q_auto/'
+    );
+
+    if (!streamUrl) {
+      return new AppError('Failed to generate stream URL from cloudinary', 500);
     }
 
-    const hlsPath = `${localPath}/${videoId}.m3u8`;
-    const ffmpegCommand = `ffmpeg -i "${cloudinaryUrl}" -codec:v libx264 -codec:a aac -hls_time 10 -hls_playlist_type vod -hls_segment_filename "${localPath}/segment%03d.ts" -start_number 0 ${hlsPath}`;
-
-    exec(ffmpegCommand, (error, stdout, stderr) => {
-      if (error) {
-        console.error('FFmpeg error:', error);
-        return reject(new Error('Error processing video stream'));
-      }
-
-      resolve({
-        streamUrl: `http://localhost:4000/public/videos/${videoId}.m3u8`,
-        hlsPath,
-        localPath,
-      });
-    });
-  });
-};
-
-export const cleanupTemporaryFiles = (localPath) => {
-  if (fs.existsSync(localPath)) {
-    fs.rmSync(localPath, { recursive: true, force: true });
-    console.log('Temporary files deleted!');
+    return streamUrl;
+  } catch (error) {
+    return new AppError(`Error processing stream URL: ${error.message}`, 500);
   }
 };

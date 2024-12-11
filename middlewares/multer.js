@@ -1,14 +1,7 @@
 import multer from 'multer';
 
-// CREATE FOR IMAGE STORE
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './public');
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
-  },
-});
+// Use memory storage for avoid saving files locally
+const storage = multer.memoryStorage();
 
 export const Upload = multer({
   storage,
