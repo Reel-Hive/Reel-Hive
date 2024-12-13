@@ -1,7 +1,7 @@
 import { catchAsync } from '../utils/catchAsync.js';
 import AppError from '../utils/appError.js';
 import { User } from '../models/userModel.js';
-import uploadOnCloudinary from '../utils/cloudinary.js';
+import { uploadOnCloudinary } from '../utils/cloudinary.js';
 import sendEmail from '../utils/email.js';
 
 // Generat access and refresh token
@@ -19,50 +19,54 @@ const generateAccessAndRefreshToken = async (userId) => {
   }
 };
 
-// signup controller For create a new user in database
 export const signUp = catchAsync(async (req, res, next) => {
   // get user details from frontend
-  const { name, email, password, role } = req.body;
+  const { name, email, password, username } = req.body;
 
   // check that field are not empty
-  if ([name, email, password].some((field) => field?.trim() === '')) {
+  if ([name, email, password, username].some((field) => field?.trim() === '')) {
     return next(new AppError('All fields are required!', 400));
   }
 
   // Check alreay user exist
-  const existedUser = await User.findOne({ email });
+  const existedUser = await User.findOne({
+    $or: [{ username }, { email }],
+  });
 
   if (existedUser) {
     return next(new AppError('User with this email already exists!', 409));
   }
 
   // Handle avatar upload
-  const avatarLocalPath = req.files?.avatar[0]?.path;
+  const avatarLocalPath = req.files?.avatar[0]?.buffer;
   let coverImageLocalPath;
   if (
     req.files &&
     Array.isArray(req.files.coverImage) &&
     req.files.coverImage.length > 0
   ) {
-    coverImageLocalPath = req.files.coverImage[0].path;
+    coverImageLocalPath = req.files.coverImage[0].buffer;
   }
 
   if (!avatarLocalPath) {
     return next(new AppError('Avatar file is required!', 400));
   }
 
-  const avatar = await uploadOnCloudinary(avatarLocalPath);
-  const coverImage = await uploadOnCloudinary(coverImageLocalPath);
+  const avatar = await uploadOnCloudinary(avatarLocalPath.buffer, 'image');
+  const coverImage = await uploadOnCloudinary(
+    coverImageLocalPath.buffer,
+    'image'
+  );
 
   if (!avatar) {
     return next(new AppError('Failed to upload avatar to Cloudinary', 500));
   }
 
   const user = await User.create({
+    username,
     name,
     email,
     password,
-    role,
     avatar: avatar.url,
     coverImage: coverImage?.url || '',
   });
@@ -103,19 +107,22 @@ export const signUp = catchAsync(async (req, res, next) => {
   });
 });
 
-// Login controller
 export const login = catchAsync(async (req, res, next) => {
   // get user details form frontend
-  const { email, password } = req.body;
+  const { email, password, username } = req.body;
 
   // check email field not empty
   if (!email) {
     return next(new AppError('email name is required!', 400));
   }
   // check user exist
-  const user = await User.findOne({ email });
+  const user = await User.findOne({
+    $or: [{ email }, { username }],
+  });
   if (!user) {
-    return next(new AppError("User with this email doesn't exist!", 404));
+    return next(
+      new AppError("User with this email or username  doesn't exist!", 404)
+    );
   }
   // check passord correction
   const isPasswordValid = await user.isPasswordCorrect(password);
@@ -135,7 +142,7 @@ export const login = catchAsync(async (req, res, next) => {
     httpOnly: true,
     secure: false, // Disable secure cookie since we are not usong HTTPS
     sameSite: 'Lax', // Allow cookie to be sent in the same origin context
-    path: "/" // Ensure cookies are accessible site-wide
+    path: '/', // Ensure cookies are accessible site-wide
   };
 
   return res
@@ -164,10 +171,11 @@ export const logout = catchAsync(async (req, res) => {
 
   const options = {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'None',
-    domain: process.env.SERVER_DOMAIN,
+    secure: false, // Disable secure cookie since we are not usong HTTPS
+    sameSite: 'Lax', // Allow cookie to be sent in the same origin context
+    path: '/', // Ensure cookies are accessible site-wide
   };
+
   return res
     .status(200)
     .clearCookie('accessToken', options)
@@ -191,6 +199,21 @@ export const updatePassword = catchAsync(async (req, res, next) => {
   user.password = newPassword;
   await user.save({ validateBeforeSave: false });
 
+  // Send email
+  const message = `Hello ${user.name}! Your password updated successfully! If you don't have update password and getting this email then contact our team!\n\nBest regards,\nReel Hive team`;
+
+  try {
+    await sendEmail({
+      email: user.email,
+      subject: 'Updated Password',
+      message,
+    });
+  } catch (error) {
+    return next(
+      new AppError('Error hile sending email. Please try later!', 500)
+    );
+  }
+
   return res.status(200).json({
     status: 'success',
     message: 'password updated successfully',
@@ -198,20 +221,35 @@ export const updatePassword = catchAsync(async (req, res, next) => {
 });
 
 export const updateDetails = catchAsync(async (req, res, next) => {
-  const { name } = req.body;
-  if (!name) {
+  const { name, username } = req.body;
+  if (!(name || username)) {
     return next(new AppError('Name filed is rquired', 400));
   }
 
   const user = await User.findByIdAndUpdate(
     req.user?._id,
     {
-      $set: { name },
+      $set: { name, username },
     },
     {
       new: true,
     }
   ).select('-password');
+
+  // Send email
+  const message = `Hello ${user.name}! Your Details updated successfully! If you don't have update password and getting this email then contact our team!\n\nBest regards,\nReel Hive team`;
+
+  try {
+    await sendEmail({
+      email: user.email,
+      subject: 'Updated Details',
+      message,
+    });
+  } catch (error) {
+    return next(
+      new AppError('Error hile sending email. Please try later!', 500)
+    );
+  }
 
   return res.status(200).json({
     status: 'success',
@@ -221,13 +259,13 @@ export const updateDetails = catchAsync(async (req, res, next) => {
 });
 
 export const updateAvatar = catchAsync(async (req, res, next) => {
-  const avatarLocalPath = req.file?.path;
+  const avatarLocalPath = req.file?.buffer;
 
   if (!avatarLocalPath) {
     return next(new AppError('avatar field required!', 400));
   }
 
-  const avatar = await uploadOnCloudinary(avatarLocalPath);
+  const avatar = await uploadOnCloudinary(avatarLocalPath.buffer, 'image');
   if (!avatar.url) {
     return next(new AppError('Error hile uploding avatar!', 400));
   }
@@ -241,6 +279,21 @@ export const updateAvatar = catchAsync(async (req, res, next) => {
     { new: true }
   ).select('-password');
 
+  // Send email
+  const message = `Hello ${user.name}! Your Avatar updated successfully! If you don't have update password and getting this email then contact our team!\n\nBest regards,\nReel Hive team`;
+
+  try {
+    await sendEmail({
+      email: user.email,
+      subject: 'Updated Avatar Image',
+      message,
+    });
+  } catch (error) {
+    return next(
+      new AppError('Error hile sending email. Please try later!', 500)
+    );
+  }
+
   return res.status(200).json({
     status: 'sccess',
     message: 'Avatar updated successfully!',
@@ -249,13 +302,16 @@ export const updateAvatar = catchAsync(async (req, res, next) => {
 });
 
 export const updateCoverImage = catchAsync(async (req, res, next) => {
-  const coverImageLocalPath = req.file?.path;
+  const coverImageLocalPath = req.file?.buffer;
 
   if (!coverImageLocalPath) {
     return next(new AppError('cover Image field required!', 400));
   }
 
-  const coverImage = await uploadOnCloudinary(coverImageLocalPath);
+  const coverImage = await uploadOnCloudinary(
+    coverImageLocalPath.buffer,
+    'image'
+  );
   if (!coverImage.url) {
     return next(new AppError('Error hile uploding avatar!', 400));
   }
@@ -268,6 +324,21 @@ export const updateCoverImage = catchAsync(async (req, res, next) => {
     },
     { new: true }
   ).select('-password');
+
+  // Send email
+  const message = `Hello ${user.name}! Your Cover Image updated successfully! If you don't have update password and getting this email then contact our team!\n\nBest regards,\nReel Hive team`;
+
+  try {
+    await sendEmail({
+      email: user.email,
+      subject: 'Updated Cover Image',
+      message,
+    });
+  } catch (error) {
+    return next(
+      new AppError('Error hile sending email. Please try later!', 500)
+    );
+  }
 
   return res.status(200).json({
     status: 'sccess',

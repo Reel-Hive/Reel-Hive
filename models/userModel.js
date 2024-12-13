@@ -4,9 +4,18 @@ import bcrypt from 'bcrypt';
 
 const userSchema = new mongoose.Schema(
   {
+    username: {
+      type: String,
+      required: [true, 'username field is required'],
+      unique: true,
+      trim: true,
+      index: true,
+      lowercase: true,
+    },
     name: {
       type: String,
       required: [true, 'Name field is required'],
+      trim: true,
     },
     email: {
       type: String,
@@ -17,11 +26,6 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: [true, 'Password field is required'],
-    },
-    role: {
-      type: String,
-      enum: ['user', 'admin'],
-      default: 'user',
     },
     avatar: {
       type: String, // Cloudinary URL

@@ -13,6 +13,8 @@ import {
   getAllUsers,
   getMe,
   getUser,
+  getUserChannelProfile,
+  getWatchHistory,
 } from '../controllers/userController.js';
 import { protect } from '../middlewares/protect.js';
 import { Upload } from '../middlewares/multer.js';
@@ -45,5 +47,7 @@ router.route('/me').get(protect, getMe);
 router.route('/getAllUsers').get(getAllUsers);
 router.route('/:id').get(protect, getUser);
 router.route('/deleteMe').delete(protect, deleteUser);
+router.route('/c/:username').get(protect, getUserChannelProfile);
+router.route('/:userId/getHistory').get(protect, getWatchHistory);
 
 export default router;
