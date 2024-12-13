@@ -8,6 +8,7 @@ import userRoute from './routes/userRoutes.js';
 import videoRoute from './routes/videoRoutes.js';
 import likeRoute from './routes/likeRoutes.js';
 import commentRoute from './routes/commentRoutes.js';
+import subscriptionRoute from './routes/subscriptionRoutes.js';
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.use('/api/v1/users', userRoute);
 app.use('/api/v1/videos', videoRoute);
 app.use('/api/v1/likes', likeRoute);
 app.use('/api/v1/comments', commentRoute);
+app.use('/api/v1/subscriptions', subscriptionRoute);
 
 app.use('/health', (req, res) => {
   return res.json({
