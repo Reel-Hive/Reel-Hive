@@ -27,11 +27,6 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Password field is required'],
     },
-    role: {
-      type: String,
-      enum: ['user', 'admin'],
-      default: 'user',
-    },
     avatar: {
       type: String, // Cloudinary URL
       required: true,
