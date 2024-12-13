@@ -1,23 +1,20 @@
-import AppError from '../utils/appError.js';
-
 export const getStreamUrlFromCloudinary = (cloudinaryURL) => {
   if (!cloudinaryURL) {
-    return new AppError('Cloudinary URL is required to generate a stream', 400);
+    throw new AppError('Cloudinary URL required to stream the video', 400);
   }
 
   try {
-    // Cloudinary's adaptive streaming options
-    const streamUrl = cloudinaryURL.replace(
-      '/upload/',
-      '/upload/pg:0,f_auto,q_auto/'
-    );
+    // Generate HLS streaming URL
+    const streamUrl = cloudinaryURL
+      .replace('/upload', '/upload/hls')
+      .replace('.mp4', '.m3u8');
 
     if (!streamUrl) {
-      return new AppError('Failed to generate stream URL from cloudinary', 500);
+      throw new AppError('Failed to generate stream URL from Cloudinary!', 500);
     }
 
     return streamUrl;
   } catch (error) {
-    return new AppError(`Error processing stream URL: ${error.message}`, 500);
+    throw new AppError(`Error processing stream URL: ${error.message}`, 500);
   }
 };
