@@ -67,6 +67,11 @@ export const getVideoComments = catchAsync(async (req, res, next) => {
     },
   ]);
 
+  // count total comments
+  const totalComments = await Comment.aggregate([
+    { $match: { video: new mongoose.Types.ObjectId(videoId) } },
+  ]).then((res) => res.length);
+
   const paginationsOptions = {
     page: parseInt(page, 10),
     limit: parseInt(limit, 10),
@@ -81,7 +86,12 @@ export const getVideoComments = catchAsync(async (req, res, next) => {
   return res.status(200).json({
     status: 'success',
     message: 'Commets fetched successfully',
-    data: commentsData,
+    data: {
+      totalComments,
+      commentsData,
+      totalPages: Math.ceil(totalComments / limit), // Calculate total pages
+      currentPage: parseInt(page),
+    },
   });
 });
 

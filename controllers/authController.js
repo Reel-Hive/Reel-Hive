@@ -1,7 +1,7 @@
 import { catchAsync } from '../utils/catchAsync.js';
 import AppError from '../utils/appError.js';
 import { User } from '../models/userModel.js';
-import uploadOnCloudinary from '../utils/cloudinary.js';
+import { uploadOnCloudinary } from '../utils/cloudinary.js';
 import sendEmail from '../utils/email.js';
 
 // Generat access and refresh token
@@ -21,7 +21,7 @@ const generateAccessAndRefreshToken = async (userId) => {
 
 export const signUp = catchAsync(async (req, res, next) => {
   // get user details from frontend
-  const { name, email, password, role, username } = req.body;
+  const { name, email, password, username } = req.body;
 
   // check that field are not empty
   if ([name, email, password, username].some((field) => field?.trim() === '')) {
@@ -38,22 +38,25 @@ export const signUp = catchAsync(async (req, res, next) => {
   }
 
   // Handle avatar upload
-  const avatarLocalPath = req.files?.avatar[0]?.path;
+  const avatarLocalPath = req.files?.avatar[0]?.buffer;
   let coverImageLocalPath;
   if (
     req.files &&
     Array.isArray(req.files.coverImage) &&
     req.files.coverImage.length > 0
   ) {
-    coverImageLocalPath = req.files.coverImage[0].path;
+    coverImageLocalPath = req.files.coverImage[0].buffer;
   }
 
   if (!avatarLocalPath) {
     return next(new AppError('Avatar file is required!', 400));
   }
 
-  const avatar = await uploadOnCloudinary(avatarLocalPath.buffer);
-  const coverImage = await uploadOnCloudinary(coverImageLocalPath.buffer);
+  const avatar = await uploadOnCloudinary(avatarLocalPath.buffer, 'image');
+  const coverImage = await uploadOnCloudinary(
+    coverImageLocalPath.buffer,
+    'image'
+  );
 
   if (!avatar) {
     return next(new AppError('Failed to upload avatar to Cloudinary', 500));
@@ -64,7 +67,6 @@ export const signUp = catchAsync(async (req, res, next) => {
     name,
     email,
     password,
-    role,
     avatar: avatar.url,
     coverImage: coverImage?.url || '',
   });
@@ -107,7 +109,7 @@ export const signUp = catchAsync(async (req, res, next) => {
 
 export const login = catchAsync(async (req, res, next) => {
   // get user details form frontend
-  const { email, password,username } = req.body;
+  const { email, password, username } = req.body;
 
   // check email field not empty
   if (!email) {
@@ -118,7 +120,9 @@ export const login = catchAsync(async (req, res, next) => {
     $or: [{ email }, { username }],
   });
   if (!user) {
-    return next(new AppError("User with this email or username  doesn't exist!", 404));
+    return next(
+      new AppError("User with this email or username  doesn't exist!", 404)
+    );
   }
   // check passord correction
   const isPasswordValid = await user.isPasswordCorrect(password);
@@ -255,13 +259,13 @@ export const updateDetails = catchAsync(async (req, res, next) => {
 });
 
 export const updateAvatar = catchAsync(async (req, res, next) => {
-  const avatarLocalPath = req.file?.path;
+  const avatarLocalPath = req.file?.buffer;
 
   if (!avatarLocalPath) {
     return next(new AppError('avatar field required!', 400));
   }
 
-  const avatar = await uploadOnCloudinary(avatarLocalPath.buffer);
+  const avatar = await uploadOnCloudinary(avatarLocalPath.buffer, 'image');
   if (!avatar.url) {
     return next(new AppError('Error hile uploding avatar!', 400));
   }
@@ -298,13 +302,16 @@ export const updateAvatar = catchAsync(async (req, res, next) => {
 });
 
 export const updateCoverImage = catchAsync(async (req, res, next) => {
-  const coverImageLocalPath = req.file?.path;
+  const coverImageLocalPath = req.file?.buffer;
 
   if (!coverImageLocalPath) {
     return next(new AppError('cover Image field required!', 400));
   }
 
-  const coverImage = await uploadOnCloudinary(coverImageLocalPath.buffer);
+  const coverImage = await uploadOnCloudinary(
+    coverImageLocalPath.buffer,
+    'image'
+  );
   if (!coverImage.url) {
     return next(new AppError('Error hile uploding avatar!', 400));
   }
