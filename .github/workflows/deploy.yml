@@ -87,11 +87,14 @@ jobs:
             SERVER_DOMAIN=${{ secrets.SERVER_DOMAIN }}
 
             echo "Updating environment variables..."
-            DATABASE_URI=${DATABASE_URI}
-            DATABASE_NAME=${DATABASE_NAME}
-            DATABASE_PASSWORD=${DATABASE_PASSWORD}
-            PORT=${PORT}
+            # DATABASE_URI=${DATABASE_URI}
+            # DATABASE_NAME=${DATABASE_NAME}
+            # DATABASE_PASSWORD=${DATABASE_PASSWORD}
+            # PORT=${PORT}
 
+            # Print var
+            echo $DATABASE_URI
+            
             # Create a new .env file with environment variables
             echo "DATABASE_URI=$DATABASE_URI" >> .env
             echo "DATABASE_NAME=$DATABASE_NAME" >> .env
