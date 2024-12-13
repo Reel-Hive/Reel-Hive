@@ -1,25 +1,42 @@
 import express from 'express';
 import { protect } from '../middlewares/protect.js';
 import { Upload } from '../middlewares/multer.js';
-import { getVideoById, publishVideo } from '../controllers/videoController.js';
+import {
+  getVideoById,
+  publishVideo,
+  getAllVideos,
+  updateVideo,
+  deleteVideo,
+  togglePublishStatus,
+  
+} from '../controllers/videoController.js';
 
 const router = express.Router();
 
-router.route('/publish-video').post(
-  protect,
-  Upload.fields([
-    {
-      name: 'videoFile',
-      maxCount: 1,
-    },
-    {
-      name: 'thumbnail',
-      maxCount: 1,
-    },
-  ]),
-  publishVideo
-);
+router.use(protect);
 
-router.route('/:videoId').get(protect, getVideoById);
+router
+  .route('/')
+  .get(getAllVideos)
+  .post(
+    Upload.fields([
+      {
+        name: 'videoFile',
+        maxCount: 1,
+      },
+      {
+        name: 'thumbnail',
+        maxCount: 1,
+      },
+    ]),
+    publishVideo
+  );
 
+router
+  .route('/:videoId')
+  .get(getVideoById)
+  .patch(Upload.single('thumbnail'), updateVideo)
+  .delete(deleteVideo);
+
+router.route('/toggle/publish/:videoId').patch(togglePublishStatus);
 export default router;
