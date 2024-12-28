@@ -118,7 +118,7 @@ jobs:
             npm install
 
             # Start the application (example using PM2)
-            pm2 start server.js
+            pm2 start ecosystem.config.cjs
 
             # Restart the application (example using PM2)
             echo "Restarting application..."
