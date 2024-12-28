@@ -68,10 +68,10 @@ jobs:
             rm -f .env
 
             # Update or create the .env file with environment variables
-            DATABASE_URI=${{ secrets.DATABASE_URI }}
-            DATABASE_NAME=${{ secrets.DATABASE_NAME }}
-            DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}
-            PORT=${{ secrets.PORT }}
+            DATABASE_URI=${{ secrets.DATABASE_URI}}
+            DATABASE_NAME=${{ secrets.DATABASE_NAME}}
+            DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD}}
+            PORT=${{ secrets.PORT}}
             ACCESS_GENERATE_SECRET=${{ secrets.ACCESS_GENERATE_SECRET}}
             ACCESS_TOKEN_EXPIRY=${{ secrets.ACCESS_TOKEN_EXPIRY}}
             REFRESH_GENERATE_SECRET=${{ secrets.REFRESH_GENERATE_SECRET}}
@@ -83,8 +83,8 @@ jobs:
             EMAIL_PORT=${{ secrets.EMAIL_PORT}}
             EMAIL_USERNAME=${{ secrets.EMAIL_USERNAME}}
             EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD}}
-            NODE_ENV=${{ secrets.NODE_ENV }}
-            SERVER_DOMAIN=${{ secrets.SERVER_DOMAIN }}
+            NODE_ENV=${{ secrets.NODE_ENV}}
+            SERVER_DOMAIN=${{ secrets.SERVER_DOMAIN}}
 
             echo "Updating environment variables..."
             # DATABASE_URI=${DATABASE_URI}
@@ -94,7 +94,7 @@ jobs:
 
             # Print var
             echo $DATABASE_URI
-            
+
             # Create a new .env file with environment variables
             echo "DATABASE_URI=$DATABASE_URI" >> .env
             echo "DATABASE_NAME=$DATABASE_NAME" >> .env
@@ -113,6 +113,7 @@ jobs:
             echo "EMAIL_PASSWORD=$EMAIL_PASSWORD" >> .env
             echo "NODE_ENV=$NODE_ENV" >> .env
             echo "SERVER_DOMAIN=$SERVER_DOMAIN" >> .env
+
             # Install dependencies (example for Node.js)
             echo "Installing dependencies..."
             npm install
