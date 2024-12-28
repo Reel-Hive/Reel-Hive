@@ -1,8 +1,9 @@
 import { catchAsync } from '../utils/catchAsync.js';
 import { Video } from '../models/videoModel.js';
 import AppError from '../utils/appError.js';
+import { User } from '../models/userModel.js';
 
-export const searchVideos = catchAsync(async (req, res, next) => {
+export const search = catchAsync(async (req, res, next) => {
   const { query, sortBy = 'createdAt', sortType = 'desc' } = req.query;
 
   // Validate query
@@ -10,8 +11,8 @@ export const searchVideos = catchAsync(async (req, res, next) => {
     return next(new AppError('Search query cannot be empty', 400));
   }
 
-  // Aggregation pipeline for search
-  const pipeline = [
+  // Aggregation pipeline for video search
+  const videoPipeline = [
     {
       $search: {
         index: 'search-videos',
@@ -65,12 +66,40 @@ export const searchVideos = catchAsync(async (req, res, next) => {
     },
   ];
 
-  // Fetch Videos
-  const videos = await Video.aggregate(pipeline);
+  // Aggregation pipeline for Channel search
+  const channelPipeline = [
+    {
+      $search: {
+        index: 'search-users',
+        text: { query, path: ['name', 'username'] },
+      },
+    },
+    {
+      $lookup: {
+        from: 'subscriptions',
+        localField: '_id',
+        foreignField: 'channel',
+        as: 'subscribers',
+      },
+    },
+    {
+      $addFields: {
+        subscriberCount: { $size: '$subscribers' },
+      },
+    },
+    {
+      $project: {
+        name: 1,
+        username: 1,
+        avatar: 1,
+        subscriberCount: 1,
+      },
+    },
+  ];
 
-  if (!videos || videos.length === 0) {
-    return next(new AppError('No videos found for this query!', 404));
-  }
+  // Fetch Videos and Channels
+  const videos = await Video.aggregate(videoPipeline);
+  const channels = await User.aggregate(channelPipeline);
 
   // Send the response
   return res.status(200).json({
@@ -78,6 +107,7 @@ export const searchVideos = catchAsync(async (req, res, next) => {
     message: 'Searched video fetched successfully',
     data: {
       videos,
+      channels,
     },
   });
 });

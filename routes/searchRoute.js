@@ -1,5 +1,5 @@
 import express from 'express';
-import { searchVideos } from '../controllers/searchController.js';
+import { search } from '../controllers/searchController.js';
 import { protect } from '../middlewares/protect.js';
 
 const router = express.Router();
@@ -7,6 +7,6 @@ const router = express.Router();
 // Use for below all routes
 router.use(protect);
 
-router.route('/').get(searchVideos);
+router.route('/').get(search);
 
 export default router;
