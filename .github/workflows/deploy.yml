@@ -88,17 +88,11 @@ jobs:
             NODE_ENV=${{ secrets.NODE_ENV}}
             SERVER_DOMAIN=${{ secrets.SERVER_DOMAIN}}
 
-            echo "Updating environment variables..."
-            DATABASE_URI=${DATABASE_URI}
-            DATABASE_NAME=${DATABASE_NAME}
-            DATABASE_PASSWORD=${DATABASE_PASSWORD}
-            PORT=${PORT}
-
-            # Print var
-            rm -f ok.txt
-            echo $DATABASE_URI >> ok.txt
-            echo $DATABASE_NAME >> ok.txt
-            echo $DB_URI >> ok.txt
+            # echo "Updating environment variables..."
+            # DATABASE_URI=${DATABASE_URI}
+            # DATABASE_NAME=${DATABASE_NAME}
+            # DATABASE_PASSWORD=${DATABASE_PASSWORD}
+            # PORT=${PORT}
 
             # Create a new .env file with environment variables
             echo "DATABASE_URI=$DATABASE_URI" >> .env
