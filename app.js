@@ -9,6 +9,7 @@ import videoRoute from './routes/videoRoutes.js';
 import likeRoute from './routes/likeRoutes.js';
 import commentRoute from './routes/commentRoutes.js';
 import subscriptionRoute from './routes/subscriptionRoutes.js';
+import searchRoute from './routes/searchRoute.js';
 
 const app = express();
 
@@ -22,7 +23,7 @@ app.use(cookieParser());
 // FOR FONRTEND ACCESS
 app.use(
   cors({
-    origin: '*',
+    origin: 'http://localhost:5173', // Corrected the typo here
     credentials: true,
   })
 );
@@ -35,6 +36,7 @@ app.use('/api/v1/videos', videoRoute);
 app.use('/api/v1/likes', likeRoute);
 app.use('/api/v1/comments', commentRoute);
 app.use('/api/v1/subscriptions', subscriptionRoute);
+app.use('/api/v1/searches', searchRoute);
 
 app.use('/health', (req, res) => {
   return res.json({
