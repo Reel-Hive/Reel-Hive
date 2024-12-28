@@ -81,8 +81,20 @@ export const signUp = catchAsync(async (req, res, next) => {
     );
   }
 
+  // Generate token
+  const { accessToken, refreshToken } = await generateAccessAndRefreshToken(
+    user._id
+  );
+
+  const options = {
+    httpOnly: true,
+    secure: false, // Disable secure cookie since we are not usong HTTPS
+    sameSite: 'Lax', // Allow cookie to be sent in the same origin context
+    path: '/', // Ensure cookies are accessible site-wide
+  };
+
   // SEND EMAIL
-  const message = `Welcome to Reel Hive! ${user.name}. we're excited to have you join our PLatform.Hrere you can find usefully video.\n\nOnce agian, Thank you for sign up! We look forward to keeping you informed ith our latest  updates!\n\nBest regards,\nReel Hive Team`;
+  const message = `Welcome to Reel Hive! ${user.name}. we're excited to have you join our Platform.Hrere you can find usefully video.\n\nOnce agian, Thank you for sign up! We look forward to keeping you informed ith our latest  updates!\n\nBest regards,\nReel Hive Team`;
 
   try {
     await sendEmail({
@@ -99,12 +111,16 @@ export const signUp = catchAsync(async (req, res, next) => {
     );
   }
 
-  return res.status(201).json({
-    status: 'success',
-    data: {
-      createdUser,
-    },
-  });
+  return res
+    .status(201)
+    .cookie('accessToken', accessToken, options)
+    .cookie('refreshToken', refreshToken, options)
+    .json({
+      status: 'success',
+      data: {
+        createdUser,
+      },
+    });
 });
 
 export const login = catchAsync(async (req, res, next) => {
@@ -187,11 +203,11 @@ export const logout = catchAsync(async (req, res) => {
 });
 
 export const updatePassword = catchAsync(async (req, res, next) => {
-  const { oldPassword, newPassword } = req.body;
+  const { currentPassword, newPassword } = req.body;
 
   const user = await User.findById(req.user?._id);
 
-  const isPasswordCorrect = await user.isPasswordCorrect(oldPassword);
+  const isPasswordCorrect = await user.isPasswordCorrect(currentPassword);
   if (!isPasswordCorrect) {
     return next(new AppError('Invalid Password incorrect', 400));
   }
@@ -210,7 +226,7 @@ export const updatePassword = catchAsync(async (req, res, next) => {
     });
   } catch (error) {
     return next(
-      new AppError('Error hile sending email. Please try later!', 500)
+      new AppError('Error while sending email. Please try later!', 500)
     );
   }
 
@@ -226,10 +242,14 @@ export const updateDetails = catchAsync(async (req, res, next) => {
     return next(new AppError('Name filed is rquired', 400));
   }
 
+  const updateFields = {};
+  if (name) updateFields.name = name;
+  if (username) updateFields.username = username;
+
   const user = await User.findByIdAndUpdate(
     req.user?._id,
     {
-      $set: { name, username },
+      $set: updateFields,
     },
     {
       new: true,

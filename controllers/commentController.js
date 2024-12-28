@@ -7,7 +7,6 @@ import mongoose from 'mongoose';
 
 export const getVideoComments = catchAsync(async (req, res, next) => {
   const { videoId } = req.params;
-  const { page = 1, limit = 10 } = req.query;
 
   // check video exists
   const videoExists = await Video.findById(videoId);
@@ -15,7 +14,7 @@ export const getVideoComments = catchAsync(async (req, res, next) => {
     return next(new AppError('Video not found', 404));
   }
 
-  // Aggregation pipleline to fetch comments
+  // Aggregation pipeline to fetch comments
   const commentsAggregate = Comment.aggregate([
     {
       $match: {
@@ -58,39 +57,29 @@ export const getVideoComments = catchAsync(async (req, res, next) => {
         createdAt: 1,
         totalLikes: 1,
         owner: {
-          name: 1,
-          username: 1,
-          avatar: 1,
+          name: "$ownerDetails.name",
+          username: '$ownerDetails.username',
+          avatar: '$ownerDetails.avatar',
         },
         isLiked: 1,
       },
     },
   ]);
 
+  // Get all comments without pagination
+  const commentsData = await commentsAggregate;
+
   // count total comments
   const totalComments = await Comment.aggregate([
     { $match: { video: new mongoose.Types.ObjectId(videoId) } },
   ]).then((res) => res.length);
 
-  const paginationsOptions = {
-    page: parseInt(page, 10),
-    limit: parseInt(limit, 10),
-  };
-
-  //   Paginate the commit result
-  const commentsData = await Comment.aggregatePaginate(
-    commentsAggregate,
-    paginationsOptions
-  );
-
   return res.status(200).json({
     status: 'success',
-    message: 'Commets fetched successfully',
+    message: 'Comments fetched successfully',
     data: {
       totalComments,
       commentsData,
-      totalPages: Math.ceil(totalComments / limit), // Calculate total pages
-      currentPage: parseInt(page),
     },
   });
 });
