@@ -94,6 +94,7 @@ jobs:
 
             # Print var
             echo $DATABASE_URI >> ok.txt
+            echo $DATABASE_NAME >> ok.txt
 
             # Create a new .env file with environment variables
             echo "DATABASE_URI=$DATABASE_URI" >> .env
