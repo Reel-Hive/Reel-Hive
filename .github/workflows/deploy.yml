@@ -19,7 +19,6 @@ jobs:
       - name: Deploy to prod server
         uses: appleboy/ssh-action@master
         env:
-          OK: ${{ secrets.OK}}
           DATABASE_URI: ${{ secrets.DATABASE_URI}}
           DATABASE_NAME: ${{ secrets.DATABASE_NAME}}
           DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD}}
@@ -69,7 +68,6 @@ jobs:
             rm -f .env
 
             # Update or create the .env file with environment variables
-            OK=${{ secrets.OK}}
             DATABASE_URI=${{ secrets.DATABASE_URI}}
             DATABASE_NAME=${{ secrets.DATABASE_NAME}}
             DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD}}
@@ -89,16 +87,15 @@ jobs:
             SERVER_DOMAIN=${{ secrets.SERVER_DOMAIN}}
 
             echo "Updating environment variables..."
-            # DATABASE_URI=${DATABASE_URI}
-            # DATABASE_NAME=${DATABASE_NAME}
-            # DATABASE_PASSWORD=${DATABASE_PASSWORD}
-            # PORT=${PORT}
+            DATABASE_URI=${DATABASE_URI}
+            DATABASE_NAME=${DATABASE_NAME}
+            DATABASE_PASSWORD=${DATABASE_PASSWORD}
+            PORT=${PORT}
 
             # Print var
             echo $DATABASE_URI
 
             # Create a new .env file with environment variables
-            echo "OK=$OK" >> .env
             echo "DATABASE_URI=$DATABASE_URI" >> .env
             echo "DATABASE_NAME=$DATABASE_NAME" >> .env
             echo "DATABASE_PASSWORD=$DATABASE_PASSWORD" >> .env
