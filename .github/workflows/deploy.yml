@@ -145,6 +145,14 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
+      - name: Print debug info
+        run: |
+          echo "DATABASE_URI from GitHub runner: $DATABASE_URI"
+          echo "DATABASE_NAME from GitHub runner: $DATABASE_NAME"
+        env:
+          DATABASE_URI: ${{ secrets.DATABASE_URI }}
+          DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
+
       - name: Deploy to prod server
         uses: appleboy/ssh-action@master
         # 1) Map GH secrets to environment variables for your SSH session
