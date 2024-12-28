@@ -19,10 +19,10 @@ jobs:
       - name: Deploy to prod server
         uses: appleboy/ssh-action@master
         env:
-          DATABASE_URI: ${{ secrets.DATABASE_URI }}
-          DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
-          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-          PORT: ${{ secrets.PORT }}
+          DATABASE_URI: ${{ secrets.DATABASE_URI}}
+          DATABASE_NAME: ${{ secrets.DATABASE_NAME}}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD}}
+          PORT: ${{ secrets.PORT}}
           ACCESS_GENERATE_SECRET: ${{ secrets.ACCESS_GENERATE_SECRET}}
           ACCESS_TOKEN_EXPIRY: ${{ secrets.ACCESS_TOKEN_EXPIRY}}
           REFRESH_GENERATE_SECRET: ${{ secrets.REFRESH_GENERATE_SECRET}}
