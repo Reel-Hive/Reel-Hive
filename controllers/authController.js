@@ -88,8 +88,8 @@ export const signUp = catchAsync(async (req, res, next) => {
 
   const options = {
     httpOnly: true,
-    secure: false, // Disable secure cookie since we are not usong HTTPS
-    sameSite: 'Lax', // Allow cookie to be sent in the same origin context
+    secure: false, // Set to true in production if using HTTPS
+    sameSite: 'None', // Allow cookies for cross-origin requests
     path: '/', // Ensure cookies are accessible site-wide
   };
 
@@ -156,11 +156,10 @@ export const login = catchAsync(async (req, res, next) => {
 
   const options = {
     httpOnly: true,
-    secure: false, // Disable secure cookie since we are not usong HTTPS
-    sameSite: 'Lax', // Allow cookie to be sent in the same origin context
+    secure: false, // Set to true in production if using HTTPS
+    sameSite: 'None', // Allow cookies for cross-origin requests
     path: '/', // Ensure cookies are accessible site-wide
   };
-
   return res
     .status(200)
     .cookie('accessToken', accessToken, options)
@@ -187,8 +186,8 @@ export const logout = catchAsync(async (req, res) => {
 
   const options = {
     httpOnly: true,
-    secure: false, // Disable secure cookie since we are not usong HTTPS
-    sameSite: 'Lax', // Allow cookie to be sent in the same origin context
+    secure: false, // Set to true in production if using HTTPS
+    sameSite: 'None', // Allow cookies for cross-origin requests
     path: '/', // Ensure cookies are accessible site-wide
   };
 
