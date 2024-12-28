@@ -8,7 +8,7 @@ import {
   updateVideo,
   deleteVideo,
   togglePublishStatus,
-  
+  getUserVideos,
 } from '../controllers/videoController.js';
 
 const router = express.Router();
@@ -38,5 +38,6 @@ router
   .patch(Upload.single('thumbnail'), updateVideo)
   .delete(deleteVideo);
 
+router.route('/:username/getUserVideos').get(getUserVideos);
 router.route('/toggle/publish/:videoId').patch(togglePublishStatus);
 export default router;

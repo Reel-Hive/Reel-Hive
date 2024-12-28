@@ -14,7 +14,7 @@ import mongoose from 'mongoose';
 
 export const publishVideo = catchAsync(async (req, res, next) => {
   // Get the details from frontend
-  const { title, description } = req.body;
+  const { title, description, isPublished } = req.body;
   if ([title, description].some((field) => field?.trim() === '')) {
     return next(new AppError('All fields are required', 400));
   }
@@ -54,7 +54,7 @@ export const publishVideo = catchAsync(async (req, res, next) => {
       public_id: thumbnail.public_id,
     },
     owner: req.user?._id,
-    isPublished: false,
+    isPublished: isPublished || false,
   });
 
   if (!video) {
@@ -87,7 +87,9 @@ export const publishVideo = catchAsync(async (req, res, next) => {
   return res.status(200).json({
     status: 'success',
     message: 'video uploaded successfully',
-    video,
+    data: {
+      video,
+    },
   });
 });
 
@@ -140,7 +142,7 @@ export const getVideoById = catchAsync(async (req, res, next) => {
           {
             $project: {
               name: 1,
-              'avatar.url': 1,
+              avatar: 1,
               subscribersCount: 1,
               isSubscribed: 1,
             },
@@ -209,14 +211,7 @@ export const getVideoById = catchAsync(async (req, res, next) => {
 });
 
 export const getAllVideos = catchAsync(async (req, res, next) => {
-  const {
-    page = 1,
-    limit = 10,
-    query,
-    sortBy = 'createdAt',
-    sortType = 'desc',
-    userId,
-  } = req.query;
+  const { query, sortBy = 'createdAt', sortType = 'desc', userId } = req.query;
 
   // Use mongoDB aggregation pipeline with pagination logic
   const pipeline = [];
@@ -279,17 +274,7 @@ export const getAllVideos = catchAsync(async (req, res, next) => {
   // Count total videos
   const totalVideos = await Video.aggregate(pipeline).then((res) => res.length);
 
-  const videoAggregate = Video.aggregate(pipeline);
-
-  const paginationsOptions = {
-    page: parseInt(page, 10),
-    limit: parseInt(page, 10),
-  };
-
-  const videos = await Video.aggregatePaginate(
-    videoAggregate,
-    paginationsOptions
-  );
+  const videos = await Video.aggregate(pipeline);
 
   // send response
   return res.status(200).json({
@@ -298,8 +283,78 @@ export const getAllVideos = catchAsync(async (req, res, next) => {
     data: {
       totalVideos,
       videos,
-      totalPages: Math.ceil(totalVideos / limit), // Calculate the total number of pages
-      currentPage: parseInt(page),
+    },
+  });
+});
+
+export const getUserVideos = catchAsync(async (req, res, next) => {
+  const { username } = req.params;
+
+  // Check if username is provided
+  if (!username) {
+    return next(new AppError('Username is required', 400));
+  }
+
+  // Find the user by username
+  const user = await User.findOne({ username });
+
+  if (!user) {
+    return next(new AppError('User not found', 404));
+  }
+
+  const userId = user._id;
+
+  // Fetch the videos
+  const userVideos = await Video.aggregate([
+    {
+      $match: { owner: new mongoose.Types.ObjectId(userId) },
+    },
+    {
+      $lookup: {
+        from: 'users',
+        localField: 'owner',
+        foreignField: '_id',
+        as: 'ownerDetails',
+        pipeline: [
+          {
+            $project: {
+              name: 1,
+              username: 1,
+              avatar: 1,
+            },
+          },
+        ],
+      },
+    },
+    {
+      $unwind: '$ownerDetails',
+    },
+    {
+      $project: {
+        title: 1,
+        description: 1,
+        videoFile: 1,
+        thumbnail: 1,
+        views: 1,
+        createdAt: 1,
+        duration: 1,
+        isPublished: 1,
+        owner: 1,
+        ownerDetails: 1,
+      },
+    },
+  ]);
+
+  if (!userVideos || userVideos.length === 0) {
+    return next(new AppError('No videos found for this user', 404));
+  }
+
+  // Send the response
+  return res.status(200).json({
+    status: 'success',
+    message: 'User videos fetched successfully',
+    data: {
+      videos: userVideos,
     },
   });
 });
@@ -313,15 +368,16 @@ export const updateVideo = catchAsync(async (req, res, next) => {
   if (!videoId) {
     return next(new AppError('Invalid video ID', 400));
   }
+
   // title and description fields are not empty
   if (!(title || description)) {
-    return next(new AppError('title ad descriptions are required', 400));
+    return next(new AppError('title and description are required', 400));
   }
 
   // fetch video
   const video = await Video.findById(videoId);
 
-  // check if video exist
+  // check if video exists
   if (!video) {
     return next(new AppError('Video not found', 404));
   }
@@ -329,54 +385,57 @@ export const updateVideo = catchAsync(async (req, res, next) => {
   // check owner is same
   if (video?.owner.toString() !== userId.toString()) {
     return next(
-      new AppError("you are not authorized to update this video', 403 ")
+      new AppError('You are not authorized to update this video', 403)
     );
   }
 
-  // store old thumbnail public ID
+  // store old thumbnail public ID if it exists
   const deleteOldThumbnail = video.thumbnail?.public_id;
 
-  // update thumbnail
-  const thumbnailLocalPath = req.file?.buffer;
+  let thumbnail;
 
-  const thumbnail = await uploadOnCloudinary(
-    thumbnailLocalPath.buffer,
-    'image'
-  );
+  // update thumbnail if a new one is uploaded
+  if (req.file) {
+    const thumbnailLocalPath = req.file?.buffer;
 
-  if (!thumbnailLocalPath) {
-    return next(new AppError('thumbnail is required', 400));
+    if (!thumbnailLocalPath) {
+      return next(new AppError('Thumbnail is required', 400));
+    }
+
+    thumbnail = await uploadOnCloudinary(thumbnailLocalPath, 'image');
   }
 
-  // update the video
+  // update the video without changing the thumbnail if no new thumbnail is uploaded
+  const updatedData = {
+    title,
+    description,
+  };
+
+  if (thumbnail) {
+    updatedData.thumbnail = {
+      url: thumbnail.url,
+      public_id: thumbnail.public_id,
+    };
+  }
+
+  // update the video in the database
   const updatedVideo = await Video.findByIdAndUpdate(
     videoId,
-    {
-      $set: {
-        title,
-        description,
-        thumbnail: {
-          url: thumbnail.url,
-          public_id: thumbnail.public_id,
-        },
-      },
-    },
-    {
-      new: true,
-    }
+    { $set: updatedData },
+    { new: true }
   );
 
   if (!updatedVideo) {
     return next(new AppError('Failed to update the video', 500));
   }
 
-  // delete the old thumbnail
-  if (deleteOldThumbnail) {
+  // delete the old thumbnail if a new one was uploaded
+  if (deleteOldThumbnail && thumbnail) {
     try {
       await deleteFromCloudinary(deleteOldThumbnail, 'image');
     } catch (error) {
       return next(
-        new AppError('Failed to delete thumbnail from cloudinary', 400)
+        new AppError('Failed to delete old thumbnail from Cloudinary', 400)
       );
     }
   }
@@ -384,7 +443,7 @@ export const updateVideo = catchAsync(async (req, res, next) => {
   // send the response
   return res.status(200).json({
     status: 'success',
-    message: 'video updated successfully',
+    message: 'Video updated successfully',
     updatedVideo,
   });
 });
