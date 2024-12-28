@@ -154,7 +154,7 @@ jobs:
           DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
 
       - name: Deploy to prod server
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v0.1.11
         # 1) Map GH secrets to environment variables for your SSH session
         env:
           DATABASE_URI: ${{ secrets.DATABASE_URI }}
