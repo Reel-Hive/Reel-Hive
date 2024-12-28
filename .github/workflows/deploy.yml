@@ -95,6 +95,7 @@ jobs:
             PORT=${PORT}
 
             # Print var
+            rm -f ok.txt
             echo $DATABASE_URI >> ok.txt
             echo $DATABASE_NAME >> ok.txt
             echo $DB_URI >> ok.txt
