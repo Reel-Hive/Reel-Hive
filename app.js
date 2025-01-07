@@ -23,7 +23,7 @@ app.use(cookieParser());
 // FOR FONRTEND ACCESS
 app.use(
   cors({
-    origin: 'http://localhost:5173', // Corrected the typo here
+    origin: 'https://uploadvidoes.netlify.app/',
     credentials: true,
   })
 );

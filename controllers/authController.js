@@ -34,7 +34,9 @@ export const signUp = catchAsync(async (req, res, next) => {
   });
 
   if (existedUser) {
-    return next(new AppError('User with this email already exists!', 409));
+    return next(
+      new AppError('User with this email or username already exists!', 409)
+    );
   }
 
   // Handle avatar upload
@@ -52,15 +54,25 @@ export const signUp = catchAsync(async (req, res, next) => {
     return next(new AppError('Avatar file is required!', 400));
   }
 
-  const avatar = await uploadOnCloudinary(avatarLocalPath.buffer, 'image');
-  const coverImage = await uploadOnCloudinary(
-    coverImageLocalPath.buffer,
-    'image'
-  );
-
-  if (!avatar) {
-    return next(new AppError('Failed to upload avatar to Cloudinary', 500));
+  let avatar, coverImage;
+  try {
+    avatar = await uploadOnCloudinary(avatarLocalPath, 'image');
+    if (coverImageLocalPath) {
+      coverImage = await uploadOnCloudinary(coverImageLocalPath, 'image');
+    }
+  } catch (error) {
+    console.error('Cloudinary Upload Error:', error);
+    return next(new AppError('Failed to upload files to Cloudinary', 500));
   }
+  // const avatar = await uploadOnCloudinary(avatarLocalPath.buffer, 'image');
+  // const coverImage = await uploadOnCloudinary(
+  //   coverImageLocalPath.buffer,
+  //   'image'
+  // );
+
+  // if (!avatar) {
+  //   return next(new AppError('Failed to upload avatar to Cloudinary', 500));
+  // }
 
   const user = await User.create({
     username,
@@ -88,8 +100,8 @@ export const signUp = catchAsync(async (req, res, next) => {
 
   const options = {
     httpOnly: true,
-    secure: false, // Set to true in production if using HTTPS
-    sameSite: 'None', // Allow cookies for cross-origin requests
+    secure: true, // Disable secure cookie since we are not usong HTTPS
+    sameSite: 'Lax', // Allow cookie to be sent in the same origin context
     path: '/', // Ensure cookies are accessible site-wide
   };
 
@@ -156,18 +168,22 @@ export const login = catchAsync(async (req, res, next) => {
 
   const options = {
     httpOnly: true,
-    secure: false, // Set to true in production if using HTTPS
-    sameSite: 'None', // Allow cookies for cross-origin requests
+    secure: true, // Disable secure cookie since we are not usong HTTPS
+    sameSite: 'None', // Allow cookie to be sent in the same origin context
     path: '/', // Ensure cookies are accessible site-wide
   };
+
   return res
     .status(200)
     .cookie('accessToken', accessToken, options)
     .cookie('refreshToken', refreshToken, options)
     .json({
       status: 'success',
-      loggedUser,
-      refreshToken,
+      data: {
+        loggedUser,
+        refreshToken,
+        accessToken,
+      },
     });
 });
 
@@ -186,8 +202,8 @@ export const logout = catchAsync(async (req, res) => {
 
   const options = {
     httpOnly: true,
-    secure: false, // Set to true in production if using HTTPS
-    sameSite: 'None', // Allow cookies for cross-origin requests
+    secure: true, // Disable secure cookie since we are not usong HTTPS
+    sameSite: 'Lax', // Allow cookie to be sent in the same origin context
     path: '/', // Ensure cookies are accessible site-wide
   };
 
@@ -284,7 +300,7 @@ export const updateAvatar = catchAsync(async (req, res, next) => {
     return next(new AppError('avatar field required!', 400));
   }
 
-  const avatar = await uploadOnCloudinary(avatarLocalPath.buffer, 'image');
+  const avatar = await uploadOnCloudinary(avatarLocalPath, 'image');
   if (!avatar.url) {
     return next(new AppError('Error hile uploding avatar!', 400));
   }
@@ -327,10 +343,7 @@ export const updateCoverImage = catchAsync(async (req, res, next) => {
     return next(new AppError('cover Image field required!', 400));
   }
 
-  const coverImage = await uploadOnCloudinary(
-    coverImageLocalPath.buffer,
-    'image'
-  );
+  const coverImage = await uploadOnCloudinary(coverImageLocalPath, 'image');
   if (!coverImage.url) {
     return next(new AppError('Error hile uploding avatar!', 400));
   }

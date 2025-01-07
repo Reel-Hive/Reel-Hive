@@ -30,11 +30,17 @@ export const publishVideo = catchAsync(async (req, res, next) => {
   }
 
   // Upload on cloudinary
-  const videoFile = await uploadOnCloudinary(videoLocalPath.buffer, 'video');
-  const thumbnail = await uploadOnCloudinary(
-    thumbnailLocalPath.buffer,
-    'image'
-  );
+  let videoFile, thumbnail;
+  try {
+    videoFile = await uploadOnCloudinary(videoLocalPath, 'video');
+    thumbnail = await uploadOnCloudinary(thumbnailLocalPath, 'image');
+  } catch (error) {
+    console.error('Cloudinary Upload Error:', error);
+    return next(new AppError('Failed to upload files to Cloudinary', 500));
+  }
+
+  // const videoFile = await uploadOnCloudinary(videoLocalPath.buffer, 'video');
+  // const thumbnail = await uploadOnCloudinary(thumbnailLocalPath.buffer, 'image');
 
   if (!(videoFile || !thumbnail)) {
     return next(new AppError('Failed to upload file on cloudinary!', 400));
