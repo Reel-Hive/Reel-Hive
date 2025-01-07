@@ -23,7 +23,7 @@ app.use(cookieParser());
 // FOR FONRTEND ACCESS
 app.use(
   cors({
-    origin: 'https://uploadvidoes.netlify.app/',
+    origin: "*",
     credentials: true,
   })
 );
