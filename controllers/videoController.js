@@ -99,6 +99,123 @@ export const publishVideo = catchAsync(async (req, res, next) => {
   });
 });
 
+// export const getVideoById = catchAsync(async (req, res, next) => {
+//   const { videoId } = req.params;
+//   const userId = req.user?._id;
+
+//   const isValidId = (id) => mongoose.isValidObjectId(id);
+//   if (!isValidId(videoId)) {
+//     return next(new AppError('Invalid video ID', 400));
+//   }
+//   if (!isValidId(userId)) {
+//     return next(new AppError('Invalid user ID', 400));
+//   }
+
+//   // Fetch video details
+//   const video = await Video.aggregate([
+//     {
+//       $match: { _id: new mongoose.Types.ObjectId(videoId) },
+//     },
+//     {
+//       $lookup: {
+//         from: 'likes',
+//         localField: '_id',
+//         foreignField: 'video',
+//         as: 'likes',
+//       },
+//     },
+//     {
+//       $lookup: {
+//         from: 'users',
+//         localField: 'owner',
+//         foreignField: '_id',
+//         as: 'owner',
+//         pipeline: [
+//           {
+//             $lookup: {
+//               from: 'subscriptions',
+//               localField: '_id',
+//               foreignField: 'channel',
+//               as: 'subscribers',
+//             },
+//           },
+//           {
+//             $addFields: {
+//               subscribersCount: { $size: '$subscribers' },
+//               isSubscribed: { $in: [userId, '$subscribers.subscriber'] },
+//             },
+//           },
+//           {
+//             $project: {
+//               name: 1,
+//               avatar: 1,
+//               subscribersCount: 1,
+//               isSubscribed: 1,
+//             },
+//           },
+//         ],
+//       },
+//     },
+//     {
+//       $addFields: {
+//         likesCount: { $size: '$likes' },
+//         owner: { $first: '$owner' },
+//         isLiked: { $in: [userId, '$likes.likedBy'] },
+//       },
+//     },
+//     {
+//       $project: {
+//         title: 1,
+//         description: 1,
+//         videoFile: 1,
+//         views: 1,
+//         createdAt: 1,
+//         duration: 1,
+//         Comments: 1,
+//         owner: 1,
+//         likesCount: 1,
+//         isLiked: 1,
+//       },
+//     },
+//   ]);
+
+//   if (!video || video.length === 0) {
+//     return next(new AppError('Video not found', 404));
+//   }
+
+//   const videoDetails = video[0];
+//   const cloudinaryUrl = videoDetails.videoFile?.url;
+
+//   if (!cloudinaryUrl) {
+//     return next(new AppError('Video URL not found', 500));
+//   }
+
+//   // Update view count and user watch history
+//   await Promise.all([
+//     Video.findByIdAndUpdate(videoId, { $inc: { views: 1 } }),
+//     User.findByIdAndUpdate(userId, { $addToSet: { watchHistory: videoId } }),
+//   ]);
+
+//   // Fetch the streaming URL from cloudinary
+//   try {
+//     const streamUrl = getStreamUrlFromCloudinary(cloudinaryUrl);
+
+//     // Send response
+//     return res.status(200).json({
+//       status: 'success',
+//       message: 'Video details fetched successfully',
+//       video: {
+//         ...videoDetails,
+//         streamUrl,
+//       },
+//     });
+//   } catch (error) {
+//     return next(
+//       new AppError('Failed to fetch stream URL from cloudinary', 500)
+//     );
+//   }
+// });
+
 export const getVideoById = catchAsync(async (req, res, next) => {
   const { videoId } = req.params;
   const userId = req.user?._id;
@@ -111,7 +228,7 @@ export const getVideoById = catchAsync(async (req, res, next) => {
     return next(new AppError('Invalid user ID', 400));
   }
 
-  // Fetch video details
+  // Fetch video details with likes and dislikes
   const video = await Video.aggregate([
     {
       $match: { _id: new mongoose.Types.ObjectId(videoId) },
@@ -122,6 +239,19 @@ export const getVideoById = catchAsync(async (req, res, next) => {
         localField: '_id',
         foreignField: 'video',
         as: 'likes',
+      },
+    },
+    {
+      $lookup: {
+        from: 'likes',
+        localField: '_id',
+        foreignField: 'video',
+        as: 'dislikes',
+        pipeline: [
+          {
+            $match: { type: 'dislike' }, // Filter only dislikes
+          },
+        ],
       },
     },
     {
@@ -159,8 +289,10 @@ export const getVideoById = catchAsync(async (req, res, next) => {
     {
       $addFields: {
         likesCount: { $size: '$likes' },
+        dislikesCount: { $size: '$dislikes' }, // Count dislikes
         owner: { $first: '$owner' },
         isLiked: { $in: [userId, '$likes.likedBy'] },
+        isDisliked: { $in: [userId, '$dislikes.likedBy'] }, // Check if user disliked
       },
     },
     {
@@ -174,7 +306,9 @@ export const getVideoById = catchAsync(async (req, res, next) => {
         Comments: 1,
         owner: 1,
         likesCount: 1,
+        dislikesCount: 1, // Include dislikes count
         isLiked: 1,
+        isDisliked: 1, // Include dislike status
       },
     },
   ]);
@@ -196,7 +330,7 @@ export const getVideoById = catchAsync(async (req, res, next) => {
     User.findByIdAndUpdate(userId, { $addToSet: { watchHistory: videoId } }),
   ]);
 
-  // Fetch the streaming URL from cloudinary
+  // Fetch the streaming URL from Cloudinary
   try {
     const streamUrl = getStreamUrlFromCloudinary(cloudinaryUrl);
 
