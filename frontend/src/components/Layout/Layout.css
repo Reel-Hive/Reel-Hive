@@ -1,0 +1,52 @@
+/* General layout styles */
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.main-layout {
+  display: flex;
+  flex: 1;
+}
+
+.sidebar {
+  width: 15%;
+  height: 100vh;
+  position: fixed;
+  left: -15%; /* Hidden by default */
+  transition: left 0.3s ease;
+  background-color: #fff;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar.open {
+  left: 0; /* Sidebar visible */
+}
+
+.content {
+  flex: 1;
+  margin-left: 0;
+  padding: 20px;
+  transition: margin-left 0.3s ease;
+}
+
+.content.sidebar-open {
+  margin-left: 15%; /* Adjust based on sidebar width */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 25%; /* Adjust width for smaller screens */
+    left: -70%; /* Initially hidden */
+  }
+
+  .side-links p{
+    display: block;
+}
+
+  .content.sidebar-open {
+    margin-left: 0; /* No margin for hidden sidebar */
+  }
+}

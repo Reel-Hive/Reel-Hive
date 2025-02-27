@@ -1,0 +1,150 @@
+.container {
+    width: 100%;
+    height: auto;
+    margin: 0;
+}
+
+.content {
+    max-width: 900px;
+    width: 100%;
+    height: auto;
+    background: #fff;
+    border-radius: 10px;
+    padding: 40px;
+    margin: 40px auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.updater {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+}
+.updater h2{
+    margin-left: 5px;
+}
+.avtar {
+    width: 150px;
+    height: 150px;
+    border: 1px solid #3c009d;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.avtar i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    text-decoration: none;
+    color: #111;
+}
+
+.avtar img {
+    width: 100%;
+    height: 100%;
+    object-position: center;
+    object-fit: cover;
+}
+
+
+button {
+    padding: 16px 30px;
+    border: none;
+    outline: none;
+    background-color: #3c009d;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    border-radius: 15px;
+    cursor: pointer;
+
+}
+
+.coverImage {
+    width: 100%;
+    height: 150px;
+    display: flex;
+    border: 1px solid #3c009d;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.coverImage i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    text-decoration: none;
+    color: #111;
+}
+
+.coverImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.coverImage span {
+    margin-top: 10px;
+}
+
+
+
+.updateDetails {
+    max-width: 350px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.inputField {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 60px;
+    border: 1px solid #111;
+    padding: 15px;
+    margin: 8px;
+    border-radius: 25px;
+}
+
+.inputField input {
+    width: 100%;
+    height: 100%;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    color: #111;
+}
+
+.inputField i {
+    margin-right: 10px;
+    font-size: 25px;
+    color: #111;
+}
+
+
+.updatePassword {
+    max-width: 350px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
