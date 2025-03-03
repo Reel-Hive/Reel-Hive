@@ -67,7 +67,7 @@ import { UserContext } from "../userContext";
 import { useNavigate } from "react-router-dom";
 
 
-const Login = ({ switchToSignup }) => {
+const Login = () => {
   const navigate = useNavigate();
   useEffect(() => {
     document.body.classList.add("auth-page"); // Add class on mount
@@ -117,7 +117,6 @@ const Login = ({ switchToSignup }) => {
         <div className="text">Login</div>
         <div className="underline"></div>
       </div>
-
       <div className="inputs">
         <div className="input">
           <img src={email_icon} alt="" />
@@ -136,10 +135,11 @@ const Login = ({ switchToSignup }) => {
 
       <div className="submit-container">
         <div className="submit gray">Login</div>
-        <div className="submit" onClick={switchToSignup}>Sign Up</div>
+        <div className="submit" onClick={()=>navigate("/signup")}>Sign Up</div>
       </div>
     </div>
   );
 };
 
 export default Login;
+  

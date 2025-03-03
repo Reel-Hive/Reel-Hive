@@ -38,13 +38,15 @@ const History = () => {
           watchHistory.map((video) => (
             <div className="videoBox"
               key={video._id}>
-              <img  src={video.thumbnail.url || './images/signup-backgorund.jpg'}
-                  alt={video.title}/>
               <div className="box">
-                <div className="image">
-                  <img  src={video.owner.avatar || './images/user.svg'}
+                <img src={video.thumbnail.url || './images/signup-backgorund.jpg'}
+                  alt={video.title} />
+              </div>
+              <div className="feed-info">
+                <div className="user">
+                  <img src={video.owner.avatar || './images/user.svg'}
                     className="profile_logo"
-                    alt={video.owner.username}/>
+                    alt={video.owner.username} />
                 </div>
                 <div className='description'>
                   <h2>{video.title}</h2>

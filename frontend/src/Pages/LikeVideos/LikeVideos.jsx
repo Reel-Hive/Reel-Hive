@@ -39,15 +39,17 @@ const LikeVideos = () => {
             return (
               <div className="videoBox"
                 key={index}>
-                <img src={video.thumbnail.url || './images/signup-backgorund.jpg'}
+                  <div className="box">
+                  <img src={video.thumbnail.url || './images/signup-backgorund.jpg'}
                   alt={video.title || 'Video thumbnail'} />
-                <div className="box">
-                  <div className="image">
+                  </div>
+                  <div className="feed-info">
+                    <div className="user">
                     <img src={video.ownerDetails?.avatar || './images/user.svg'}
                       className="profile_logo"
                       alt={video.ownerDetails?.username || 'User avatar'} />
-                  </div>
-                  <div className='description'>
+                    </div>
+                    <div className='description'>
                     <h2>{video.title || 'Untitled video'}</h2>
                     <h3>@{video.ownerDetails?.username || 'Unknown User'}</h3>      
                     <div className="info">
@@ -59,7 +61,9 @@ const LikeVideos = () => {
                       </p>
                     </div>
                   </div>
-                </div>
+                  </div>
+           
+               
               </div>
             )
 

@@ -58,8 +58,10 @@ const YourVideos = () => {
           <div className="channelUserInfo">
             <h1>{channelProfile?.name}</h1>
             <span>
-              <p>@{channelProfile?.username}</p> •{' '}
-              <p>{channelProfile?.subscribersCount} subscribers</p> •
+              <p>@{channelProfile?.username}</p> 
+               <span className="dot"> •{' '}</span> 
+              <p>{channelProfile?.subscribersCount} subscribers</p> 
+              <span className="dot">•</span> 
               <p>{channelProfile?.channelsSubscribedToCount} subscriptions</p>
             </span>
             <button>
@@ -84,14 +86,14 @@ const YourVideos = () => {
                   <div className="channelDescription">
                     <h4>{video.title}</h4>
                     <h5>@{channelProfile?.username}</h5>
-                  <div className="channelInfo">
-                  <p>{video.views} •{' '} </p> 
+                    <div className="channelInfo">
+                      <p>{video.views} •{' '} </p>
                       <p>
                         {formatDistanceToNow(new Date(video.createdAt), {
                           addSuffix: true,
                         })}
                       </p>
-                  </div>   
+                    </div>
                   </div>
                 </div>
               </div>

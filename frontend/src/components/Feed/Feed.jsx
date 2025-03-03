@@ -89,11 +89,13 @@ const Feed = () => {
             <div className="videoBox"
               key={video._id}
               onClick={() => handleVideoClick(video._id)}>
-              <img src={video.thumbnail.url} alt={video.title} />
               <div className="box">
-                <div className="image">
+                <img src={video.thumbnail.url} alt={video.title} />
+              </div>
+              <div className="feed-info">
+                <div className="user">
                   <img src={video.ownerDetails.avatar || './images/user.svg'}
-                  className="profile_logo"
+                    className="profile_logo"
                     alt={video.ownerDetails.name} />
                 </div>
                 <div className='description'>
@@ -108,7 +110,8 @@ const Feed = () => {
                     </p>
                   </div>
                 </div>
-                </div>
+              </div>
+
             </div>
           )
 

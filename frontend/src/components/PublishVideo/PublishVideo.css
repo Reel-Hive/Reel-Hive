@@ -1,10 +1,11 @@
 .publishVideo-container {
     width: 100%;
     height: auto;
-    margin-top: 35px;
+    margin-top: 50px;
+    padding: 20px;
 }
 
-h1{
+h1 {
     margin-left: 5px;
 }
 
@@ -31,37 +32,40 @@ h1{
     border: 1px solid #222;
     border-radius: 10px;
     overflow: hidden;
-
-    input {
-        width: 100%;
-        height: 100%;
-        border: none;
-        outline: none;
-        background: transparent;
-        padding: 15px;
-        font-size: 18px;
-        color: black;
-    }
 }
+
+.publishVideo-inputField input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 15px;
+    font-size: 18px;
+    color: #555;
+}
+
 
 .publishVideo-textAreaField {
     width: 100%;
     height: 100%;
     border: 1px solid #222;
-    border-radius: 10px;
-    overflow: hidden;    
+    overflow: hidden;
 }
+
 .publishVideo-textAreaFeild textarea {
     width: 650px;
     height: 400px;
-    /* outline: none;    */
-    border: 1px solid #222;     
+    outline: none;
+    border: 1px solid #222;
     background: transparent;
     padding: 15px;
     font-size: 18px;
-    color: black;
+    border-radius: 10px;
+    color: #555;
     resize: none;
 }
+
 .publishVideo-textAreaFeild textarea::-webkit-scrollbar {
     width: 10px;
 }
@@ -73,9 +77,11 @@ h1{
 .publishVideo-textAreaFeild textarea::-webkit-scrollbar-track {
     background-color: #000;
 }
+
 .publishVideo-thumbnail {
     h4 {
         font-size: 20px;
+        color: #555;
     }
 }
 
@@ -90,19 +96,20 @@ h1{
     justify-content: center;
     align-items: center;
     cursor: pointer;
-
-    i {
-        font-size: 35px;    
-        color: #fff;
-    }
-
-    img {
-        width: 100%;
-        height: 100%;
-        object-position: center;
-        object-fit: cover;
-    }
 }
+
+.publishVideo-boxes i {
+    font-size: 35px;
+    color: #555;
+}
+
+.publishVideo-boxes img {
+    width: 100%;
+    height: 100%;
+    object-position: center;
+    object-fit: cover;
+}
+
 
 .publishVideo-button {
     padding: 16px 30px;
@@ -110,7 +117,7 @@ h1{
     outline: none;
     background: #0d7aff;
     border-radius: 20px;
-    font-size: 18px;                    
+    font-size: 18px;
     font-weight: 700;
     color: #fff;
     cursor: pointer;
@@ -135,30 +142,34 @@ h1{
     border-radius: 15px;
     overflow: hidden;
     cursor: pointer;
-
-    i {
-        font-size: 35px;
-        color: #fff;
-    }
-
-    video {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    span {
-        margin-left: 15px;
-    }
 }
+
+.publishVideo-upload i {
+    font-size: 35px;
+    color: #555;
+}
+
+.publishVideo-upload video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.publishVideo-upload span {
+    margin-left: 15px;
+    color: #555;
+}
+
 
 .publishVideo-publishStatus {
     margin-top: 20px;
-
-    h4 {
-        font-size: 20px;
-    }
 }
+
+.publishVideo-publishStatus h4 {
+    font-size: 20px;
+    color: #555;
+}
+
 
 .publishVideo-select {
     margin-top: 10px;
@@ -168,14 +179,100 @@ h1{
     outline: none;
     border-radius: 10px;
     background: #3c009d;
-    color:#fff;
+    color: #fff;
     padding: 10px;
     appearance: none;
     font-size: 16px;
     cursor: pointer;
 }
 
-.publishVideo-select option{
-   color: #fff;
+.publishVideo-select option {
+    color: #fff;
 }
-                                                                                                                        
+
+/* Responsive style */
+@media screen and (max-width: 1024px) {
+    .publishVideo-content {
+        flex-direction: column;
+    }
+
+    .publishVideo-left,
+    .publishVideo-right {
+        width: 100%;
+    }
+
+    .publishVideo-inputField,
+    .publishVideo-textAreaField,
+    .publishVideo-upload {
+        width: 650px;
+    }
+
+    .publishVideo-boxes{
+        width: 650px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .publishVideo-container {
+        margin-top: 20px;
+    }
+
+    .publishVideo-boxes {
+        width: 600px;
+    }
+
+    .publishVideo-inputField {
+        height: 80px;
+        width: 600px;
+        
+    }
+    .publishVideo-textAreaFeild textarea {
+        height: 200px;
+        width: 600px;
+        
+    }
+
+    .publishVideo-button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .publishVideo-upload {
+        height: 250px;
+        width: 600px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    h1 {
+        font-size: 20px;
+    }
+
+    .publishVideo-inputField {
+        height: 80px;
+        width: 200px;
+    }
+    .publishVideo-textAreaFeild textarea {
+        width: 200px;
+        height: 200px;
+    }
+
+    .publishVideo-boxes {
+        width: 200px;
+    }
+
+    .publishVideo-boxes {
+        height: 150px;
+    }
+
+    .publishVideo-left button {
+        padding: 12px;
+        font-size: 14px;
+        width: 200px;
+    }
+
+    .publishVideo-upload {
+        height: 200px;
+        width: 200px;
+    }
+}

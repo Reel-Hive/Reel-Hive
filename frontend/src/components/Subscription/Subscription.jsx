@@ -34,30 +34,31 @@ const Subscription = () => {
   return (
     <div className="feed">
       <div className="card">
-        <p>No subcription found.</p>
         {subscribedChannels.map((channel) => (
           <div className="videoBox" key={channel._id}>
-            <img src={channel.latestVideo.thumbnail.url} alt={channel.name} />
             <div className="box">
-            <div className="image">
-              <img src={channel.avatar} className='profile_logo' alt={channel.name} />
+              <img src={channel.latestVideo.thumbnail.url} alt={channel.name} />
             </div>
-           <div className='description'>
-           <h2>{channel.latestVideo.title}</h2>
-            <h3>@{channel.username}</h3>
-           <div className="info">
-           <p>{channel.latestVideo.views} views • </p>
-            <p>
-              {formatDistanceToNow(new Date(channel.latestVideo.createdAt), {
-                addSuffix: true,
-              })}
-            </p>
-           </div>
-           </div>
+            <div className="feed-info">
+              <div className="user">
+                <img src={channel.avatar} className='profile_logo' alt={channel.name} />
+              </div>
+              <div className='description'>
+                <h2>{channel.latestVideo.title}</h2>
+                <h3>@{channel.username}</h3>
+                <div className="info">
+                  <p>{channel.latestVideo.views} views • </p>
+                  <p>
+                    {formatDistanceToNow(new Date(channel.latestVideo.createdAt), {
+                      addSuffix: true,
+                    })}
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
-        ))}
-
+        )
+        )}
       </div>
     </div>
   )

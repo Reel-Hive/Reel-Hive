@@ -7,7 +7,7 @@ import axios from "axios";
 const Home = () => {
     return (
         <>
-            <Sidebar />
+            {/* <Sidebar /> */}
        
             <Feed />
            

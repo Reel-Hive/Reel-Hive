@@ -11,7 +11,7 @@
     background: #fff;
     border-radius: 10px;
     padding: 40px;
-    margin: 40px auto;
+    margin: 15px 40px;
     display: flex;
     justify-content: space-between;
 }
@@ -24,13 +24,15 @@
     align-items: flex-start;
     gap: 20px;
 }
+
 .updater h2{
     margin-left: 5px;
 }
+
 .avtar {
     width: 150px;
     height: 150px;
-    border: 1px solid #3c009d;
+    border: 1px solid #222;
     border-radius: 50%;
     overflow: hidden;
     display: flex;
@@ -45,7 +47,7 @@
     align-items: center;
     font-size: 40px;
     text-decoration: none;
-    color: #111;
+    color: #555;
 }
 
 .avtar img {
@@ -54,7 +56,6 @@
     object-position: center;
     object-fit: cover;
 }
-
 
 button {
     padding: 16px 30px;
@@ -73,7 +74,7 @@ button {
     width: 100%;
     height: 150px;
     display: flex;
-    border: 1px solid #3c009d;
+    border: 1px solid #222;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -87,7 +88,7 @@ button {
     align-items: center;
     font-size: 40px;
     text-decoration: none;
-    color: #111;
+    color: #555;
 }
 
 .coverImage img {
@@ -99,9 +100,8 @@ button {
 
 .coverImage span {
     margin-top: 10px;
+    color: #555;
 }
-
-
 
 .updateDetails {
     max-width: 350px;
@@ -118,7 +118,7 @@ button {
     align-items: center;
     width: 100%;
     height: 60px;
-    border: 1px solid #111;
+    border: 1px solid #222;
     padding: 15px;
     margin: 8px;
     border-radius: 25px;
@@ -130,13 +130,13 @@ button {
     font-size: 16px;
     border: none;
     outline: none;
-    color: #111;
+    color: #555;
 }
 
 .inputField i {
     margin-right: 10px;
     font-size: 25px;
-    color: #111;
+    color: #555;
 }
 
 
@@ -147,4 +147,86 @@ button {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+
+/* Responsive style */
+@media screen and (max-width: 1024px) {
+    .content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .updater,
+    .updateDetails,
+    .updatePassword {
+        width: 100%;
+        max-width: 600px;
+    }
+
+    .avtar {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .content {
+        padding: 20px;
+    }
+
+    .avtar {
+        width: 90px;
+        height: 90px;
+    }
+
+    .coverImage {
+        height: 120px;
+    }
+
+    .inputField {
+        height: 50px;
+        padding: 10px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 12px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .content {
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    .avtar {
+        width: 80px;
+        height: 80px;
+    }
+
+    .coverImage {
+        height: 100px;
+    }
+
+    .inputField {
+        height: 45px;
+        padding: 8px;
+    }
+
+    button {
+        font-size: 13px;
+        padding: 10px;
+        width: 100%;
+    }
+
+    .updater button{
+        height: 40px;
+        width: 180px;
+    }
 }

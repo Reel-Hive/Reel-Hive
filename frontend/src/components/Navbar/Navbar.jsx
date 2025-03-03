@@ -1,11 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import './Navbar.css';
 import menu_icon from '/Assets/menu.png';
-// import logo from '/Assets/logo.png';
 import logo from '/Assets/logo_2.png';
 import search_icon from '/Assets/search.png';
-import profile_icon from '/Assets/jack.png';
-import voice_search from '/Assets/voice-search.png';
 import create_icon from '/Assets/create.png';
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../userContext";
@@ -13,6 +10,10 @@ import API from "../../axios";
 
 
 const Navbar = ({ toggleSidebar }) => {
+
+    useEffect(() => {
+        document.body.classList.add("loaded");
+    }, []);
 
     const [isUserInfoVisible, setIsUserInfoVisible] = useState(false);
     const { user, setUser } = useContext(UserContext);
@@ -101,7 +102,8 @@ const Navbar = ({ toggleSidebar }) => {
                 {/* Profile Icon with Dropdown */}
                 <div className="profile-dropdown" onClick={toggleUserInfo}>
                     <img
-                        src={user?.avatar || '/images/user.svg' }  className="profile-image"
+                        src={user?.avatar || '/images/user.svg'}
+                        className="profile-image"
                         alt="User Avatar"
                         onClick={toggleProfileDropdown}
                     />
@@ -111,31 +113,9 @@ const Navbar = ({ toggleSidebar }) => {
                             {isUserInfoVisible && (<ul>
                                 <a href="./your-Videos">Profile</a>
                                 <li onClick={handleLogout} className="signOut">Sign Out</li>
-                                <a href="./settings">Setting</a>  
+                                <a href="./settings">Setting</a>
                             </ul>
                             )}
-                            {/* <UserInfo>
-                <Channel>
-                  <ProfileImage>
-                    <img
-                      src={user?.avatar || '/images/user.svg'} 
-                      alt="User Avatar"
-                    />
-                  </ProfileImage>
-                  <Info>
-                    <h4>{user?.name || 'Guest'}</h4>
-                    <p>@{user?.username || 'username'}</p>
-                    <a href="/your-videos">View your channel</a>
-                  </Info>
-                </Channel>
-
-                <SignOut onClick={handleLogout}>
-                  <i className="bx bx-log-in"></i>
-                  <p>Sign Out</p>
-                </SignOut>
-              </UserInfo>
-             */}
-
                         </div>
                     )}
                 </div>

@@ -9,8 +9,7 @@ import { useNavigate } from "react-router-dom";
 import AuthPage from "./AuthPage";
 
 
-const Signup = ({ switchToLogin }) => {
-
+const Signup = () => {
   useEffect(() => {
     document.body.classList.add("auth-page"); // Add class on mount
     return () => {
@@ -163,7 +162,7 @@ const Signup = ({ switchToLogin }) => {
       </div>
 
       <div className="submit-container">
-        <div className="submit" onClick={switchToLogin}>Login</div>
+        <div className="submit" onClick={()=>navigate("/")}>Login</div>
         <div className="submit gray">Sign Up</div>
       </div>
     </div>
