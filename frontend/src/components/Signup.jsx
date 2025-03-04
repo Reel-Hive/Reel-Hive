@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import "./LoginSignup.css";
 import user_icon from "/Assets/person.png";
 import email_icon from "/Assets/email.png";
-import password_icon from "/Assets/password.png";
+import { FaLock, FaUnlock } from "react-icons/fa";
 import { UserContext } from "../userContext";
 import API from "../axios";
 import { useNavigate } from "react-router-dom";
@@ -19,6 +19,7 @@ const Signup = () => {
 
   const [avatar, setAvatar] = useState(null);
   const [cover, setCover] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     username: '',
@@ -155,14 +156,24 @@ const Signup = () => {
           <input type="email" placeholder="Email Id" name="email" value={formData.email} onChange={handleInputChange} required />
         </div>
         <div className="input">
-          <img src={password_icon} alt="" />
-          <input type="password" placeholder="Password" name="password" value={formData.password} onChange={handleInputChange} required />
-        </div>
+                 {/* Toggle Password Visibility Icon */}
+                 <span className="password-toggle-icon" onClick={() => setShowPassword(!showPassword)}>
+                   {showPassword ? <FaUnlock size={20} /> : <FaLock size={20} />}
+                 </span>
+                 <input
+                   type={showPassword ? "text" : "password"}
+                   name="password"
+                   value={formData.password}
+                   onChange={handleInputChange}
+                   placeholder="Password"
+                   required
+                 />
+               </div>
         <button className="submit-button" onClick={handleSubmit}>Sign Up</button>
       </div>
 
       <div className="submit-container">
-        <div className="submit" onClick={()=>navigate("/")}>Login</div>
+        <div className="submit" onClick={() => navigate("/")}>Login</div>
         <div className="submit gray">Sign Up</div>
       </div>
     </div>

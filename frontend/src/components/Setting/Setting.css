@@ -25,7 +25,7 @@
     gap: 20px;
 }
 
-.updater h2{
+.updater h2 {
     margin-left: 5px;
 }
 
@@ -149,6 +149,17 @@ button {
     align-items: center;
 }
 
+.setting-password-toggle-icon {
+    margin-right: 10px;
+    font-size: 25px;
+    color: #555;
+    margin-left: 8px;
+}
+.success-message {
+    color: #3c009d;
+    font-size: 14px;
+    margin-top: 10px;
+}
 
 /* Responsive style */
 @media screen and (max-width: 1024px) {
@@ -168,6 +179,12 @@ button {
     .avtar {
         width: 100px;
         height: 100px;
+        margin-left: 50px;
+    }
+    .updater button {
+        width: 225px;
+        height: 65px;
+        align-items: center;
     }
 }
 
@@ -179,6 +196,14 @@ button {
     .avtar {
         width: 90px;
         height: 90px;
+        margin-left: 50px;
+
+    }
+
+    .updater button {
+        width: 200px;
+        height: 50px;
+        align-items: center;
     }
 
     .coverImage {
@@ -208,6 +233,7 @@ button {
     .avtar {
         width: 80px;
         height: 80px;
+        margin-left: 50px;
     }
 
     .coverImage {
@@ -225,7 +251,7 @@ button {
         width: 100%;
     }
 
-    .updater button{
+    .updater button {
         height: 40px;
         width: 180px;
     }

@@ -82,11 +82,11 @@
 .channelVideoList {
     width: 100%;
     height: auto;
-    padding: 20px;
+    padding: 25px;
     display: grid;
     grid-gap: 25px;
-    gap: 200px;
-    grid-template-columns: repeat(auto-fit, minmax(0px, 1fr));
+    gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
 .channelVideoBpx {
@@ -266,6 +266,7 @@
         text-align: center;
     }
 
+
     .channelUserInfo h1 {
         font-size: 20px;
     }
@@ -279,7 +280,17 @@
         grid-template-columns: 1fr;
     }
 
+    .channelInfo p {
+        font-size: 12px;
+    }
+
     .channelBox {
         height: 180px;
     }
 }
+
+@media screen and (max-width : 400px){
+    .channelInfo p {
+        font-size: 10px;
+    }
+  }

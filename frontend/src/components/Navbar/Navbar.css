@@ -36,22 +36,12 @@ nav {
     top: 0;
     z-index: 1050;
     transition: all 0.3s ease;
-    
 }
-
-/* nav {
-    visibility: hidden;
-}
-body.loaded nav {
-    visibility: visible;
-} */
-
 
 .nav-left .menu-icon {
     width: 22px;
     margin-right: 25px;
     z-index: 1100;
-    /* Higher than sidebar */
 }
 
 .nav-left .logo {
@@ -63,29 +53,15 @@ body.loaded nav {
     color: #000;
 }
 
-/* .nav-middle {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-} */
-
-.nav-middle .search-box {
-    /* display: flex;
-    align-items: center; */
+.nav-middle .search-box { 
     border: 1px solid #ccc;
     margin-right: 15px;
     padding: 8px 12px;
     border-radius: 25px;
-    /* width: 100%;
-    max-width: 450px; */
 }
 
 
 .nav-middle .search-box input {
-    /* width: 450px;
-    border: 0;
-    outline: 0;
-    background: transparent; */
     width: 400px;
     border: 0;
     outline: 0;
@@ -94,7 +70,6 @@ body.loaded nav {
 
 .nav-middle .search-box img {
     width: 15px;
-    /* margin-left: 10px; */
 }
 
 .nav-right {
@@ -131,7 +106,7 @@ body.loaded nav {
 .nav-right .user-icon {
     width: 35px;
     border-radius: 50%;
-    margin-left: 50px;  
+    margin-left: 50px;
 }
 
 /* create-icon */
@@ -174,7 +149,6 @@ body.loaded nav {
 /* profile-icon */
 .profile-dropdown {
     position: relative;
-    /* Parent for dropdown positioning */
 }
 
 .dropdown-menu {
@@ -221,39 +195,43 @@ body.loaded nav {
     color: black;
 }
 
-/* Responsive */
+/* Responsive style */
 
 @media screen and (max-width: 1024px) {
     .nav-middle .search-box {
         max-width: 300px;
     }
-    .nav-right{
+
+    .nav-right {
         justify-content: flex-end;
     }
 }
 
 @media screen and (max-width: 768px) {
 
-    .nav-left .logo{
+    .nav-left .logo {
         width: 30px;
         height: 30px;
     }
-   
+
     .nav-middle .search-box {
         max-width: 380px;
     }
+
     .nav-middle .search-box img {
-       display: none;
+        display: none;
     }
+
     .nav-right {
-       
+
         margin-right: 150px;
         gap: 16px;
         flex-shrink: 0;
     }
+
     .nav-right img {
         width: 35px;
-        margin-right:0;
+        margin-right: 0;
     }
 
     .profile-image {
@@ -269,11 +247,11 @@ body.loaded nav {
     }
 
     .flex-div {
-        gap: 8px; /* Reduce gaps */
+        gap: 8px;
     }
 
     .nav-left .menu-icon {
-        width: 18px; /* Reduce menu icon size */
+        width: 18px;
         margin-right: 10px;
     }
 
@@ -284,7 +262,7 @@ body.loaded nav {
     }
 
     .nav-left p {
-        display: none; /* Hide text to save space */
+        display: none;
     }
 
     .nav-middle .search-box {
@@ -294,7 +272,7 @@ body.loaded nav {
     }
 
     .nav-middle .search-box input {
-        width: 150px; /* Reduce search bar width */
+        width: 150px;
         font-size: 14px;
     }
 
@@ -303,15 +281,15 @@ body.loaded nav {
     }
 
     .nav-right {
-        gap:15px;
+        gap: 15px;
     }
 
     .nav-right .create-icon {
-       display: none;
+        display: none;
     }
 
     .nav-right img {
-        width: 35px; /* Reduce icon sizes */
+        width: 35px;
         margin-right: 5px;
     }
 
@@ -330,13 +308,81 @@ body.loaded nav {
         margin-left: 20px;
     }
 
-    /* Dropdown adjustments */
     .dropdown-menu {
-        width: 130px; /* Reduce dropdown width */
-        font-size: 14px; /* Reduce text size */
+        width: 130px;
+        font-size: 14px;
     }
 
     .dropdown-menu li {
         padding: 8px 12px;
+    }
+
+    @media (max-width: 400px) {
+        nav {
+            padding: 8px 4%;
+            height: 45px;
+        }
+
+        .flex-div {
+            gap: 6px;
+        }
+
+        .nav-left .menu-icon {
+            width: 16px;
+            margin-right: 8px;
+        }
+
+        .nav-left .logo {
+            width: 28px;
+            height: 28px;
+            margin-right: 10px;
+        }
+
+        .nav-middle .search-box {
+            padding: 5px 8px;
+            border-radius: 18px;
+            margin-right: 5px;
+        }
+
+        .nav-middle .search-box input {
+            width: 135px;
+            font-size: 12px;
+        }
+
+        .nav-middle .search-box img {
+            width: 10px;
+        }
+
+        .nav-right {
+            gap: 12px;
+        }
+
+        .nav-right img {
+            width: 30px;
+            margin-right: 3px;
+        }
+
+        .profile-image {
+            width: 28px;
+            height: 28px;
+        }
+
+        .nav-right .create-icon {
+            display: none;
+        }
+
+        .nav-right .user-icon {
+            width: 28px;
+            margin-left: 15px;
+        }
+
+        .dropdown-menu {
+            width: 120px;
+            font-size: 12px;
+        }
+
+        .dropdown-menu li {
+            padding: 6px 10px;
+        }
     }
 }

@@ -11,10 +11,6 @@ import API from "../../axios";
 
 const Navbar = ({ toggleSidebar }) => {
 
-    useEffect(() => {
-        document.body.classList.add("loaded");
-    }, []);
-
     const [isUserInfoVisible, setIsUserInfoVisible] = useState(false);
     const { user, setUser } = useContext(UserContext);
     const navigate = useNavigate();

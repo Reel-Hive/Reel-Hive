@@ -115,13 +115,16 @@ h1 {
     padding: 16px 30px;
     border: none;
     outline: none;
-    background: #0d7aff;
+    background: #3c009d;
     border-radius: 20px;
     font-size: 18px;
     font-weight: 700;
     color: #fff;
     cursor: pointer;
     letter-spacing: 1px;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
 }
 
 .publishVideo-right {
@@ -130,6 +133,7 @@ h1 {
     gap: 20px;
     justify-content: flex-start;
     align-items: flex-start;
+    width: 100%;
 }
 
 .publishVideo-upload {
@@ -173,11 +177,12 @@ h1 {
 
 .publishVideo-select {
     margin-top: 10px;
-    width: 200px;
+    width: 180px;
     height: 50px;
     border: none;
     outline: none;
-    border-radius: 10px;
+    border-radius: 15px;
+    text-align: center;
     background: #3c009d;
     color: #fff;
     padding: 10px;
@@ -202,14 +207,28 @@ h1 {
     }
 
     .publishVideo-inputField,
-    .publishVideo-textAreaField,
     .publishVideo-upload {
-        width: 650px;
+        width: 600px;
     }
 
-    .publishVideo-boxes{
-        width: 650px;
+    .publishVideo-textAreaFeild textarea{
+        width: 600px;
     }
+    .publishVideo-boxes{
+        width: 600px;
+    }
+    .publishVideo-right button {
+        width: 200px;
+        height: 50px;   
+    }
+
+    .publishVideo-select {
+        font-size: 18px;
+        padding: 4px;
+        height: 50px; 
+        width: 200px; 
+    }
+
 }
 
 @media screen and (max-width: 768px) {
@@ -232,15 +251,22 @@ h1 {
         
     }
 
-    .publishVideo-button {
-        width: 100%;
-        text-align: center;
+    .publishVideo-right button {
+        width: 180px;
+        height: 50px;   
     }
 
+    .publishVideo-select {
+        font-size: 16px;
+        padding: 4px;
+        height: 50px; 
+        width: 180px; 
+    }
     .publishVideo-upload {
         height: 250px;
         width: 600px;
     }
+    
 }
 
 @media screen and (max-width: 480px) {
@@ -265,14 +291,21 @@ h1 {
         height: 150px;
     }
 
-    .publishVideo-left button {
-        padding: 12px;
-        font-size: 14px;
-        width: 200px;
-    }
 
     .publishVideo-upload {
         height: 200px;
         width: 200px;
+    }
+
+    .publishVideo-right button {
+        width: 120px;
+        height: 55px;
+    }
+
+    .publishVideo-select {
+        font-size: 14px;
+        padding: 4px;
+        height: 50px; 
+        width: 120px; 
     }
 }

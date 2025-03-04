@@ -1,18 +1,21 @@
 import React, { useRef, useState } from 'react'
 import API from '../../axios';
 import "./Setting.css";
-import styled from 'styled-components';
+import { FaLock, FaUnlock } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
 
 
 
 const Setting = () => {
+    const navigate = useNavigate();
     const [avatar, setAvatar] = useState(null);
     const [cover, setCover] = useState(null);
-    const [alert, setAlert] = useState({
-        message: '',
-        isOpen: false,
-        redirectTo: null,
-    });
+    const [avatarSuccessMessage, setAvatarSuccessMessage] = useState("");
+    const [coverSuccessMessage, setCoverSuccessMessage] = useState("");
+    const [detailSuccessMessage, setDetailSuccessMessage] = useState("");
+    const [passwordSuccessMessage, setPassWordSuccessMessage] = useState("");
+    const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+    const [showNewPassword, setShowNewPassword] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
         username: '',
@@ -58,11 +61,12 @@ const Setting = () => {
             await API.patch('/api/v1/users/update-avatar', formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
-            setAlert({
-                message: 'Avatar updated successfully',
-                isOpen: true,
-            });
+            setAvatarSuccessMessage("Your avatar has been updated successfully!");
             setAvatar(null);
+            setTimeout(() => {
+                setAvatarSuccessMessage("");
+                navigate("/home");
+            }, 3000);
         } catch (error) {
             console.error('Error while updating avatar image: ', error);
         }
@@ -79,11 +83,12 @@ const Setting = () => {
             await API.patch('/api/v1/users/update-coverImage', formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
-            setAlert({
-                message: 'Cover Image updated successfully',
-                isOpen: true,
-            });
+            setCoverSuccessMessage("Your cover image has been updated sucessfully")
             setCover(null);
+            setTimeout(() => {
+                setCoverSuccessMessage("");
+                navigate("/home");
+            }, 3000);
         } catch (error) {
             console.error('Error while updating cover image: ', error);
         }
@@ -101,11 +106,12 @@ const Setting = () => {
 
         try {
             await API.patch('/api/v1/users/update-details', { name, username });
-            setAlert({
-                message: 'Details updated successfully',
-                isOpen: true,
-            });
+            setDetailSuccessMessage("Your details has been updated sucessfully")
             setFormData({ name: '', username: '' });
+            setTimeout(() => {
+                setDetailSuccessMessage("");
+                navigate("/");
+            });
         } catch (error) {
             console.error('Error while updating the details: ', error);
         }
@@ -120,11 +126,12 @@ const Setting = () => {
                 currentPassword,
                 newPassword,
             });
-            setAlert({
-                message: 'Password updated successfully',
-                isOpen: true,
-            });
+            setPassWordSuccessMessage("Your password has been updated sucessfully")
             setUpdatePassword({ currentPassword: '', newPassword: '' });
+            setTimeout(() => {
+                setPassWordSuccessMessage("");
+                navigate("/");
+            });
         } catch (error) {
             console.error('Error while updating password: ', error);
         }
@@ -147,7 +154,8 @@ const Setting = () => {
                             onChange={handleAvatarChange}
                         />
                     </div>
-                    <button onClick={handleAvatarChange}>Update Avatar</button>
+                    <button onClick={handleUpdateAvatar}>Update Avatar</button>
+                    {avatarSuccessMessage && <p className="success-message">{avatarSuccessMessage}</p>}
                 </div>
                 <div className="updater">
                     <h2>Update Cover Image</h2>
@@ -169,6 +177,7 @@ const Setting = () => {
                         />
                     </div>
                     <button onClick={handleUpdateCoverImage}>Update Cover Image</button>
+                    {coverSuccessMessage && <p className="success-message">{coverSuccessMessage}</p>}
                 </div>
             </div>
             <div className="content">
@@ -197,14 +206,17 @@ const Setting = () => {
                         </div>
                     </div>
                     <button onClick={handleUpdateDetails}>Update Details</button>
+                    {detailSuccessMessage && <p className="success-message">{detailSuccessMessage}</p>}
                 </div>
                 <div className="updater">
                     <h2>Update Password</h2>
                     <div className="updatePassword">
                         <div className="inputField">
-                            <i className="bx bxs-lock-alt"></i>
+                            <span className="setting-password-toggle-icon" onClick={() => setShowCurrentPassword(!showCurrentPassword)}>
+                                {showCurrentPassword ? <FaUnlock size={20} /> : <FaLock size={20} />}
+                            </span>
                             <input
-                                type="password"
+                                type={showCurrentPassword ? "text" : "password"}
                                 placeholder="Current password"
                                 value={updatePassword.currentPassword}
                                 onChange={(e) =>
@@ -216,9 +228,11 @@ const Setting = () => {
                             />
                         </div>
                         <div className="inputField">
-                            <i className="bx bxs-lock-alt"></i>
+                            <span className="setting-password-toggle-icon" onClick={() => setShowNewPassword(!showNewPassword)}>
+                                {showNewPassword ? <FaUnlock size={20} /> : <FaLock size={20} />}
+                            </span>
                             <input
-                                type="password"
+                                type={showNewPassword ? "text" : "password"}
                                 placeholder="New password"
                                 value={updatePassword.newPassword}
                                 onChange={(e) =>
@@ -231,6 +245,7 @@ const Setting = () => {
                         </div>
                     </div>
                     <button onClick={handleUpdatePassword}>Update Password</button>
+                    {passwordSuccessMessage && <p className="success-message">{passwordSuccessMessage}</p>}
                 </div>
             </div>
         </div>

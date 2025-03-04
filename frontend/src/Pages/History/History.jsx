@@ -67,11 +67,6 @@ const History = () => {
           )) : (
           <p>No watch history found </p>
         )}
-        {/* <img src={thumbnail1} alt="" />
-          <img src={profile_icon} className="profile_logo" alt="" />
-          <h2>Best channel to learn coding that help you to be a developer</h2>
-          <h3>GrateStack</h3>
-          <p>15k views &bull; 2 days ago</p> */}
       </div>
     </div>
   )

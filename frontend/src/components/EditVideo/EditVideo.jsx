@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import API from '../../axios';
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./editVideo.css";
 
 const EditVideo = () => {
+    const navigate= useNavigate();
     const location = useLocation();
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -63,12 +64,13 @@ const EditVideo = () => {
                 isOpen: true,
                 redirectTo: '/home',
             });
+            navigate("/home");
         } catch (error) {
             console.error('Error updating video:', error);
         }
     };
 
-
+    
     return (
         <div className="editVideo-container">
             <h1>Update Video Details</h1>

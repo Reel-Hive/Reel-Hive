@@ -63,30 +63,35 @@
 
 /* Responsive */
 
-@media screen and (max-width: 1024px){
+@media screen and (max-width: 1024px) {
     .sidebar-container.open .sidebar-navlinks a {
         flex-direction: column;
     }
 
     .sidebar-container.open .sidebar-navlinks a span {
-        display: block; /* Show text when expanded */
+        display: inline;
     }
 }
 
 @media screen and (max-width: 768px) {
     .sidebar-container {
-        position: fixed; /* Makes it float over content */
+        position: fixed;
         top: 0;
         left: 0;
-        transform: translateX(-100%); /* Hide by default */
-        z-index: 1000; /* Ensure it's above other content */
+        transform: translateX(-100%);
+        z-index: 1000;
     }
 
     .sidebar-container.open {
-        transform: translateX(0); /* Slide in when open */
+        transform: translateX(0);
     }
+
     .sidebar-container.collapsed {
-        transform: translateX(0);  /* Sidebar stays visible */
-        width: 60px; /* Keep icon width */
+        transform: translateX(0);
+        width: 60px;
+    }
+
+    .sidebar-container.open .sidebar-navlinks a span {
+        display: inline;
     }
 }

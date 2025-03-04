@@ -1,8 +1,10 @@
 import React, { useRef, useState } from 'react';
 import API from '../../axios';
 import './PublishVideo.css';
+import { useNavigate } from 'react-router-dom';
 
 const PublishVideo = () => {
+    const navigate= useNavigate();
     const [thumbnail, setThumbnail] = useState(null);
     const [video, setVideo] = useState(null);
     const [publishStatus, setPublishStatus] = useState(false);
@@ -62,6 +64,7 @@ const PublishVideo = () => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
+            navigate("/home");
             console.log(response.data.data.video);
             setAlert({
                 message: 'Video Created successfully',
@@ -116,7 +119,6 @@ const PublishVideo = () => {
                                 onChange={handleThumbnailChange}
                             />
                         </div>
-                        <button onClick={handlePublish}>Publish Video</button>
                     </div>
                     <div className="publishVideo-right">
                         <div className="publishVideo-upload" onClick={handleVideoUploadClick} >
@@ -142,6 +144,7 @@ const PublishVideo = () => {
                                 <option value={true} >True</option>
                             </select>
                         </div>
+                        <button onClick={handlePublish}>Publish Video</button>
                     </div>
                 </div>
             </div>

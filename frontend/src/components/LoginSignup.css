@@ -132,6 +132,7 @@
     border-radius: 8px;
 }
 
+
 .input img {
     margin: 0px 28px;
 }
@@ -144,6 +145,11 @@
     outline: none;
     color: #797979;
     font-size: 20px;
+}
+
+.password-toggle-icon {
+    margin: 0px 28px;
+    color: #797979;
 }
 
 .submit-button {
@@ -252,7 +258,7 @@
     .AvatarImage {
         width: 150px;
         height: 150px;
-        margin-left: 0;
+        margin-left: 50px;
     }
 
 }
@@ -267,13 +273,18 @@
         width: 100%;
     }
 
-    .input img{
+    .input img {
         margin-left: 8px;
         margin-right: 10px;
-        width: 15px;
     }
+
     .input input {
         font-size: 16px;
+    }
+
+    .password-toggle-icon {
+        margin-left: 8px;
+        margin-right: 12px;
     }
 
     .forget-password {
@@ -283,7 +294,8 @@
     .submit-button {
         width: 100%;
         max-width: 125px;
-        margin-left: 40px;
+        margin-left: 10px;
+        height: 50px;
     }
 
     .ImageUploader {
@@ -303,11 +315,14 @@
     .AvatarImage {
         width: 100px;
         height: 100px;
-        margin-left: 0;
+        margin-left: 25px;
     }
 
     .submit-container {
+        margin-top: 12px;
         display: flex;
+        margin-left: 10px;
+        width: 125px;
         flex-direction: column;
         gap: 15px;
 
