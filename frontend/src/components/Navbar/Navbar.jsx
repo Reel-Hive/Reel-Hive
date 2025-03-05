@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import './Navbar.css';
 import menu_icon from '/Assets/menu.png';
-import logo from '/Assets/logo_2.png';
+import logo from '/Assets/logo.png';
 import search_icon from '/Assets/search.png';
 import create_icon from '/Assets/create.png';
 import { useNavigate } from "react-router-dom";

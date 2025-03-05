@@ -1,16 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import './subscription.css';
-import thumbnail1 from '/Assets/thumbnail1.png';
-import profile_icon from '/Assets/jack.png';
 import { UserContext } from '../../userContext';
 import API from '../../axios';
-import Feed from '../Feed/Feed';
-import Channel from '../Channel';
 import { formatDistanceToNow } from 'date-fns';
+import { useNavigate, } from 'react-router-dom';
 
 const Subscription = () => {
   const { user } = useContext(UserContext);
   const [subscribedChannels, setSubscribedChannels] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchSubscribedChannels = async () => {
@@ -27,41 +25,50 @@ const Subscription = () => {
         );
       }
     };
-
-
     fetchSubscribedChannels();
   }, [user]);
+
+  const handleVideoClick = (videoId) => {
+    navigate(`/watch/${videoId}`);
+  };
+
+
   return (
     <div className="feed">
       <div className="card">
-        {subscribedChannels.map((channel) => (
-          <div className="videoBox" key={channel._id}>
-            <div className="box">
-              <img src={channel.latestVideo.thumbnail.url} alt={channel.name} />
-            </div>
-            <div className="feed-info">
-              <div className="user">
-                <img src={channel.avatar} className='profile_logo' alt={channel.name} />
+        {subscribedChannels.length > 0 ? (
+          subscribedChannels.map((channel) => (
+            <div className="videoBox" key={channel._id}
+              onClick={() => handleVideoClick(channel.latestVideo._id)}>
+              <div className="box">
+                <img src={channel.latestVideo.thumbnail.url} alt={channel.name} />
               </div>
-              <div className='description'>
-                <h2>{channel.latestVideo.title}</h2>
-                <h3>@{channel.username}</h3>
-                <div className="info">
-                  <p>{channel.latestVideo.views} views • </p>
-                  <p>
-                    {formatDistanceToNow(new Date(channel.latestVideo.createdAt), {
-                      addSuffix: true,
-                    })}
-                  </p>
+              <div className="feed-info">
+                <div className="user">
+                  <img src={channel.avatar} className='profile_logo' alt={channel.name} />
+                </div>
+                <div className='description'>
+                  <h2>{channel.latestVideo.title}</h2>
+                  <h3>@{channel.username}</h3>
+                  <div className="info">
+                    <p>{channel.latestVideo.views} views • </p>
+                    <p>
+                      {formatDistanceToNow(new Date(channel.latestVideo.createdAt), {
+                        addSuffix: true,
+                      })}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        )
+          ))
+        ) : (
+          <p>No subscriptions found</p>
         )}
       </div>
     </div>
-  )
+  );
+
 }
 
 

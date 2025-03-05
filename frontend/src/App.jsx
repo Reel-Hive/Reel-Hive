@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import { Routes, BrowserRouter, Route } from 'react-router-dom';
 import Login from './components/Login';
 import Signup from './components/Signup';
-import AuthPage from './components/AuthPage';
 import Layout from './components/Layout/Layout'; // Keep Layout import
 import Home from './Pages/Home/Home';
-import Video from './Pages/Video/Video';
 import Subscription from './components/Subscription/Subscription';
 import History from './Pages/History/History';
 import LikeVideos from './Pages/LikeVideos/LikeVideos';
@@ -23,7 +21,6 @@ function App() {
         <Routes>
         <Route exact path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path='/auth' element={<AuthPage />}></Route>
           <Route
             path="/home"
             element={

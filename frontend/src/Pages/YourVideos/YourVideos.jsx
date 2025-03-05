@@ -3,11 +3,13 @@ import API from '../../axios';
 import { UserContext } from '../../userContext';
 import { formatDistanceToNow } from "date-fns";
 import "./YourVideos.css";
+import { useNavigate, } from 'react-router-dom';
 
 const YourVideos = () => {
   const [channelProfile, setChannelProfile] = useState(null);
   const [videos, setVideos] = useState([]);
   const { user } = useContext(UserContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch profile information
@@ -41,6 +43,11 @@ const YourVideos = () => {
       fetchUserVideos();
     }
   }, [user]);
+
+  const handleVideoClick = (videoId) => {
+    navigate(`/watch/${videoId}`);
+  };
+
   return (
     <div className="channelContainer">
       <div className="channelContent">
@@ -72,7 +79,8 @@ const YourVideos = () => {
         <div className="channelVideoList">
           {videos.length > 0 ? (
             videos.map((video) => (
-              <div className="channelVideoBpx" key={video._id}>
+              <div className="channelVideoBpx" key={video._id}
+              onClick={() => handleVideoClick(video._id)}>
                 <div className="channelBox">
                   <img src={video.thumbnail.url} alt={video.title} />
                 </div>
@@ -84,8 +92,8 @@ const YourVideos = () => {
                     />
                   </div>
                   <div className="channelDescription">
-                    <h4>{video.title}</h4>
-                    <h5>@{channelProfile?.username}</h5>
+                    <h2>{video.title}</h2>
+                    <h3>@{channelProfile?.username}</h3>
                     <div className="channelInfo">
                       <p>{video.views} •{' '} </p>
                       <p>

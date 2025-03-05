@@ -1,18 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
-import './History.css';
-import Feed from '../../components/Feed/Feed';
 import { UserContext } from '../../userContext';
-import thumbnail1 from '/Assets/thumbnail1.png';
-import profile_icon from '/Assets/jack.png';
 import API from '../../axios';
 import { formatDistanceToNow } from 'date-fns';
-
-
+import { useNavigate, } from 'react-router-dom';
 
 
 const History = () => {
   const [watchHistory, setWatchHistory] = useState([]);
   const { user } = useContext(UserContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchWatchHistory = async () => {
@@ -31,13 +27,19 @@ const History = () => {
       fetchWatchHistory();
     }
   }, [user]);
+
+  const handleVideoClick = (videoId) => {
+    navigate(`/watch/${videoId}`);
+  };
+
   return (
     <div className="feed">
       <div className="card">
         {watchHistory.length > 0 ? (
           watchHistory.map((video) => (
             <div className="videoBox"
-              key={video._id}>
+            key={video._id}
+              onClick={() => handleVideoClick(video._id)}>
               <div className="box">
                 <img src={video.thumbnail.url || './images/signup-backgorund.jpg'}
                   alt={video.title} />

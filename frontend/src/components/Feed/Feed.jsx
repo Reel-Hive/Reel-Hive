@@ -1,58 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import './Feed.css';
-import { Link, useNavigate } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 import API from "../../axios";
-import thumbnail1 from '/Assets/thumbnail1.png';
-import profile_icon from '/Assets/jack.png';
 import { formatDistanceToNow } from "date-fns";
-
-
-// const Feed = ({ videoCount = 16 }) => {
-
-
-//   const thumbnails = [
-//     thumbnail1, thumbnail2, thumbnail3, thumbnail4,
-//     thumbnail5, thumbnail6, thumbnail7, thumbnail8
-//   ];
-
-//   const profileImage = profile_icon;
-//   const title = "Best channel to learn coding that help you to be a developer";
-//   const channelName = "GrateStack";
-//   const views = "15k views &bull; 2 days ago";
-
-//   // Repeat the thumbnails as necessary
-//   const repeatedThumbnails = [];
-//   while (repeatedThumbnails.length < videoCount) {
-//     repeatedThumbnails.push(...thumbnails);
-//   }
-
-//   // Generate the number of cards based on videoCount
-//   const cards = [];
-//   for (let i = 0; i < videoCount; i++) {
-//     const index = i;
-//     const videoId = `video_${i}`; 
-
-//     cards.push(
-//       <div className="card" key={i}>
-//         <Link to={`/video/tech/${videoId}`}> {/* Add category 'tech' here */}
-//           <img src={repeatedThumbnails[index]} alt="Video Thumbnail" />
-//         </Link>
-//         <img src={profileImage} className="profile_logo" alt="Profile" />
-//         <h2>{title}</h2>
-//         <h3>{channelName}</h3>
-//         <p>{views}</p>
-//       </div>
-//     );
-//   }
-//   return (
-
-//     <div className="feed">
-//         {cards}
-//     </div>
-//   );
-// }
-
-
 
 const Feed = () => {
   const [videos, setVideos] = useState([]);
@@ -118,11 +68,6 @@ const Feed = () => {
           )) : (
           <p>No videos found. </p>
         )}
-        {/* <img src={thumbnail1} alt="" />
-        <img src={profile_icon} className="profile_logo" alt="" />
-        <h2>Best channel to learn coding that help you to be a developer</h2>
-        <h3>GrateStack</h3>
-        <p>15k views &bull; 2 days ago</p> */}
       </div>
     </div>
 

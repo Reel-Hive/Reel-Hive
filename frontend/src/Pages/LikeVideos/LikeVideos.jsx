@@ -1,17 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
-import './LikeVideos.css';
-import thumbnail1 from '/Assets/thumbnail1.png';
-import profile_icon from '/Assets/jack.png';
-import Feed from '../../components/Feed/Feed';
 import API from '../../axios';
 import { UserContext } from '../../userContext';
 import { formatDistanceToNow } from 'date-fns';
+import { useNavigate, } from 'react-router-dom';
 
 
 
 const LikeVideos = () => {
   const [likedVideos, setLikedVideos] = useState([]);
   const { user } = useContext(UserContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchLikedVideos = async () => {
@@ -30,6 +28,10 @@ const LikeVideos = () => {
     }
   }, [user]);
 
+  const handleVideoClick = (videoId) => {
+    navigate(`/watch/${videoId}`);
+  };
+
   return (
     <div className="feed">
       <div className="card">
@@ -38,20 +40,21 @@ const LikeVideos = () => {
             const video = likedVideo[0]; // Extracting video details
             return (
               <div className="videoBox"
-                key={index}>
-                  <div className="box">
+                key={index}
+                onClick={() => handleVideoClick(video._id)}>
+                <div className="box">
                   <img src={video.thumbnail.url || './images/signup-backgorund.jpg'}
-                  alt={video.title || 'Video thumbnail'} />
-                  </div>
-                  <div className="feed-info">
-                    <div className="user">
+                    alt={video.title || 'Video thumbnail'} />
+                </div>
+                <div className="feed-info">
+                  <div className="user">
                     <img src={video.ownerDetails?.avatar || './images/user.svg'}
                       className="profile_logo"
                       alt={video.ownerDetails?.username || 'User avatar'} />
-                    </div>
-                    <div className='description'>
+                  </div>
+                  <div className='description'>
                     <h2>{video.title || 'Untitled video'}</h2>
-                    <h3>@{video.ownerDetails?.username || 'Unknown User'}</h3>      
+                    <h3>@{video.ownerDetails?.username || 'Unknown User'}</h3>
                     <div className="info">
                       <p>{video.views || '0'} views</p> •{' '}
                       <p>
@@ -61,9 +64,9 @@ const LikeVideos = () => {
                       </p>
                     </div>
                   </div>
-                  </div>
-           
-               
+                </div>
+
+
               </div>
             )
 
@@ -72,11 +75,6 @@ const LikeVideos = () => {
           )) : (
           <p>No liked videos found </p>
         )}
-        {/* <img src={thumbnail1} alt="" />
-        <img src={profile_icon} className="profile_logo" alt="" />
-        <h2>Best channel to learn coding that help you to be a developer</h2>
-        <h3>GrateStack</h3>
-        <p>15k views &bull; 2 days ago</p> */}
       </div>
     </div>
   )

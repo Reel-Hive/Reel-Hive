@@ -211,24 +211,47 @@ h1 {
         width: 600px;
     }
 
-    .publishVideo-textAreaFeild textarea{
+    .publishVideo-textAreaFeild textarea {
         width: 600px;
     }
-    .publishVideo-boxes{
+
+    .publishVideo-boxes {
         width: 600px;
     }
+
     .publishVideo-right button {
         width: 200px;
-        height: 50px;   
+        height: 50px;
     }
 
     .publishVideo-select {
         font-size: 18px;
         padding: 4px;
-        height: 50px; 
-        width: 200px; 
+        height: 50px;
+        width: 200px;
     }
 
+}
+
+@media screen and (max-width :855px) {
+    .publishVideo-inputField {
+        width: 500px;
+    }
+
+    .publishVideo-textAreaFeild textarea {
+        height: 200px;
+        width: 500px;
+
+    }
+
+    .publishVideo-boxes {
+        width: 500px;
+    }
+
+    .publishVideo-upload {
+        height: 250px;
+        width: 500px;
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -243,30 +266,32 @@ h1 {
     .publishVideo-inputField {
         height: 80px;
         width: 600px;
-        
+
     }
+
     .publishVideo-textAreaFeild textarea {
         height: 200px;
         width: 600px;
-        
+
     }
 
     .publishVideo-right button {
         width: 180px;
-        height: 50px;   
+        height: 50px;
     }
 
     .publishVideo-select {
         font-size: 16px;
         padding: 4px;
-        height: 50px; 
-        width: 180px; 
+        height: 50px;
+        width: 180px;
     }
+
     .publishVideo-upload {
         height: 250px;
         width: 600px;
     }
-    
+
 }
 
 @media screen and (max-width: 480px) {
@@ -278,6 +303,7 @@ h1 {
         height: 80px;
         width: 200px;
     }
+
     .publishVideo-textAreaFeild textarea {
         width: 200px;
         height: 200px;
@@ -305,7 +331,7 @@ h1 {
     .publishVideo-select {
         font-size: 14px;
         padding: 4px;
-        height: 50px; 
-        width: 120px; 
+        height: 50px;
+        width: 120px;
     }
 }

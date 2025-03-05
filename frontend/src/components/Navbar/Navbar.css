@@ -100,7 +100,6 @@ nav {
 
 .nav-right .create-icon {
     width: 20px;
-    margin-right: 20px;
 }
 
 .nav-right .user-icon {
@@ -116,7 +115,6 @@ nav {
     position: relative;
     cursor: pointer;
 }
-
 .create-dropdown .dropdown-menu {
     position: absolute;
     top: 50px;
@@ -382,7 +380,7 @@ nav {
         }
 
         .dropdown-menu li {
-            padding: 6px 10px;
+            padding: 8px 15px;
         }
     }
 }

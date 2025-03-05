@@ -14,6 +14,7 @@ const Setting = () => {
     const [coverSuccessMessage, setCoverSuccessMessage] = useState("");
     const [detailSuccessMessage, setDetailSuccessMessage] = useState("");
     const [passwordSuccessMessage, setPassWordSuccessMessage] = useState("");
+    const [deleteAccountMessage, setDeleteAccountMessage] = useState("");
     const [showCurrentPassword, setShowCurrentPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [formData, setFormData] = useState({
@@ -49,6 +50,7 @@ const Setting = () => {
             setCover(file);
         }
     };
+
 
     // Updating Avatar
     const handleUpdateAvatar = async () => {
@@ -136,6 +138,23 @@ const Setting = () => {
             console.error('Error while updating password: ', error);
         }
     };
+
+    // delete account 
+    const handleDeleteAccount = async () => {
+        try {
+            await API.delete('/api/v1/users/deleteMe');
+
+            setDeleteAccountMessage("Your account has been deleted successfully!");
+            setTimeout(() => {
+                setDeleteAccountMessage("");
+                navigate("/");
+            }, 3000);
+        } catch (error) {
+            console.error("Error deleting account: ", error);
+        }
+    };
+
+
     return (
         <div className="container">
             <div className="content">
@@ -248,8 +267,13 @@ const Setting = () => {
                     {passwordSuccessMessage && <p className="success-message">{passwordSuccessMessage}</p>}
                 </div>
             </div>
+            <div className="delete-account">
+                <h3>Deleting your account is permanent. Proceed with caution!</h3>
+                <button className="delete-account-btn" onClick={handleDeleteAccount}>Delete Account</button>
+                {deleteAccountMessage && <p className="success-message">{deleteAccountMessage}</p>}
+            </div>
         </div>
     )
 }
 
-export default Setting
+export default Setting;

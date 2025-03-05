@@ -1,19 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import './Playvideo.css';
 import { useNavigate, useParams } from 'react-router-dom';
-import video1 from '/Assets/video.mp4';
 import like from '/Assets/like.png';
 import dislike from '/Assets/dislike.png';
-import share from '/Assets/share.png';
-import save from '/Assets/save.png';
-import user_profile from '/Assets/user_profile.jpg';
 import API from "../../axios";
 import { UserContext } from "../../userContext";
 
-// Placeholder video sources (adjust with real video sources if necessary)
-// const videos = {
-//     video1: '/Assets/video.mp4'
-//   };
 const Playvideo = () => {
   const { videoId } = useParams();
   const { user } = useContext(UserContext);

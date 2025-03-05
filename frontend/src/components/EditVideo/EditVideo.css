@@ -178,6 +178,24 @@ h1 {
     }
 }
 
+@media screen and (max-width :850px) {
+    .editVideo-inputField {
+        height: 70px;
+        width: 525px;
+    }
+
+    .editVideo-textAreaFeild textarea {
+        height: 200px;
+        font-size: 14px;
+        width: 525px;
+    }
+
+    .editVideo-boxes {
+        height: 160px;
+        width: 525px;
+    }
+}
+
 @media screen and (max-width: 768px) {
     .editVideo-container {
         padding: 0 10px;

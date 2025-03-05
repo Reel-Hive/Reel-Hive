@@ -6,8 +6,6 @@ import { FaLock, FaUnlock } from "react-icons/fa";
 import { UserContext } from "../userContext";
 import API from "../axios";
 import { useNavigate } from "react-router-dom";
-import AuthPage from "./AuthPage";
-
 
 const Signup = () => {
   useEffect(() => {

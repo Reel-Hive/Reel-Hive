@@ -16,7 +16,6 @@
     height: 350px;
     border-radius: 10px;
     overflow: hidden;
-    border: 2px solid #111;
 }
 
 .channelCoverImage img {
@@ -34,12 +33,10 @@
 }
 
 .channelImage {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     overflow: hidden;
-    border: 1px solid #111;
-
 }
 
 .channelImage img {
@@ -128,11 +125,10 @@
 }
 
 .channelUser {
-    width: 50px;
-    height: 50px;
+    width: 85px;
+    height: 85px;
     border-radius: 50%;
     overflow: hidden;
-    border: 1px solid #111;
 }
 
 .channelUser img {
@@ -143,17 +139,18 @@
 }
 
 .channelDescription {
+    margin-top: 10px;
     margin-left: 10px;
     flex: 1;
     overflow: hidden;
 
 }
 
-.channelDescription h4 {
+.channelDescription h2 {
     text-overflow: ellipsis;
 }
 
-.channelDescription h5 {
+.channelDescription h3 {
     font-size: 16px;
     margin: 8px 0;
 }
@@ -178,8 +175,8 @@
     }
 
     .channelImage {
-        width: 80px;
-        height: 80px;
+        width: 200px;
+        height: 200px;
     }
 
     .channelUserInfo h1 {
@@ -209,8 +206,8 @@
     }
 
     .channelImage {
-        width: 60px;
-        height: 60px;
+        width: 150px;
+        height: 150px;
     }
 
     .channelUserInfo {
@@ -255,6 +252,17 @@
         height: 150px;
     }
 
+    .channelImage {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 15px;
+    }
+
+    .channelUser {
+        width: 60px;
+        height: 60px;
+    }
+
     .channelAvtar {
         flex-direction: column;
         align-items: center;
@@ -289,8 +297,13 @@
     }
 }
 
-@media screen and (max-width : 400px){
-    .channelInfo p {
-        font-size: 10px;
+@media screen and (max-width : 400px) {
+
+    .channelUser {
+        width: 50px;
+        height: 50px;
     }
-  }
+    .channelInfo p {
+        font-size: 8px;
+    }
+}
