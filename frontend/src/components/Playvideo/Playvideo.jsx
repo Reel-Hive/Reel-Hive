@@ -28,6 +28,7 @@ const Playvideo = () => {
 
   useEffect(() => {
     // Fetching video data
+    setVideo(null); // Reset previous video
     const fetchVideo = async () => {
       try {
         const response = await API.get(`/api/v1/videos/${videoId}`);
@@ -47,6 +48,7 @@ const Playvideo = () => {
         console.error('Error while fetching the video details: ', error);
       }
     };
+    
 
     // Fetching Comments of this video
     const fetchComments = async () => {

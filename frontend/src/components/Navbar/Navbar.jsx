@@ -89,7 +89,7 @@ const Navbar = ({ toggleSidebar }) => {
                     {isCreateDropdownOpen && (
                         <div className="dropdown-menu">
                             <ul>
-                                <a href="./publish-video">Publish video</a>
+                                <a href="/publish-video">Publish video</a>
                             </ul>
                         </div>
                     )}
@@ -107,9 +107,9 @@ const Navbar = ({ toggleSidebar }) => {
                     {isProfileDropdownOpen && (
                         <div className="dropdown-menu">
                             {isUserInfoVisible && (<ul>
-                                <a href="./your-Videos">Profile</a>
+                                <a href="/your-Videos">Profile</a>
                                 <li onClick={handleLogout} className="signOut">Sign Out</li>
-                                <a href="./settings">Setting</a>
+                                <a href="/settings">Setting</a>
                             </ul>
                             )}
                         </div>

@@ -44,7 +44,6 @@ h1 {
     outline: none;
     background: transparent;
     padding: 15px;
-    font-size: 18px;
     color: black;
 }
 
@@ -177,8 +176,24 @@ h1 {
         border-radius: 10px;
     }
 }
+@media screen and (max-width:1400px ){
+    .editVideo-inputField {
+        height: 100px;
+        width: 1000px;
+    }
 
-@media screen and (max-width :850px) {
+    .editVideo-textAreaFeild textarea {
+        height: 215px;
+        font-size: 14px;
+        width: 1000px;
+    }
+
+    .editVideo-boxes {
+        height: 180px;
+        width: 1000px;
+    }
+}
+@media screen and (max-width :950px) {
     .editVideo-inputField {
         height: 70px;
         width: 525px;
@@ -249,6 +264,7 @@ h1 {
     .editVideo-inputField {
         height: 50px;
         width: 220px;
+        font-size: 12px;
     }
 
     .editVideo-textAreaFeild textarea {

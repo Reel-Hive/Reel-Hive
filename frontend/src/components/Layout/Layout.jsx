@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../Navbar/Navbar";
 import Sidebar from "../Sidebar/Sidebar";
+import Playvideo from "../Playvideo/Playvideo";
 import "./Layout.css";
 
 const Layout = ({ children }) => {
@@ -27,6 +28,7 @@ const Layout = ({ children }) => {
   };
 
   return (
+    
     <div className="layout-container">
       <Navbar toggleSidebar={toggleSidebar} />
       <div className="layout-content">

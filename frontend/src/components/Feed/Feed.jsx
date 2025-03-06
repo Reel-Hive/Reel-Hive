@@ -31,6 +31,7 @@ const Feed = () => {
   const handleVideoClick = (videoId) => {
     navigate(`/watch/${videoId}`);
   };
+  
   return (
     <div className="feed">
       <div className="card">
