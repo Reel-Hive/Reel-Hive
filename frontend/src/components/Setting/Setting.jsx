@@ -67,7 +67,7 @@ const Setting = () => {
             setAvatar(null);
             setTimeout(() => {
                 setAvatarSuccessMessage("");
-                navigate("/home");
+                navigate("/your-Videos");
             }, 3000);
         } catch (error) {
             console.error('Error while updating avatar image: ', error);
@@ -89,7 +89,7 @@ const Setting = () => {
             setCover(null);
             setTimeout(() => {
                 setCoverSuccessMessage("");
-                navigate("/home");
+                navigate("/your-Videos");
             }, 3000);
         } catch (error) {
             console.error('Error while updating cover image: ', error);
