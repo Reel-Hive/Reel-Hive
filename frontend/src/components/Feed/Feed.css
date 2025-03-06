@@ -1,0 +1,127 @@
+  .feed {
+    margin-top: 20px;
+    width: 100%;
+    height: auto;
+  }
+
+  .card {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    display: grid;
+    grid-gap: 25px;
+    gap: 15px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  p {
+    color: #000;
+  }
+
+  .videoBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    max-width: 450px;
+    height: auto;
+    cursor: pointer;
+  }
+
+  .box {
+    margin-top: 25px;
+    max-width: 450px;
+    height: 200px;
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .box img {
+    width: 100%;
+    border-radius: 8px;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .feed-info {
+    margin-top: 12px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .card .profile_logo {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+  }
+
+  .card h2 {
+    display: flex;
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+    margin: 5px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+  }
+
+  .card h3 {
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+    margin: 7px 0;
+  }
+
+  .videoBox p {
+    font-size: 15px;
+  }
+
+  .info {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+    color: #555;
+  }
+
+  /* Responsive */
+
+  @media screen and (max-width: 1024px) {
+    .card {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .card {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .card {
+      grid-template-columns: 1fr;
+    }
+
+    .info p {
+      font-size: 12px;
+    }
+  }
+
+  @media screen and (max-width : 400px) {
+    .info p {
+      font-size: 8px;
+    }
+  }

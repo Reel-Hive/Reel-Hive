@@ -1,13 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,500;0,600;0,700;0,900;1,300;1,400;1,500;1,600&display=swap');
 
-html, body{
-    height: 100%;
+.auth-page {
+    height: 100vh;
     margin: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
-    background-image:linear-gradient(rgba(0,0,50,0.8),rgba(0,0,50,0.8)),url('/Assets/background.png');
+    background-image: linear-gradient(rgba(0, 0, 50, 0.8), rgba(0, 0, 50, 0.8)), url('/Assets/background.png');
     background-position: center;
     background-size: cover;
     position: relative;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }

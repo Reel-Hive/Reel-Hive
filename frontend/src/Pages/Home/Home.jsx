@@ -1,11 +1,15 @@
 import React from "react";
-import './Home.css';
+import Feed from "../../components/Feed/Feed";
+
+
+
 const Home = () => {
     return (
-        <div>
-
-        </div>
+        <>
+            <Feed />
+           
+        </>
     )
 }
 
-export default Home
+export default Home;
