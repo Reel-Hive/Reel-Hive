@@ -5,10 +5,89 @@ import { catchAsync } from '../utils/catchAsync.js';
 import AppError from '../utils/appError.js';
 import mongoose from 'mongoose';
 
+// export const getVideoComments = catchAsync(async (req, res, next) => {
+//   const { videoId } = req.params;
+
+//   // check video exists
+//   const videoExists = await Video.findById(videoId);
+//   if (!videoExists) {
+//     return next(new AppError('Video not found', 404));
+//   }
+
+//   // Aggregation pipeline to fetch comments
+//   const commentsAggregate = Comment.aggregate([
+//     {
+//       $match: {
+//         video: new mongoose.Types.ObjectId(videoId),
+//       },
+//     },
+//     {
+//       $lookup: {
+//         from: 'users',
+//         localField: 'owner',
+//         foreignField: '_id',
+//         as: 'ownerDetails',
+//       },
+//     },
+//     {
+//       $lookup: {
+//         from: 'likes',
+//         localField: '_id',
+//         foreignField: 'comment',
+//         as: 'commentLikes',
+//       },
+//     },
+//     {
+//       $addFields: {
+//         totalLikes: { $size: '$commentLikes' },
+//         ownerDetails: { $arrayElemAt: ['$ownerDetails', 0] },
+//         isLiked: {
+//           $in: [req.user?._id, '$commentLikes.likedBy'],
+//         },
+//       },
+//     },
+//     {
+//       $sort: {
+//         createdAt: -1,
+//       },
+//     },
+//     {
+//       $project: {
+//         content: 1,
+//         createdAt: 1,
+//         totalLikes: 1,
+//         owner: {
+//           name: "$ownerDetails.name",
+//           username: '$ownerDetails.username',
+//           avatar: '$ownerDetails.avatar',
+//         },
+//         isLiked: 1,
+//       },
+//     },
+//   ]);
+
+//   // Get all comments without pagination
+//   const commentsData = await commentsAggregate;
+
+//   // count total comments
+//   const totalComments = await Comment.aggregate([
+//     { $match: { video: new mongoose.Types.ObjectId(videoId) } },
+//   ]).then((res) => res.length);
+
+//   return res.status(200).json({
+//     status: 'success',
+//     message: 'Comments fetched successfully',
+//     data: {
+//       totalComments,
+//       commentsData,
+//     },
+//   });
+// });
+
 export const getVideoComments = catchAsync(async (req, res, next) => {
   const { videoId } = req.params;
 
-  // check video exists
+  // check if the video exists
   const videoExists = await Video.findById(videoId);
   if (!videoExists) {
     return next(new AppError('Video not found', 404));
@@ -38,11 +117,30 @@ export const getVideoComments = catchAsync(async (req, res, next) => {
       },
     },
     {
+      $lookup: {
+        from: 'likes',
+        let: { commentId: '$_id' },
+        pipeline: [
+          {
+            $match: {
+              $expr: { $eq: ['$comment', '$$commentId'] },
+              type: 'dislike',
+            },
+          },
+        ],
+        as: 'commentDislikes',
+      },
+    },
+    {
       $addFields: {
         totalLikes: { $size: '$commentLikes' },
+        totalDislikes: { $size: '$commentDislikes' },
         ownerDetails: { $arrayElemAt: ['$ownerDetails', 0] },
         isLiked: {
           $in: [req.user?._id, '$commentLikes.likedBy'],
+        },
+        isDisliked: {
+          $in: [req.user?._id, '$commentDislikes.likedBy'],
         },
       },
     },
@@ -56,12 +154,14 @@ export const getVideoComments = catchAsync(async (req, res, next) => {
         content: 1,
         createdAt: 1,
         totalLikes: 1,
+        totalDislikes: 1,
         owner: {
-          name: "$ownerDetails.name",
+          name: '$ownerDetails.name',
           username: '$ownerDetails.username',
           avatar: '$ownerDetails.avatar',
         },
         isLiked: 1,
+        isDisliked: 1,
       },
     },
   ]);
@@ -70,9 +170,7 @@ export const getVideoComments = catchAsync(async (req, res, next) => {
   const commentsData = await commentsAggregate;
 
   // count total comments
-  const totalComments = await Comment.aggregate([
-    { $match: { video: new mongoose.Types.ObjectId(videoId) } },
-  ]).then((res) => res.length);
+  const totalComments = await Comment.countDocuments({ video: videoId });
 
   return res.status(200).json({
     status: 'success',

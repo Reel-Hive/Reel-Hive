@@ -48,7 +48,48 @@ export const deleteUser = catchAsync(async (req, res, next) => {
   }
 
   // SEND EMAIL
-  const message = `Dear ${user.name},\n\nYour account has been successfully deleted. We're sorry to see you go. If you have any feedback or questions, please contact our support team.\n\nBest regards,\nReel Hive Team`;
+  const message = `
+  <div style="font-family: Arial, sans-serif; padding: 30px; background-color: #0d1117; color: #ffffff; text-align: center; border-radius: 10px;">
+    <h1 style="color: #ff4d4d; font-size: 36px; font-weight: bold;">⚠️ Account Deleted Successfully!</h1>
+    
+    <p style="font-size: 18px; color: #ddd;">Hello <span style="color: #00bfff; font-weight: bold;">${user.name}</span>,</p>
+    
+    <p style="font-size: 16px; color: #ccc; max-width: 600px; margin: auto;">
+      We're sorry to see you go! 😢 Your <span style="color: #ffcc00; font-weight: bold;">Reel Hive</span> account has been <span style="color: #ff4d4d; font-weight: bold;">permanently deleted</span> upon request.  
+      If this was a mistake or you have any concerns, please <span style="color: #00ff99; font-weight: bold;">reach out to our support team immediately.</span>  
+    </p>
+
+    <h2 style="color: #ffcc00; font-size: 24px; margin-top: 30px;">💡 What Happens Now?</h2>
+    <div style="text-align: left; display: inline-block; max-width: 600px; font-size: 16px;">
+      <p>❌ <span style="color: #ff4d4d; font-weight: bold;">Your account & data have been erased.</span> You can no longer access your videos, likes, and subscriptions.</p>
+      <p>📌 <span style="color: #00ff99; font-weight: bold;">Your email is still valid.</span> You can always sign up again anytime!</p>
+      <p>🚀 <span style="color: #00bfff; font-weight: bold;">Reel Hive is always evolving.</span> We’d love to have you back in the future!</p>
+    </div>
+
+    <h2 style="color: #007bff; font-size: 24px; margin-top: 30px;">💬 We Value Your Feedback!</h2>
+
+    <p style="font-size: 16px; color: #bbb; max-width: 600px; margin: auto;">
+      We'd love to know <span style="color: #ffcc00; font-weight: bold;">why you decided to leave.</span> Your feedback helps us improve.  
+      Click below to share your thoughts! 📝  
+    </p>
+
+    <p style="margin-top: 30px;">
+      <a href="https://yourwebsite.com/feedback" style="display: inline-block; padding: 14px 28px; background-color: #ffcc00; color: #000; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 18px;">📝 Give Feedback</a>
+    </p>
+
+    <hr style="border: 1px solid #333; margin: 30px 0;">
+
+    <p style="font-size: 14px; color: #aaa;">
+      Need help? <a href="mailto:support@reelhive.com" style="color: #ffcc00; text-decoration: none;">Contact Support</a>
+    </p>
+
+    <p style="font-size: 14px; color: #aaa;">
+      🎬 Thank you for being part of <span style="color: #ffcc00; font-weight: bold;">Reel Hive.</span> We hope to see you again soon!  
+    </p>
+
+    <p style="font-size: 16px; color: #ffcc00; font-weight: bold;">🚀 Stay creative & keep exploring! <br>The Reel Hive Team</p>
+  </div>
+`;
 
   try {
     await sendEmail({

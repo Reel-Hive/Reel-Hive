@@ -19,7 +19,7 @@ const sendEmail = async (options) => {
     form: 'devanshijodhani45@gmail.com',
     to: options.email,
     subject: options.subject,
-    text: options.message,
+    html: options.message,
   };
 
   // Actual sending mail
