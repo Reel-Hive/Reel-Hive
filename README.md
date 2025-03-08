@@ -99,7 +99,8 @@ Welcome to **Reel Hive**, a feature-rich video streaming platform! 🚀 Here, us
    npm run dev
    ```
 
-## 👩‍💻 Contributors
-- **Backend Development:** Devanshi Jodhani
-- **Frontend Development:** Janvi Barvaliya
+## 👩‍💻 Contributors  
+- **Backend Development:** [Devanshi Jodhani](https://github.com/DevanshiJodhani)  
+- **Frontend Development:** [Janvi Barvaliya](https://github.com/janvi-barvaliya)  
+
 
