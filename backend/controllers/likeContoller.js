@@ -168,30 +168,85 @@ export const toggleVideoLike = catchAsync(async (req, res, next) => {
     return next(new AppError('Invalid video ID', 400));
   }
 
-  // Check video is alrady liked by user
-  const existLike = await Like.findOne({ video: videoId, likedBy: userId });
+  // Check if the video is already liked by the user
+  const existingLike = await Like.findOne({
+    video: videoId,
+    likedBy: userId,
+    type: 'like',
+  });
 
-  if (existLike) {
+  if (existingLike) {
     // unlike the video
-    await existLike.deleteOne();
+    await existingLike.deleteOne();
 
     return res.status(200).json({
       status: 'success',
       isLiked: false,
-      message: 'video unliked!',
+      message: 'Video unliked!',
     });
   }
 
-  // LIKE THE VIDEO
+  // Remove any exsiting dislike for the video by the user
+  await Like.deleteOne({ video: videoId, likedBy: userId, type: 'dislike' });
+
+  // Like the video
   await Like.create({
     video: videoId,
     likedBy: userId,
+    type: 'like',
   });
 
   return res.status(200).json({
     status: 'success',
-    message: 'video liked',
     isLiked: true,
+    isDisliked: false,
+    message: 'Video liked!',
+  });
+});
+
+export const toggleVideoDislike = catchAsync(async (req, res, next) => {
+  const { videoId } = req.params;
+  const userId = req.user?._id;
+
+  const isValidId = (id) => mongoose.isValidObjectId(id);
+
+  if (!isValidId(videoId)) {
+    return next(new AppError('Invalid video ID', 400));
+  }
+
+  // Check if the video already dislike by the user
+  const existingDislike = await Like.findOne({
+    video: videoId,
+    likedBy: userId,
+    type: 'dislike',
+  });
+
+  if (existingDislike) {
+    // Remove the dilike
+    await existingDislike.deleteOne();
+
+    return res.status(200).json({
+      status: 'success',
+      isDisliked: false,
+      message: 'Video undisliked!',
+    });
+  }
+
+  // Remove any exsiting like for the video
+  await Like.deleteOne({ video: videoId, likedBy: userId, type: 'like' });
+
+  // Dislike the video
+  await Like.create({
+    video: videoId,
+    likedBy: userId,
+    type: 'dislike',
+  });
+
+  return res.status(200).json({
+    status: 'success',
+    isLiked: false,
+    isDisliked: true,
+    message: 'Video disliked!',
   });
 });
 
@@ -201,35 +256,92 @@ export const toggleCommentLike = catchAsync(async (req, res, next) => {
 
   const isValidId = (id) => mongoose.isValidObjectId(id);
 
-  if (!isValidId) {
+  if (!isValidId(commentId)) {
     return next(new AppError('Invalid comment ID', 400));
   }
 
-  // check comment is already liked by user
-  const existLike = await Like.findOne({
+  // Check if the comment is already liked by the user
+  const existingLike = await Like.findOne({
     comment: commentId,
     likedBy: userId,
+    type: 'like',
   });
-  if (existLike) {
-    // unlike the comment
-    await existLike.deleteOne();
+
+  if (existingLike) {
+    // Unlike the comment
+    await existingLike.deleteOne();
 
     return res.status(200).json({
       status: 'success',
-      message: 'comment unliked!',
       isLiked: false,
+      message: 'Comment unliked!',
     });
   }
+
+  // Remove any existing dislike for the comment by the user
+  await Like.deleteOne({
+    comment: commentId,
+    likedBy: userId,
+    type: 'dislike',
+  });
 
   // Like the comment
   await Like.create({
     comment: commentId,
     likedBy: userId,
+    type: 'like',
   });
 
   return res.status(200).json({
     status: 'success',
-    message: 'comment liked',
     isLiked: true,
+    isDisliked: false,
+    message: 'Comment liked!',
+  });
+});
+
+export const toggleCommentDislike = catchAsync(async (req, res, next) => {
+  const { commentId } = req.params;
+  const userId = req.user?._id;
+
+  const isValidId = (id) => mongoose.isValidObjectId(id);
+
+  if (!isValidId(commentId)) {
+    return next(new AppError('Invalid comment ID', 400));
+  }
+
+  // Check if the comment is already disliked by the user
+  const existingDislike = await Like.findOne({
+    comment: commentId,
+    likedBy: userId,
+    type: 'dislike',
+  });
+
+  if (existingDislike) {
+    // Remove the dislike
+    await existingDislike.deleteOne();
+
+    return res.status(200).json({
+      status: 'success',
+      isDisliked: false,
+      message: 'Comment undisliked!',
+    });
+  }
+
+  // Remove any existing like for the comment by the user
+  await Like.deleteOne({ comment: commentId, likedBy: userId, type: 'like' });
+
+  // Dislike the comment
+  await Like.create({
+    comment: commentId,
+    likedBy: userId,
+    type: 'dislike',
+  });
+
+  return res.status(200).json({
+    status: 'success',
+    isLiked: false,
+    isDisliked: true,
+    message: 'Comment disliked!',
   });
 });
