@@ -11,7 +11,7 @@ import YourVideos from './Pages/YourVideos/YourVideos';
 import PublishVideo from './components/PublishVideo/PublishVideo';
 import Playvideo from './components/Playvideo/Playvideo';
 import Setting from './components/Setting/Setting';
-import SearchVideo from './components/SearchVideo';
+import SearchVideo from './components/Searchvideo/SearchVideo';
 import EditVideo from './components/EditVideo/EditVideo';
 
 function App() {

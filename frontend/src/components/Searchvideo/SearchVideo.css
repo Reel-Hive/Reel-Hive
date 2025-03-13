@@ -1,0 +1,62 @@
+.searchchannelUserInfo {
+    padding-left: 5px; 
+}
+
+.searchchannelUserInfo h1{
+    color: #000;
+}
+
+.searchchannelUserInfo div {
+    display: flex;
+    align-items: center;
+    gap: 8px; 
+    flex-wrap: nowrap; 
+}
+
+.searchchannelUserInfo p,
+.searchchannelUserInfo .dot {
+    color: #000;
+    margin: 0; 
+    white-space: nowrap;
+}
+
+@media screen and (max-width: 1024px){
+    .searchchannelUserInfo div{
+        margin-top: 8px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .searchchannelUserInfo .dot{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .searchchannelUserInfo div{
+        margin-top: 8px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .searchchannelUserInfo .dot{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 450px){
+    .channelImage {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 15px;
+    }
+    .searchchannelUserInfo div{
+        margin-top: 8px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .searchchannelUserInfo .dot{
+        display: none;
+    }
+}
