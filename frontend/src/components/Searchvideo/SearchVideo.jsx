@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import API from '../axios';
+import API from '../../axios';
 import { useLocation } from 'react-router-dom';
 import { formatDistanceToNow } from "date-fns";
 import { useNavigate } from 'react-router-dom';
-
+import "./SearchVideo.css";
 
 const SearchVideo = () => {
     const location = useLocation();
@@ -76,20 +76,20 @@ const SearchVideo = () => {
                     )
                     )}
 
-                {hasVideos &&
+                {hasChannels &&
                     channels.map((channel) => (
-                        <div className="channelItem"
-                            key={channel._id}
-                        >
-                            <div className="channelBox">
-                                <div className="channelLogo">
-                                    <img src={channel.avatar} alt={channel.name} />
-                                </div>
+                        <div className="channelAvtar" key={channel._id}>
+                            <div className="channelImage">
+                                <img
+                                    src={channel.avatar}
+                                    alt={channel.name} 
+                                />
                             </div>
-                            <div className="channelInfo">
-                                <div className='description'>
-                                    <h2>{channel.name}</h2>
-                                    <h3>@{channel.username}</h3>
+                            <div className="searchchannelUserInfo">
+                                <h1>{channel.name}</h1>
+                                <div>
+                                    <p>@{channel.username}</p>
+                                    <span className="dot"> •{' '}</span>
                                     <p>{channel.subscriberCount} subscribers</p>
                                 </div>
                             </div>
