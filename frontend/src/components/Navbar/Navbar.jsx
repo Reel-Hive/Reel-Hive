@@ -5,7 +5,7 @@ import logo from '/Assets/logo.png';
 import search_icon from '/Assets/search.png';
 import create_icon from '/Assets/create.png';
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../../userContext";
+import { UserContext } from "../../UserContext";
 import API from "../../axios";
 
 

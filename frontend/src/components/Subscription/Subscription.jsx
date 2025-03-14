@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import './subscription.css';
-import { UserContext } from '../../userContext';
+import './Subscription.css';
+import { UserContext } from '../../UserContext';
 import API from '../../axios';
 import { formatDistanceToNow } from 'date-fns';
 import { useNavigate, } from 'react-router-dom';

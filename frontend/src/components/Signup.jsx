@@ -3,7 +3,7 @@ import "./LoginSignup.css";
 import user_icon from "/Assets/person.png";
 import email_icon from "/Assets/email.png";
 import { FaLock, FaUnlock } from "react-icons/fa";
-import { UserContext } from "../userContext";
+import { UserContext } from "../UserContext";
 import API from "../axios";
 import { useNavigate } from "react-router-dom";
 

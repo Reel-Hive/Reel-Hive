@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import API from '../../axios';
 import { useLocation, useNavigate } from "react-router-dom";
-import "./editVideo.css";
+import "./EditVideo.css";
 
 const EditVideo = () => {
     const navigate= useNavigate();

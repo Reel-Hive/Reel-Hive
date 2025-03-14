@@ -121,7 +121,10 @@
   }
 
   @media screen and (max-width : 400px) {
+    .card h2{
+      font-size: 13px;
+    }
     .info p {
-      font-size: 8px;
+      font-size: 10px;
     }
   }

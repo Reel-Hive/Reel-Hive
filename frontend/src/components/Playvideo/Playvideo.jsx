@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import like from '/Assets/like.png';
 import dislike from '/Assets/dislike.png';
 import API from "../../axios";
-import { UserContext } from "../../userContext";
+import { UserContext } from "../../UserContext";
 
 const Playvideo = () => {
   const { videoId } = useParams();
@@ -285,7 +285,7 @@ const Playvideo = () => {
   return (
     <div className="play-video">
       {video && (<>
-        <video src={video.streamUrl} controls> </video>
+        <video src={video.streamUrl} controls autoPlay> </video>
         <h3>Description</h3>
         <div className="play-video-info">
           <p>{video.views} views</p>
