@@ -1,309 +1,306 @@
 .channelContainer {
-    width: 100%;
-    height: auto;
+  width: 100%;
+  height: auto;
 }
 
 .channelContent {
-    max-width: 1300px;
-    margin: auto;
-    width: 100%;
-    padding: 20px;
-    margin-top: 50px;
+  max-width: 1300px;
+  margin: auto;
+  width: 100%;
+  padding: 20px;
+  margin-top: 50px;
 }
 
 .channelCoverImage {
-    width: 1100px;
-    height: 350px;
-    border-radius: 10px;
-    overflow: hidden;
+  width: 1100px;
+  height: 350px;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .channelCoverImage img {
-    width: 100%;
-    height: 100%;
-    object-position: center;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-position: center;
+  object-fit: cover;
 }
 
 .channelAvtar {
-    margin-top: 40px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
+  margin-top: 40px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .channelImage {
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    overflow: hidden;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  overflow: hidden;
 }
 
 .channelImage img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .channelUserInfo {
-    margin-left: 40px;
-    color: black;
-
+  margin-left: 40px;
+  color: black;
 }
 
 .channelUserInfo h1 {
-    margin-left: 1px;
-    font-size: 40px;
-    margin-bottom: 10px;
+  margin-left: 1px;
+  font-size: 40px;
+  margin-bottom: 10px;
 }
 
 .channelUserInfo span {
-    display: flex;
-    margin-bottom: 10px;
-    gap: 10px;
+  display: flex;
+  margin-bottom: 10px;
+  gap: 10px;
 }
 
 .channelUserInfo button {
-    margin-top: 10px;
-    padding: 16px 30px;
-    border: none;
-    outline: none;
-    border-radius: 50px;
-    font-size: 18px;
-    font-weight: 600;
-    cursor: pointer;
+  margin-top: 10px;
+  padding: 16px 30px;
+  border: none;
+  outline: none;
+  border-radius: 50px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
 }
 
-
 .channelVideoList {
-    width: 100%;
-    height: auto;
-    padding: 25px;
-    display: grid;
-    grid-gap: 25px;
-    gap: 15px;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  width: 100%;
+  height: auto;
+  padding: 25px;
+  display: grid;
+  grid-gap: 25px;
+  gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
 .channelVideoBpx {
-    margin-top: 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    max-width: 500px;
-    height: auto;
-    cursor: pointer;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  max-width: 500px;
+  width: 100%;
+  height: auto;
+  cursor: pointer;
 }
 
 .channelBox {
-    max-width: 500px;
-    height: 300px;
-    width: 450px;
-    border-radius: 10px;
-    overflow: hidden;
+  max-width: 500px;
+  height: 300px;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .channelBox img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
-
 .channelInfo {
-    margin-top: 12px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
+  margin-top: 12px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .dot {
-    display: inline;
+  display: inline;
 }
 
 .channelUser {
-    width: 85px;
-    height: 85px;
-    border-radius: 50%;
-    overflow: hidden;
+  width: 85px;
+  height: 85px;
+  border-radius: 50%;
+  overflow: hidden;
 }
 
 .channelUser img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .channelDescription {
-    margin-top: 10px;
-    margin-left: 10px;
-    flex: 1;
-    overflow: hidden;
-
+  max-width: 450px;
+  width: 100%;
+  margin-top: 10px;
+  margin-left: 10px;
+  flex: 1;
+  overflow: hidden;
 }
 
 .channelDescription h2 {
-    text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  font-size: 16px;
 }
 
 .channelDescription h3 {
-    font-size: 16px;
-    margin: 8px 0;
+  font-size: 16px;
+  margin: 8px 0;
 }
 
 .channelInfo {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 10px;
-    color: #000;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  color: #000;
 }
 
 /* Responsive Styles */
 
-
 /* Tablet: */
 @media screen and (max-width: 1024px) {
-    .channelCoverImage {
-        width: 100%;
-        height: 280px;
-        /* Reduce height for better fit */
-    }
+  .channelCoverImage {
+    width: 100%;
+    height: 280px;
+    /* Reduce height for better fit */
+  }
 
-    .channelImage {
-        width: 200px;
-        height: 200px;
-    }
+  .channelImage {
+    width: 200px;
+    height: 200px;
+  }
 
-    .channelUserInfo h1 {
-        font-size: 32px;
-    }
+  .channelUserInfo h1 {
+    font-size: 32px;
+  }
 
-    .channelUserInfo button {
-        padding: 12px 25px;
-        font-size: 16px;
-    }
+  .channelUserInfo button {
+    padding: 12px 25px;
+    font-size: 16px;
+  }
 
-    .channelVideoList {
-        gap: 80px;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    }
+  .channelVideoList {
+    gap: 80px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
 
-    .channelBox {
-        width: 100%;
-        height: 250px;
-    }
+  .channelBox {
+    width: 100%;
+    height: 250px;
+  }
 }
 
 /* Mobile: */
 @media screen and (max-width: 768px) {
-    .channelCoverImage {
-        height: 200px;
-    }
+  .channelCoverImage {
+    height: 200px;
+  }
 
-    .channelImage {
-        width: 150px;
-        height: 150px;
-    }
+  .channelImage {
+    width: 150px;
+    height: 150px;
+  }
 
-    .channelUserInfo {
-        margin-left: 20px;
-    }
+  .channelUserInfo {
+    margin-left: 20px;
+  }
 
-    .channelUserInfo .dot {
-        display: none;
-    }
+  .channelUserInfo .dot {
+    display: none;
+  }
 
-    .channelUserInfo h1 {
-        font-size: 24px;
-    }
+  .channelUserInfo h1 {
+    font-size: 24px;
+  }
 
-    .channelUserInfo span {
-        flex-direction: column;
-    }
+  .channelUserInfo span {
+    flex-direction: column;
+  }
 
-    .channelUserInfo button {
-        width: 100%;
-        text-align: center;
-    }
+  .channelUserInfo button {
+    width: 100%;
+    text-align: center;
+  }
 
-    .channelVideoList {
-        gap: 40px;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    }
+  .channelVideoList {
+    gap: 40px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
 
-    .channelBox {
-        height: 200px;
-    }
+  .channelBox {
+    height: 200px;
+  }
 }
 
 /* Small Mobile: */
 @media screen and (max-width: 480px) {
-    .channelContent {
-        padding: 10px;
-        margin-top: 20px;
-    }
+  .channelContent {
+    padding: 10px;
+    margin-top: 20px;
+  }
 
-    .channelCoverImage {
-        height: 150px;
-    }
+  .channelCoverImage {
+    height: 150px;
+  }
 
-    .channelImage {
-        width: 100px;
-        height: 100px;
-        margin-bottom: 15px;
-    }
+  .channelImage {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 15px;
+  }
 
-    .channelUser {
-        width: 60px;
-        height: 60px;
-    }
+  .channelUser {
+    width: 60px;
+    height: 60px;
+  }
 
-    .channelAvtar {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
+  .channelAvtar {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
 
-    .channelUserInfo {
-        margin-left: 0;
-        text-align: center;
-    }
+  .channelUserInfo {
+    margin-left: 0;
+    text-align: center;
+  }
 
+  .channelUserInfo h1 {
+    font-size: 20px;
+  }
 
-    .channelUserInfo h1 {
-        font-size: 20px;
-    }
+  .channelUserInfo button {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
 
-    .channelUserInfo button {
-        padding: 10px 20px;
-        font-size: 14px;
-    }
+  .channelVideoList {
+    grid-template-columns: 1fr;
+  }
 
-    .channelVideoList {
-        grid-template-columns: 1fr;
-    }
+  .channelInfo p {
+    font-size: 12px;
+  }
 
-    .channelInfo p {
-        font-size: 12px;
-    }
-
-    .channelBox {
-        height: 180px;
-    }
+  .channelBox {
+    height: 180px;
+  }
 }
 
-@media screen and (max-width : 400px) {
-
-    .channelUser {
-        width: 50px;
-        height: 50px;
-    }
-    .channelInfo p {
-        font-size: 8px;
-    }
+@media screen and (max-width: 400px) {
+  .channelUser {
+    width: 50px;
+    height: 50px;
+  }
+  .channelInfo p {
+    font-size: 8px;
+  }
 }

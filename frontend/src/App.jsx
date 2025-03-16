@@ -13,6 +13,7 @@ import Playvideo from './components/Playvideo/Playvideo';
 import Setting from './components/Setting/Setting';
 import SearchVideo from './components/Searchvideo/SearchVideo';
 import EditVideo from './components/EditVideo/EditVideo';
+import Channel from './Pages/Channel/Channel';
 
 function App() {
   return (
@@ -34,6 +35,14 @@ function App() {
             element={
               <Layout>
                 <Playvideo />
+              </Layout>
+            }
+          />
+          <Route
+             path="/channel/:username"
+            element={
+              <Layout>
+                <Channel />
               </Layout>
             }
           />
