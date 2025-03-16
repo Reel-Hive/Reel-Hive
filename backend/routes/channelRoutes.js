@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.use(protect);
 
-router.route('/:channelId').get(getChannelDetails);
+router.route('/:username').get(getChannelDetails);
 
 export default router;

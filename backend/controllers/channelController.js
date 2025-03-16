@@ -5,24 +5,23 @@ import { Subscription } from '../models/subscriptionModel.js';
 import AppError from '../utils/appError.js';
 
 export const getChannelDetails = catchAsync(async (req, res, next) => {
-  const { channelId } = req.params;
+  const { username } = req.params;
   const loggedInUserId = req.user._id;
 
-  if (!channelId) {
-    return next(new AppError('Channel ID not found!', 400));
+  if (!username) {
+    return next(new AppError('Username not provided!', 400));
   }
 
-  // Find channels details
-  const channel = await User.findById(channelId).select(
-    'name username avatar coverImage'
+  // Find channel details using username
+  const channel = await User.findOne({ username }).select(
+    '_id name username avatar coverImage'
   );
 
   if (!channel) {
     return next(new AppError('Channel not found', 404));
   }
 
-  // fetch variable name from channel
-  const { name, username, avatar, coverImage } = channel;
+  const { _id: channelId, name, avatar, coverImage } = channel;
 
   // Count subscribers & subscriptions
   const subscriberCount = await Subscription.countDocuments({
@@ -32,18 +31,18 @@ export const getChannelDetails = catchAsync(async (req, res, next) => {
     subscriber: channelId,
   });
 
-  // Logged-in user is subscribed to this channel
+  // Check if logged-in user is subscribed to this channel
   const isSubscribed = await Subscription.exists({
     subscriber: loggedInUserId,
     channel: channelId,
   });
 
-  // Fetch all the videos of the channel
+  // Fetch all videos of the channel
   const videos = await Video.find({ owner: channelId, isPublished: true })
-    .sort({ createdAt: -1 }) // show the latest video first
+    .sort({ createdAt: -1 })
     .select('title views createdAt thumbnail.url');
 
-  // Send Repsonse
+  // Send Response
   return res.status(200).json({
     status: 'success',
     message: 'Channel details fetched successfully.',
