@@ -10,6 +10,7 @@ import likeRoute from './routes/likeRoutes.js';
 import commentRoute from './routes/commentRoutes.js';
 import subscriptionRoute from './routes/subscriptionRoutes.js';
 import searchRoute from './routes/searchRoute.js';
+import channelRoute from './routes/channelRoutes.js';
 
 const app = express();
 
@@ -23,8 +24,8 @@ app.use(cookieParser());
 // FOR FONRTEND ACCESS
 app.use(
   cors({
-	  origin: ['https://uploadvidoes.netlify.app', 'http://localhost:5173'],
-    	  credentials: true,
+    origin: ['https://uploadvidoes.netlify.app', 'http://localhost:5173'],
+    credentials: true,
   })
 );
 
@@ -37,6 +38,7 @@ app.use('/api/v1/likes', likeRoute);
 app.use('/api/v1/comments', commentRoute);
 app.use('/api/v1/subscriptions', subscriptionRoute);
 app.use('/api/v1/searches', searchRoute);
+app.use('/api/v1/channels', channelRoute);
 
 app.use('/health', (req, res) => {
   return res.json({
