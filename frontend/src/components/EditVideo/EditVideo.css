@@ -1,0 +1,293 @@
+.editVideo-container {
+    width: 100%;
+    height: auto;
+    margin-top: 65px;
+    padding: 0 20px;
+}
+
+h1 {
+    margin-left: 5px;
+    color: #555;
+    font-size: 24px;
+}
+
+.editVideo-content {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.editVideo-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    gap: 25px;
+}
+
+.editVideo-inputField {
+    width: 1200px;
+    height: 100px;
+    border: 1px solid #222;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.editVideo-inputField input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 15px;
+    color: black;
+}
+
+
+.editVideo-textAreaField {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #222;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.editVideo-textAreaFeild textarea {
+    width: 1200px;
+    height: 400px;
+    border: 1px solid #222;
+    background: transparent;
+    padding: 15px;
+    font-size: 18px;
+    color: black;
+    resize: none;
+    outline: none;
+    border-radius: 10px;
+}
+
+.editVideo-textAreaFeild textarea::-webkit-scrollbar {
+    width: 10px;
+}
+
+.editVideo-textAreaFeild textarea::-webkit-scrollbar-thumb {
+    background-color: #aaa;
+}
+
+.editVideo-textAreaFeild textarea::-webkit-scrollbar-track {
+    background-color: #000;
+}
+
+.editVideo-thumbnail {
+    h4 {
+        font-size: 20px;
+        color: #555;
+        ;
+    }
+}
+
+.editVideo-boxes {
+    width: 400px;
+    height: 200px;
+    border: 1px solid #222;
+    margin-top: 15px;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.editVideo-boxes i {
+    font-size: 35px;
+    color: #555;
+}
+
+.editVideo-boxes img {
+    width: 100%;
+    height: 100%;
+    object-position: center;
+    object-fit: cover;
+}
+
+
+.editVideo-publishStatus {
+    margin-top: 20px;
+}
+
+.editVideo-publishStatus h4 {
+    font-size: 20px;
+    color: #555;
+}
+
+
+.editVideo-select {
+    margin-top: 10px;
+    width: 175px;
+    height: 50px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    background: #3c009d;
+    align-items: center;
+    color: #fff;
+    padding: 10px;
+    appearance: none;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.editVideo-select option {
+    color: #fff;
+}
+
+@media screen and (max-width: 1024px) {
+    .editVideo-inputField {
+        width: 580px;
+        height: 70px;
+    }
+
+    .editVideo-textAreaFeild textarea {
+        height: 250px;
+        font-size: 16px;
+        width: 580px;
+    }
+
+    .editVideo-boxes {
+        width: 580px;
+        height: 180px;
+    }
+
+    .editVideo-select {
+        max-width: 220px;
+        height: 65px;
+        font-size: 15px;
+        text-align: center;
+    }
+
+    .editVideo-left button {
+        width: 220x;
+        height: 65px;
+        border-radius: 10px;
+    }
+}
+@media screen and (max-width:1400px ){
+    .editVideo-inputField {
+        height: 100px;
+        width: 1000px;
+    }
+
+    .editVideo-textAreaFeild textarea {
+        height: 215px;
+        font-size: 14px;
+        width: 1000px;
+    }
+
+    .editVideo-boxes {
+        height: 180px;
+        width: 1000px;
+    }
+}
+@media screen and (max-width :950px) {
+    .editVideo-inputField {
+        height: 70px;
+        width: 525px;
+    }
+
+    .editVideo-textAreaFeild textarea {
+        height: 200px;
+        font-size: 14px;
+        width: 525px;
+    }
+
+    .editVideo-boxes {
+        height: 160px;
+        width: 525px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .editVideo-container {
+        padding: 0 10px;
+    }
+
+    .editVideo-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .editVideo-inputField {
+        height: 70px;
+        width: 550px;
+    }
+
+    .editVideo-textAreaFeild textarea {
+        height: 200px;
+        font-size: 14px;
+        width: 550px;
+    }
+
+    .editVideo-boxes {
+        height: 160px;
+        width: 550px;
+    }
+
+    .editVideo-select {
+        max-width: 140px;
+        height: 50px;
+        font-size: 15px;
+        text-align: center;
+    }
+
+    .editVideo-left button {
+        width: 150px;
+        height: 50px;
+        border-radius: 10px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+
+    .editVideo-container {
+        margin-top: 40px;
+    }
+
+    h1 {
+        font-size: 18px;
+    }
+
+    .editVideo-inputField {
+        height: 50px;
+        width: 220px;
+        font-size: 12px;
+    }
+
+    .editVideo-textAreaFeild textarea {
+        height: 180px;
+        font-size: 12px;
+        width: 220px;
+    }
+
+    .editVideo-boxes {
+        height: 140px;
+        width: 220px;
+    }
+
+    .editVideo-select {
+        margin-top: 20px;
+        max-width: 120px;
+        height: 50px;
+        font-size: 10px;
+        text-align: center;
+    }
+
+    .editVideo-left button {
+        width: 120px;
+        border-radius: 10px;
+    }
+}

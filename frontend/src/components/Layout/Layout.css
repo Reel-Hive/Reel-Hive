@@ -1,0 +1,49 @@
+.layout-container{
+  width: 100%;
+  height: 100vh;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.layout-content{
+  display: flex;
+  flex: 1;
+  transition: margin-left 0.3s ease;
+}
+
+.layout-left{
+  position: sticky;
+  top: 60px;
+  width: 200px;
+  height: calc(100vh - 100px);
+  overflow-y: auto;
+}
+
+
+.layout-content {
+  display: flex;
+  transition: margin-left 0.3s ease;
+}
+
+.layout-right {
+  flex: 1;
+  overflow-y: auto;
+  padding: 15px;
+  transition: width 0.3s ease;
+}
+
+.layout-right.expanded {
+  margin-left: 200px;
+}
+
+.layout-right.collapsed {
+  margin-left: 35px;
+}
+
+@media screen and (max-width: 768px) {
+  .layout-right {
+      margin-left: 0; /* Prevent shifting */
+  }
+ 
+}
