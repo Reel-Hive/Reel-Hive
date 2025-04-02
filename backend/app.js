@@ -24,7 +24,10 @@ app.use(cookieParser());
 // FOR FONRTEND ACCESS
 app.use(
   cors({
-    origin: ['https://uploadvidoes.netlify.app', 'http://localhost:5173'],
+    origin: [
+      import.meta.env.SERVER_PRODUCTION_CLIENT_URL,
+      import.meta.env.SERVER_LOCAL_CLIENT_URL,
+    ],
     credentials: true,
   })
 );
