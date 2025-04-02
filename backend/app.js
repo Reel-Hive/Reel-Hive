@@ -24,10 +24,7 @@ app.use(cookieParser());
 // FOR FONRTEND ACCESS
 app.use(
   cors({
-    origin: [
-      process.env.SERVER_PRODUCTION_CLIENT_URL,
-      process.env.SERVER_LOCAL_CLIENT_URL,
-    ],
+    origin: ['https://reel-hive.netlify.app', 'http://localhost:5173'],
     credentials: true,
   })
 );
