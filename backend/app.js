@@ -27,9 +27,17 @@ const allowedOrigins = [
   process.env.SERVER_PRODUCTION_CLIENT_URL,
 ].filter(Boolean); // Remove undefined values
 
+console.log('Allowed Origins:', allowedOrigins);
+
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
   })
 );
