@@ -22,9 +22,14 @@ app.use(express.static('public'));
 app.use(cookieParser());
 
 // FOR FONRTEND ACCESS
+const allowedOrigins = [
+  process.env.SERVER_LOCAL_CLIENT_URL,
+  process.env.SERVER_PRODUCTION_CLIENT_URL,
+].filter(Boolean); // Remove undefined values
+
 app.use(
   cors({
-    origin: ['https://reel-hive.netlify.app', 'http://localhost:5173'],
+    origin: allowedOrigins,
     credentials: true,
   })
 );
