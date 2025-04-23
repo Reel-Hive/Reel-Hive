@@ -131,7 +131,7 @@ export const signUp = catchAsync(async (req, res, next) => {
     </p>
 
     <p style="margin-top: 30px;">
-      <a href="https://uploadvidoes.netlify.app" style="display: inline-block; padding: 14px 28px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 18px;">🎥 Start Watching Now</a>
+      <a href="https://reel-hive.netlify.app" style="display: inline-block; padding: 14px 28px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 18px;">🎥 Start Watching Now</a>
     </p>
 
     <hr style="border: 1px solid #333; margin: 30px 0;">
@@ -304,7 +304,7 @@ export const updatePassword = catchAsync(async (req, res, next) => {
     </p>
 
     <p style="margin-top: 30px;">
-      <a href="https://uploadvidoes.netlify.app" style="display: inline-block; padding: 14px 28px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 18px;">🔐 Review Security Settings</a>
+      <a href="https://reel-hive.netlify.app" style="display: inline-block; padding: 14px 28px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 18px;">🔐 Review Security Settings</a>
     </p>
 
     <hr style="border: 1px solid #333; margin: 30px 0;">
@@ -399,7 +399,7 @@ export const updateDetails = catchAsync(async (req, res, next) => {
     </p>
 
     <p style="margin-top: 30px;">
-      <a href="https://uploadvidoes.netlify.app" style="display: inline-block; padding: 14px 28px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 18px;">🔧 Manage Your Profile</a>
+      <a href="https://reel-hive.netlify.app" style="display: inline-block; padding: 14px 28px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 18px;">🔧 Manage Your Profile</a>
     </p>
 
     <hr style="border: 1px solid #333; margin: 30px 0;">
@@ -490,7 +490,7 @@ export const updateAvatar = catchAsync(async (req, res, next) => {
     </p>
 
     <p style="margin-top: 30px;">
-      <a href="https://uploadvidoes.netlify.app" style="display: inline-block; padding: 14px 28px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 18px;">🔧 Manage Your Profile</a>
+      <a href="https://reel-hive.netlify.app" style="display: inline-block; padding: 14px 28px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 18px;">🔧 Manage Your Profile</a>
     </p>
 
     <hr style="border: 1px solid #333; margin: 30px 0;">
@@ -580,7 +580,7 @@ export const updateCoverImage = catchAsync(async (req, res, next) => {
     </p>
 
     <p style="margin-top: 30px;">
-      <a href="https://uploadvidoes.netlify.app" style="display: inline-block; padding: 14px 28px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 18px;">📷 Change Cover Again</a>
+      <a href="https://reel-hive.netlify.app" style="display: inline-block; padding: 14px 28px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 18px;">📷 Change Cover Again</a>
     </p>
 
     <hr style="border: 1px solid #333; margin: 30px 0;">

@@ -69,12 +69,45 @@ export const publishVideo = catchAsync(async (req, res, next) => {
 
   // SEND EMAIL
   const message = `
-    Dear ${
+  <div style="font-family: Arial, sans-serif; padding: 30px; background-color: #0d1117; color: #ffffff; text-align: center; border-radius: 10px;">
+    <h1 style="color: #ffcc00; font-size: 36px; font-weight: bold;">🎉 Video Uploaded Successfully! 🎬</h1>
+
+    <p style="font-size: 18px; color: #ddd;">Hi <strong>${
       req.user?.name || 'User'
-    },\n\nCongratulations! Your video titled "${title}" has been uploaded successfully to Reel Hive.\n\nIt is currently under review and will be published shortly. You can view and manage your uploaded video in your account.\n\nHere are the details of your upload:\n\n- **Title**: ${title}\n\n- **Description**: ${description}\n\n- **Duration**: ${
-    videoFile.duration
-  } seconds\n\nThank you for being a part of our platform. If you have any questions or need assistance, feel free to reach out to our support team.\n\nBest regards,\nThe Reel Hive Team
-  `;
+    }</strong>,</p>
+    <p style="font-size: 16px; color: #ccc; max-width: 600px; margin: auto;">
+      Your video titled <strong style="color: #ffcc00;">"${title}"</strong> has been uploaded successfully to <span style="color: #007bff;">Reel Hive</span>. It's now under review and will be published soon. 🔍
+    </p>
+
+    <div style="background-color: #161b22; padding: 20px; border-radius: 10px; margin-top: 20px; max-width: 600px; margin-left: auto; margin-right: auto;">
+      <h2 style="color: #ffcc00; font-size: 24px;">📄 Upload Summary</h2>
+      <p style="color: #ccc;"><strong>📌 Title:</strong> ${title}</p>
+      <p style="color: #ccc;"><strong>📝 Description:</strong> ${description}</p>
+      <p style="color: #ccc;"><strong>⏱ Duration:</strong> ${
+        videoFile.duration
+      } seconds</p>
+    </div>
+
+    <p style="margin-top: 30px; font-size: 16px; color: #bbb;">
+      You can manage your uploaded videos anytime in your account dashboard.
+    </p>
+
+    <p style="margin-top: 30px;">
+      <a href="https://reel-hive.netlify.app" style="display: inline-block; padding: 14px 28px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 18px;">🎬 Go to Dashboard</a>
+    </p>
+
+    <hr style="border: 1px solid #333; margin: 30px 0;">
+
+    <p style="font-size: 14px; color: #aaa;">
+      Need help? <a href="mailto:support@reelhive.com" style="color: #ffcc00; text-decoration: none;">Contact Support</a>
+    </p>
+
+    <p style="font-size: 16px; color: #ffcc00; font-weight: bold;">
+      🚀 Keep uploading, keep inspiring, and thank you for being part of <strong>Reel Hive</strong>!  
+    </p>
+    
+  </div>
+`;
 
   try {
     await sendEmail({
