@@ -74,7 +74,7 @@ export const deleteUser = catchAsync(async (req, res, next) => {
     </p>
 
     <p style="margin-top: 30px;">
-      <a href="https://yourwebsite.com/feedback" style="display: inline-block; padding: 14px 28px; background-color: #ffcc00; color: #000; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 18px;">📝 Give Feedback</a>
+      <a href="https://forms.gle/LJ4vsREyVde7kV359" style="display: inline-block; padding: 14px 28px; background-color: #ffcc00; color: #000; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 18px;">📝 Give Feedback</a>
     </p>
 
     <hr style="border: 1px solid #333; margin: 30px 0;">
