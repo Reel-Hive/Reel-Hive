@@ -114,7 +114,7 @@ export const signUp = catchAsync(async (req, res, next) => {
       🎉 You’ve just entered a world of creativity, entertainment, and endless possibilities.  
       <span style="color: #ffcc00;">Reel Hive</span> is where creators shine, communities grow, and the best videos come to life. 🌟  
     </p>
-
+  
     <h2 style="color: #ffcc00; font-size: 24px; margin-top: 30px;">🚀 What Can You Do on Reel Hive?</h2>
     <div style="text-align: left; display: inline-block; max-width: 600px; font-size: 16px;">
       <p>🎥 <strong>Upload & Share Videos:</strong> Show your talent to the world in high quality.</p>
@@ -123,30 +123,35 @@ export const signUp = catchAsync(async (req, res, next) => {
       <p>📢 <strong>Subscribe & Grow:</strong> Build your audience and follow amazing creators.</p>
       <p>✨ <strong>Personalized Experience:</strong> Get recommendations based on your interests.</p>
     </div>
-
+  
     <h2 style="color: #007bff; font-size: 24px; margin-top: 30px;">🔹 Your Journey Starts Now!</h2>
     <p style="font-size: 16px; color: #bbb; max-width: 600px; margin: auto;">
-      Start streaming, exploring, and creating today! Whether you’re here to **watch, share, or go viral**,  
-      **Reel Hive** is the perfect place for you.  
+      Start streaming, exploring, and creating today! Whether you’re here to <strong>watch, share, or go viral</strong>,  
+      <strong>Reel Hive</strong> is the perfect place for you.  
     </p>
-
+  
     <p style="margin-top: 30px;">
       <a href="https://reel-hive.netlify.app" style="display: inline-block; padding: 14px 28px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 18px;">🎥 Start Watching Now</a>
     </p>
-
+  
     <hr style="border: 1px solid #333; margin: 30px 0;">
-
-    <p style="font-size: 14px; color: #aaa;">
+  
+    <h2 style="color: #ffcc00; font-size: 22px; margin-bottom: 10px;">💬 We’d Love Your Thoughts!</h2>
+    <p style="font-size: 15px; color: #ccc; max-width: 600px; margin: auto;">
+      Let us know about your signup experience or what you’re excited for. Your feedback helps us make Reel Hive even better!
+    </p>
+  
+    <p style="margin-top: 20px;">
+      <a href="https://forms.gle/LJ4vsREyVde7kV359" style="display: inline-block; padding: 12px 24px; background-color: #ffcc00; color: #000; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px;">📝 Give Feedback</a>
+    </p>
+  
+    <p style="font-size: 14px; color: #aaa; margin-top: 30px;">
       Need any help? <a href="mailto:support@reelhive.com" style="color: #ffcc00; text-decoration: none;">Contact Support</a>
     </p>
-
-    <p style="font-size: 14px; color: #aaa;">
-      🚀 Keep creating, keep exploring, and let the <strong>Reel Hive</strong> community inspire you! 🌍
-    </p>
-
+  
     <p style="font-size: 16px; color: #ffcc00; font-weight: bold;">🎬 See you on Reel Hive! <br>The Reel Hive Team</p>
   </div>
-`;
+  `;
 
   try {
     await sendEmail({
