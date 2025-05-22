@@ -1,127 +1,127 @@
-name: Deploy to EC2
+# name: Deploy to EC2
 
-# Trigger the workflow on push to the dev/env branch
-on:
-  push:
-    branches:
-      - dev/env
+# # Trigger the workflow on push to the dev/env branch
+# on:
+#   push:
+#     branches:
+#       - dev/env
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
 
-    steps:
-      # Step 1: Checkout the repository
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+#     steps:
+#       # Step 1: Checkout the repository
+#       - name: Checkout Repository
+#         uses: actions/checkout@v3
 
-      # Step 3: Deploy to EC2
-      - name: Deploy to prod server
-        uses: appleboy/ssh-action@master
-        env:
-          DATABASE_URI: ${{ secrets.DATABASE_URI}}
-          DB_URI: ${{ secrets.DB_URI}}
-          DATABASE_NAME: ${{ secrets.DATABASE_NAME}}
-          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD}}
-          PORT: ${{ secrets.PORT}}
-          ACCESS_GENERATE_SECRET: ${{ secrets.ACCESS_GENERATE_SECRET}}
-          ACCESS_TOKEN_EXPIRY: ${{ secrets.ACCESS_TOKEN_EXPIRY}}
-          REFRESH_GENERATE_SECRET: ${{ secrets.REFRESH_GENERATE_SECRET}}
-          REFRESH_TOKEN_EXPIRY: ${{ secrets.REFRESH_TOKEN_EXPIRY}}
-          CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME}}
-          CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY}}
-          CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET}}
-          EMAIL_HOST: ${{ secrets.EMAIL_HOST}}
-          EMAIL_PORT: ${{ secrets.EMAIL_PORT}}
-          EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME}}
-          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD}}
-          NODE_ENV: ${{ secrets.NODE_ENV }}
-          SERVER_DOMAIN: ${{ secrets.SERVER_DOMAIN }}
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
+#       # Step 3: Deploy to EC2
+#       - name: Deploy to prod server
+#         uses: appleboy/ssh-action@master
+#         env:
+#           DATABASE_URI: ${{ secrets.DATABASE_URI}}
+#           DB_URI: ${{ secrets.DB_URI}}
+#           DATABASE_NAME: ${{ secrets.DATABASE_NAME}}
+#           DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD}}
+#           PORT: ${{ secrets.PORT}}
+#           ACCESS_GENERATE_SECRET: ${{ secrets.ACCESS_GENERATE_SECRET}}
+#           ACCESS_TOKEN_EXPIRY: ${{ secrets.ACCESS_TOKEN_EXPIRY}}
+#           REFRESH_GENERATE_SECRET: ${{ secrets.REFRESH_GENERATE_SECRET}}
+#           REFRESH_TOKEN_EXPIRY: ${{ secrets.REFRESH_TOKEN_EXPIRY}}
+#           CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME}}
+#           CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY}}
+#           CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET}}
+#           EMAIL_HOST: ${{ secrets.EMAIL_HOST}}
+#           EMAIL_PORT: ${{ secrets.EMAIL_PORT}}
+#           EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME}}
+#           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD}}
+#           NODE_ENV: ${{ secrets.NODE_ENV }}
+#           SERVER_DOMAIN: ${{ secrets.SERVER_DOMAIN }}
+#         with:
+#           host: ${{ secrets.EC2_HOST }}
+#           username: ${{ secrets.EC2_USER }}
+#           key: ${{ secrets.EC2_SSH_KEY }}
+#           script: |
 
-            APP_DIR=/home/${USER}/dev_workspace  # Change this to your app directory
-            REPO_URL=https://github.com/Reel-Hive/Reel-Hive.git  # Replace with your repo URL
+#             APP_DIR=/home/${USER}/dev_workspace  # Change this to your app directory
+#             REPO_URL=https://github.com/Reel-Hive/Reel-Hive.git  # Replace with your repo URL
 
-            export NVM_DIR=~/.nvm
-            source ~/.nvm/nvm.sh
+#             export NVM_DIR=~/.nvm
+#             source ~/.nvm/nvm.sh
 
-            # Navigate to the application directory
-            if [ ! -d "$APP_DIR/.git" ]; then
-              echo "Cloning repository..."
-              git clone $REPO_URL $APP_DIR
-            else
-              echo "Repository exists. Pulling latest changes..."
-              cd $APP_DIR
-              git checkout dev/env
-              git pull origin dev/env
-            fi
+#             # Navigate to the application directory
+#             if [ ! -d "$APP_DIR/.git" ]; then
+#               echo "Cloning repository..."
+#               git clone $REPO_URL $APP_DIR
+#             else
+#               echo "Repository exists. Pulling latest changes..."
+#               cd $APP_DIR
+#               git checkout dev/env
+#               git pull origin dev/env
+#             fi
 
 
-            # Navigate to the application directory
-            cd $APP_DIR
-            git checkout dev/env
+#             # Navigate to the application directory
+#             cd $APP_DIR
+#             git checkout dev/env
 
-            # Remove existing .env file if it exists
-            rm -f .env
+#             # Remove existing .env file if it exists
+#             rm -f .env
 
-            # Update or create the .env file with environment variables
-            DATABASE_URI=${{ secrets.DATABASE_URI}}
-            DB_URI=${{ secrets.DB_URI}}
-            DATABASE_NAME=${{ secrets.DATABASE_NAME}}
-            DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD}}
-            PORT=${{ secrets.PORT}}
-            ACCESS_GENERATE_SECRET=${{ secrets.ACCESS_GENERATE_SECRET}}
-            ACCESS_TOKEN_EXPIRY=${{ secrets.ACCESS_TOKEN_EXPIRY}}
-            REFRESH_GENERATE_SECRET=${{ secrets.REFRESH_GENERATE_SECRET}}
-            REFRESH_TOKEN_EXPIRY=${{ secrets.REFRESH_TOKEN_EXPIRY}}
-            CLOUDINARY_CLOUD_NAME=${{ secrets.CLOUDINARY_CLOUD_NAME}}
-            CLOUDINARY_API_KEY=${{ secrets.CLOUDINARY_API_KEY}}
-            CLOUDINARY_API_SECRET=${{ secrets.CLOUDINARY_API_SECRET}}
-            EMAIL_HOST=${{ secrets.EMAIL_HOST}}
-            EMAIL_PORT=${{ secrets.EMAIL_PORT}}
-            EMAIL_USERNAME=${{ secrets.EMAIL_USERNAME}}
-            EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD}}
-            NODE_ENV=${{ secrets.NODE_ENV}}
-            SERVER_DOMAIN=${{ secrets.SERVER_DOMAIN}}
+#             # Update or create the .env file with environment variables
+#             DATABASE_URI=${{ secrets.DATABASE_URI}}
+#             DB_URI=${{ secrets.DB_URI}}
+#             DATABASE_NAME=${{ secrets.DATABASE_NAME}}
+#             DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD}}
+#             PORT=${{ secrets.PORT}}
+#             ACCESS_GENERATE_SECRET=${{ secrets.ACCESS_GENERATE_SECRET}}
+#             ACCESS_TOKEN_EXPIRY=${{ secrets.ACCESS_TOKEN_EXPIRY}}
+#             REFRESH_GENERATE_SECRET=${{ secrets.REFRESH_GENERATE_SECRET}}
+#             REFRESH_TOKEN_EXPIRY=${{ secrets.REFRESH_TOKEN_EXPIRY}}
+#             CLOUDINARY_CLOUD_NAME=${{ secrets.CLOUDINARY_CLOUD_NAME}}
+#             CLOUDINARY_API_KEY=${{ secrets.CLOUDINARY_API_KEY}}
+#             CLOUDINARY_API_SECRET=${{ secrets.CLOUDINARY_API_SECRET}}
+#             EMAIL_HOST=${{ secrets.EMAIL_HOST}}
+#             EMAIL_PORT=${{ secrets.EMAIL_PORT}}
+#             EMAIL_USERNAME=${{ secrets.EMAIL_USERNAME}}
+#             EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD}}
+#             NODE_ENV=${{ secrets.NODE_ENV}}
+#             SERVER_DOMAIN=${{ secrets.SERVER_DOMAIN}}
 
-            # echo "Updating environment variables..."
-            # DATABASE_URI=${DATABASE_URI}
-            # DATABASE_NAME=${DATABASE_NAME}
-            # DATABASE_PASSWORD=${DATABASE_PASSWORD}
-            # PORT=${PORT}
+#             # echo "Updating environment variables..."
+#             # DATABASE_URI=${DATABASE_URI}
+#             # DATABASE_NAME=${DATABASE_NAME}
+#             # DATABASE_PASSWORD=${DATABASE_PASSWORD}
+#             # PORT=${PORT}
 
-            # Create a new .env file with environment variables
-            echo "DATABASE_URI=$DATABASE_URI" >> .env
-            echo "DATABASE_NAME=$DATABASE_NAME" >> .env
-            echo "DATABASE_PASSWORD=$DATABASE_PASSWORD" >> .env
-            echo "PORT=$PORT" >> .env
-            echo "ACCESS_GENERATE_SECRET=$ACCESS_GENERATE_SECRET" >> .env
-            echo "ACCESS_TOKEN_EXPIRY=$ACCESS_TOKEN_EXPIRY" >> .env
-            echo "REFRESH_GENERATE_SECRET=$REFRESH_GENERATE_SECRET" >> .env
-            echo "REFRESH_TOKEN_EXPIRY=$REFRESH_TOKEN_EXPIRY" >> .env
-            echo "CLOUDINARY_CLOUD_NAME=$CLOUDINARY_CLOUD_NAME" >> .env
-            echo "CLOUDINARY_API_KEY=$CLOUDINARY_API_KEY" >> .env
-            echo "CLOUDINARY_API_SECRET=$CLOUDINARY_API_SECRET" >> .env
-            echo "EMAIL_HOST=$EMAIL_HOST" >> .env
-            echo "EMAIL_PORT=$EMAIL_PORT" >> .env
-            echo "EMAIL_USERNAME=$EMAIL_USERNAME" >> .env
-            echo "EMAIL_PASSWORD=$EMAIL_PASSWORD" >> .env
-            echo "NODE_ENV=$NODE_ENV" >> .env
-            echo "SERVER_DOMAIN=$SERVER_DOMAIN" >> .env
+#             # Create a new .env file with environment variables
+#             echo "DATABASE_URI=$DATABASE_URI" >> .env
+#             echo "DATABASE_NAME=$DATABASE_NAME" >> .env
+#             echo "DATABASE_PASSWORD=$DATABASE_PASSWORD" >> .env
+#             echo "PORT=$PORT" >> .env
+#             echo "ACCESS_GENERATE_SECRET=$ACCESS_GENERATE_SECRET" >> .env
+#             echo "ACCESS_TOKEN_EXPIRY=$ACCESS_TOKEN_EXPIRY" >> .env
+#             echo "REFRESH_GENERATE_SECRET=$REFRESH_GENERATE_SECRET" >> .env
+#             echo "REFRESH_TOKEN_EXPIRY=$REFRESH_TOKEN_EXPIRY" >> .env
+#             echo "CLOUDINARY_CLOUD_NAME=$CLOUDINARY_CLOUD_NAME" >> .env
+#             echo "CLOUDINARY_API_KEY=$CLOUDINARY_API_KEY" >> .env
+#             echo "CLOUDINARY_API_SECRET=$CLOUDINARY_API_SECRET" >> .env
+#             echo "EMAIL_HOST=$EMAIL_HOST" >> .env
+#             echo "EMAIL_PORT=$EMAIL_PORT" >> .env
+#             echo "EMAIL_USERNAME=$EMAIL_USERNAME" >> .env
+#             echo "EMAIL_PASSWORD=$EMAIL_PASSWORD" >> .env
+#             echo "NODE_ENV=$NODE_ENV" >> .env
+#             echo "SERVER_DOMAIN=$SERVER_DOMAIN" >> .env
 
-            # Install dependencies (example for Node.js)
-            echo "Installing dependencies..."
-            npm install
+#             # Install dependencies (example for Node.js)
+#             echo "Installing dependencies..."
+#             npm install
 
-            # Start the application (example using PM2)
-            pm2 start ecosystem.config.cjs
+#             # Start the application (example using PM2)
+#             pm2 start ecosystem.config.cjs
 
-            # Restart the application (example using PM2)
-            echo "Restarting application..."
-            pm2 restart all --update-env
+#             # Restart the application (example using PM2)
+#             echo "Restarting application..."
+#             pm2 restart all --update-env
 
-            echo "Deployment completed successfully."
+#             echo "Deployment completed successfully."
