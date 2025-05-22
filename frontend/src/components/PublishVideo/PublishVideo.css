@@ -1,0 +1,337 @@
+.publishVideo-container {
+    width: 100%;
+    height: auto;
+    margin-top: 50px;
+    padding: 20px;
+}
+
+h1 {
+    margin-left: 5px;
+}
+
+.publishVideo-content {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 25px;
+}
+
+.publishVideo-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    gap: 25px;
+}
+
+.publishVideo-inputField {
+    width: 650px;
+    height: 100px;
+    border: 1px solid #222;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.publishVideo-inputField input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 15px;
+    font-size: 18px;
+    color: #555;
+}
+
+
+.publishVideo-textAreaField {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #222;
+    overflow: hidden;
+}
+
+.publishVideo-textAreaFeild textarea {
+    width: 650px;
+    height: 400px;
+    outline: none;
+    border: 1px solid #222;
+    background: transparent;
+    padding: 15px;
+    font-size: 18px;
+    border-radius: 10px;
+    color: #555;
+    resize: none;
+}
+
+.publishVideo-textAreaFeild textarea::-webkit-scrollbar {
+    width: 10px;
+}
+
+.publishVideo-textAreaFeild textarea::-webkit-scrollbar-thumb {
+    background-color: #aaa;
+}
+
+.publishVideo-textAreaFeild textarea::-webkit-scrollbar-track {
+    background-color: #000;
+}
+
+.publishVideo-thumbnail {
+    h4 {
+        font-size: 20px;
+        color: #555;
+    }
+}
+
+.publishVideo-boxes {
+    width: 400px;
+    height: 200px;
+    border: 1px solid #222;
+    margin-top: 15px;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.publishVideo-boxes i {
+    font-size: 35px;
+    color: #555;
+}
+
+.publishVideo-boxes img {
+    width: 100%;
+    height: 100%;
+    object-position: center;
+    object-fit: cover;
+}
+
+
+.publishVideo-button {
+    padding: 16px 30px;
+    border: none;
+    outline: none;
+    background: #3c009d;
+    border-radius: 20px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+    letter-spacing: 1px;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.publishVideo-right {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.publishVideo-upload {
+    width: 500px;
+    height: 300px;
+    border: 1px solid #222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.publishVideo-upload i {
+    font-size: 35px;
+    color: #555;
+}
+
+.publishVideo-upload video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.publishVideo-upload span {
+    margin-left: 15px;
+    color: #555;
+}
+
+
+.publishVideo-publishStatus {
+    margin-top: 20px;
+}
+
+.publishVideo-publishStatus h4 {
+    font-size: 20px;
+    color: #555;
+}
+
+
+.publishVideo-select {
+    margin-top: 10px;
+    width: 180px;
+    height: 50px;
+    border: none;
+    outline: none;
+    border-radius: 15px;
+    text-align: center;
+    background: #3c009d;
+    color: #fff;
+    padding: 10px;
+    appearance: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.publishVideo-select option {
+    color: #fff;
+}
+
+/* Responsive style */
+@media screen and (max-width: 1024px) {
+    .publishVideo-content {
+        flex-direction: column;
+    }
+
+    .publishVideo-left,
+    .publishVideo-right {
+        width: 100%;
+    }
+
+    .publishVideo-inputField,
+    .publishVideo-upload {
+        width: 600px;
+    }
+
+    .publishVideo-textAreaFeild textarea {
+        width: 600px;
+    }
+
+    .publishVideo-boxes {
+        width: 600px;
+    }
+
+    .publishVideo-right button {
+        width: 200px;
+        height: 50px;
+    }
+
+    .publishVideo-select {
+        font-size: 18px;
+        padding: 4px;
+        height: 50px;
+        width: 200px;
+    }
+
+}
+
+@media screen and (max-width :855px) {
+    .publishVideo-inputField {
+        width: 500px;
+    }
+
+    .publishVideo-textAreaFeild textarea {
+        height: 200px;
+        width: 500px;
+
+    }
+
+    .publishVideo-boxes {
+        width: 500px;
+    }
+
+    .publishVideo-upload {
+        height: 250px;
+        width: 500px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .publishVideo-container {
+        margin-top: 20px;
+    }
+
+    .publishVideo-boxes {
+        width: 600px;
+    }
+
+    .publishVideo-inputField {
+        height: 80px;
+        width: 600px;
+
+    }
+
+    .publishVideo-textAreaFeild textarea {
+        height: 200px;
+        width: 600px;
+
+    }
+
+    .publishVideo-right button {
+        width: 180px;
+        height: 50px;
+    }
+
+    .publishVideo-select {
+        font-size: 16px;
+        padding: 4px;
+        height: 50px;
+        width: 180px;
+    }
+
+    .publishVideo-upload {
+        height: 250px;
+        width: 600px;
+    }
+
+}
+
+@media screen and (max-width: 480px) {
+    h1 {
+        font-size: 20px;
+    }
+
+    .publishVideo-inputField {
+        height: 80px;
+        width: 200px;
+    }
+
+    .publishVideo-textAreaFeild textarea {
+        width: 200px;
+        height: 200px;
+    }
+
+    .publishVideo-boxes {
+        width: 200px;
+    }
+
+    .publishVideo-boxes {
+        height: 150px;
+    }
+
+
+    .publishVideo-upload {
+        height: 200px;
+        width: 200px;
+    }
+
+    .publishVideo-right button {
+        width: 120px;
+        height: 55px;
+    }
+
+    .publishVideo-select {
+        font-size: 14px;
+        padding: 4px;
+        height: 50px;
+        width: 120px;
+    }
+}
