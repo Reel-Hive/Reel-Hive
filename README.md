@@ -14,9 +14,6 @@ Welcome to **Reel Hive**, a feature-rich video streaming platform! 🚀 Here, us
 - 📢 **Subscriptions**: Check out the latest videos from subscribed channels.  
 - 📺 **Channel Page**: Manage uploaded videos, subscribers, and subscriptions.  
 
-## 🎥 Project Demo  
-📌 **Watch the project demo here:** [Demo Video Link](#)  
-
 ## 🛠️ Tech Stack  
 ### Backend:  
 - 🟢 **Node.js** with Express.js  
